@@ -1,0 +1,1207 @@
+================================================================================
+  CHARRONIX SCHOOL MANAGEMENT - FULL-STACK BACKEND DEVELOPMENT GUIDE
+  Using: JavaScript | jQuery | AngularJS | HTTP/REST | AJAX | Node.js |
+         Express.js | MongoDB (NoSQL) | React.js
+================================================================================
+                         Version 2.0 | February 2026
+================================================================================
+
+TABLE OF CONTENTS
+  1.  Technology Stack Overview
+  2.  JavaScript Foundations (Used Throughout Backend)
+  3.  jQuery & DOM Manipulation (Admin Panel Utilities)
+  4.  AngularJS - MVC & SPA Architecture
+  5.  HTTP Request/Response & REST API Design
+  6.  AJAX & JSON Data Communication
+  7.  Node.js Server-Side Development
+  8.  Express.js Backend Framework
+  9.  MongoDB NoSQL Database Design
+  10. React.js Frontend Integration
+  11. Complete Project Structure
+  12. Setup & Installation
+  13. Advanced Concepts & Enhancements
+
+================================================================================
+UNIT 1: JAVASCRIPT FOUNDATIONS (Used Throughout Backend)
+================================================================================
+
+--- 1.1 Variables & Operators ---
+
+// Backend uses ES6+ variables everywhere
+const PORT = 5000;                        // Immutable config
+let currentUser = null;                   // Mutable session state
+var legacySupport = true;                 // Function-scoped (avoid)
+
+// Operators used in business logic
+const isActive = student.status === 'ACTIVE';           // Strict equality
+const canEdit = role === 'ADMIN' || role === 'TEACHER';  // Logical OR
+const attendancePercent = (present / total) * 100;       // Arithmetic
+const displayName = firstName + ' ' + lastName;          // Concatenation
+const greeting = `Welcome, ${displayName}!`;             // Template literal
+
+--- 1.2 Control Flow (if-else, switch, loops) ---
+
+// if-else: Role-based access control in middleware
+function checkAccess(req, res, next) {
+    const role = req.user.role;
+    if (role === 'ADMIN') {
+        next();  // Full access
+    } else if (role === 'TEACHER') {
+        if (req.method === 'GET' || req.method === 'POST') {
+            next();  // Read + Create only
+        } else {
+            res.status(403).json({ error: 'Teachers cannot delete records' });
+        }
+    } else {
+        res.status(403).json({ error: 'Access denied' });
+    }
+}
+
+// switch: Route request handling by notice type
+function handleNoticeType(type) {
+    switch (type) {
+        case 'GENERAL':
+            return { icon: 'info', color: '#3b82f6', priority: 1 };
+        case 'EVENT':
+            return { icon: 'calendar', color: '#22c55e', priority: 2 };
+        case 'EXAM':
+            return { icon: 'alert', color: '#ef4444', priority: 3 };
+        default:
+            return { icon: 'info', color: '#gray', priority: 0 };
+    }
+}
+
+// while loop: Retry database connection
+let retries = 0;
+while (retries < 5) {
+    try {
+        await mongoose.connect(DB_URL);
+        console.log('Connected to MongoDB');
+        break;
+    } catch (err) {
+        retries++;
+        console.log(`Retry ${retries}/5...`);
+        await new Promise(r => setTimeout(r, 2000));
+    }
+}
+
+// for loop: Calculate class average
+let totalScore = 0;
+for (let i = 0; i < students.length; i++) {
+    totalScore += students[i].score;
+}
+const classAverage = totalScore / students.length;
+
+// for...of: Process attendance records
+for (const record of attendanceRecords) {
+    if (record.status === 'ABSENT') {
+        await sendSMSToParent(record.studentId);
+    }
+}
+
+--- 1.3 Functions ---
+
+// Regular function: Validate admission number
+function validateAdmissionNo(admNo) {
+    const pattern = /^ADM\d{7}$/;
+    return pattern.test(admNo);
+}
+
+// Arrow function: Calculate attendance percentage
+const calcAttendance = (present, total) => ((present / total) * 100).toFixed(2);
+
+// Async function: Fetch student from database
+async function getStudent(id) {
+    try {
+        const student = await Student.findById(id);
+        if (!student) throw new Error('Student not found');
+        return student;
+    } catch (error) {
+        console.error('Error:', error.message);
+        throw error;
+    }
+}
+
+// Callback function: Used in Express routes
+app.get('/api/students', authenticateToken, async (req, res) => {
+    const students = await Student.find({ status: 'ACTIVE' });
+    res.json(students);
+});
+
+--- 1.4 Popup Boxes (Frontend validation alerts) ---
+
+// alert: Show error message
+alert('Invalid login credentials!');
+
+// confirm: Confirm delete action
+if (confirm('Are you sure you want to delete this student record?')) {
+    deleteStudent(studentId);
+}
+
+// prompt: Quick data entry
+const rollNo = prompt('Enter roll number to search:');
+if (rollNo) searchStudent(rollNo);
+
+--- 1.5 JavaScript Objects ---
+
+// Student object
+const student = {
+    id: 'STU001',
+    firstName: 'Aarav',
+    lastName: 'Sharma',
+    class: '10',
+    section: 'A',
+    getFullName() { return `${this.firstName} ${this.lastName}`; },
+    get displayName() { return `${this.firstName} ${this.lastName} (${this.class}-${this.section})`; }
+};
+
+// Number methods used in grade calculations
+const score = 85.678;
+score.toFixed(2);    // "85.68" - for report cards
+parseInt("95");       // 95 - parse form input
+parseFloat("85.5");   // 85.5 - parse decimal scores
+Number.isInteger(85); // true - validate whole numbers
+
+// Boolean usage
+const isEligible = Boolean(student.attendance >= 75);
+
+// Math object for analytics
+Math.round(85.5);                            // 86 - round scores
+Math.max(...scores);                          // highest score
+Math.min(...scores);                          // lowest score
+Math.floor(Math.random() * 1000);             // random ID generation
+
+// String methods for data processing
+const admNo = '  ADM2024001  ';
+admNo.trim();                     // 'ADM2024001'
+admNo.trim().startsWith('ADM');   // true
+'Aarav Sharma'.toLowerCase();     // 'aarav sharma' - case-insensitive search
+'10-A'.split('-');                 // ['10', 'A'] - parse class-section
+
+--- 1.6 Arrays & Array Methods ---
+
+// Used extensively in backend data processing
+const students = ['Aarav', 'Ishani', 'Vihaan', 'Ananya', 'Arjun'];
+
+students.push('Priya');           // Add student
+students.pop();                   // Remove last
+students.indexOf('Vihaan');       // Find index: 2
+students.includes('Aarav');       // Check exists: true
+
+// Higher-order methods (critical for backend)
+const activeStudents = allStudents.filter(s => s.status === 'ACTIVE');
+const studentNames = allStudents.map(s => `${s.firstName} ${s.lastName}`);
+const totalFees = feeRecords.reduce((sum, r) => sum + r.amount, 0);
+const hasAbsent = attendance.some(a => a.status === 'ABSENT');
+const allPresent = attendance.every(a => a.status === 'PRESENT');
+const found = students.find(s => s.admissionNo === 'ADM2024001');
+students.sort((a, b) => a.rollNo - b.rollNo);
+students.forEach(s => console.log(s.firstName));
+
+// Destructuring (used in Express controllers)
+const { firstName, lastName, class: studentClass, section } = req.body;
+
+// Spread operator (merge/clone objects)
+const updatedStudent = { ...existingStudent, ...req.body, updatedAt: new Date() };
+
+================================================================================
+UNIT 2: jQuery & DOM MANIPULATION (Admin Panel Utilities)
+================================================================================
+
+--- 2.1 jQuery Selectors & Basic Operations ---
+
+// Used in server-rendered admin pages or legacy dashboard
+
+// Selectors
+$('#studentTable');              // By ID
+$('.attendance-cell');           // By class
+$('tr.student-row');             // Combined
+$('input[name="rollNo"]');       // By attribute
+
+// Hide/Show with animation
+$('#loadingSpinner').show();
+$('#loadingSpinner').hide();
+$('#studentDetails').toggle();
+
+// Fading effects for notifications
+$('.success-alert').fadeIn(400).delay(3000).fadeOut(400);
+$('.error-alert').fadeIn(400);
+
+// Animation for dashboard cards
+$('.stat-card').animate({ opacity: 1, marginTop: '0px' }, 600);
+
+// Callback functions
+$('#saveBtn').click(function() {
+    const formData = $('#studentForm').serialize();
+    $.ajax({
+        url: '/api/students',
+        method: 'POST',
+        data: formData,
+        success: function(response) {
+            $('.success-alert').fadeIn().text('Student saved!');
+        },
+        error: function(err) {
+            $('.error-alert').fadeIn().text('Error saving student');
+        }
+    });
+});
+
+// Method chaining
+$('#studentTable')
+    .find('.inactive-row')
+    .addClass('dimmed')
+    .css('opacity', '0.5')
+    .attr('title', 'Inactive Student');
+
+--- 2.2 jQuery DOM Manipulation & Form Validation ---
+
+// DOM manipulation for dynamic tables
+function addStudentRow(student) {
+    const row = $('<tr>')
+        .append($('<td>').text(student.admissionNo))
+        .append($('<td>').text(student.firstName + ' ' + student.lastName))
+        .append($('<td>').text(student.class + '-' + student.section))
+        .append($('<td>').html('<span class="badge">' + student.status + '</span>'));
+    $('#studentTableBody').append(row);
+}
+
+// Form validation using jQuery
+$('#studentForm').submit(function(e) {
+    e.preventDefault();
+    let isValid = true;
+    $('.error-msg').remove();
+
+    if ($('#firstName').val().trim() === '') {
+        $('#firstName').after('<span class="error-msg">First name required</span>');
+        isValid = false;
+    }
+    if (!/^\d{10}$/.test($('#parentPhone').val())) {
+        $('#parentPhone').after('<span class="error-msg">Invalid phone number</span>');
+        isValid = false;
+    }
+    if ($('#class').val() === '') {
+        $('#class').after('<span class="error-msg">Select a class</span>');
+        isValid = false;
+    }
+    if (isValid) {
+        $(this).find('button[type="submit"]').prop('disabled', true).text('Saving...');
+        // Submit via AJAX
+    }
+});
+
+================================================================================
+UNIT 3: AngularJS - MVC & SPA ARCHITECTURE
+================================================================================
+
+--- 3.1 MVC Framework Applied to Charronix ---
+
+MODEL (MongoDB):      Student, Teacher, Attendance, Notice collections
+VIEW  (HTML/React):   Dashboard, StudentList, AttendanceMarker templates
+CONTROLLER (Express): Routes that handle requests and coordinate responses
+
+--- 3.2 AngularJS Module & Configuration ---
+
+// app.module.js - Main application module
+var app = angular.module('charronixApp', ['ngRoute', 'ngAnimate']);
+
+// Data binding example
+app.controller('DashboardCtrl', function($scope, $http) {
+    $scope.totalStudents = 0;
+    $scope.totalTeachers = 0;
+    $scope.todayAttendance = 0;
+
+    // Two-way data binding with ng-model
+    $scope.searchQuery = '';
+
+    $http.get('/api/dashboard/stats').then(function(res) {
+        $scope.totalStudents = res.data.students;
+        $scope.totalTeachers = res.data.teachers;
+        $scope.todayAttendance = res.data.attendance;
+    });
+});
+
+--- 3.3 Directives, Scopes, Controllers, Expressions ---
+
+<!-- Directives in student list view -->
+<div ng-app="charronixApp" ng-controller="StudentCtrl">
+    <h2>Total Students: {{ students.length }}</h2>
+    <input ng-model="search" placeholder="Search students..." />
+
+    <div ng-repeat="student in students | filter:search | orderBy:'rollNo'"
+         ng-class="{ 'inactive': student.status === 'INACTIVE' }">
+        <p>{{ student.firstName + ' ' + student.lastName }}</p>
+        <p>Class: {{ student.class }}-{{ student.section }}</p>
+        <span ng-if="student.overallAttendance < 75" class="warning">
+            Low Attendance: {{ student.overallAttendance }}%
+        </span>
+        <button ng-click="viewProfile(student.id)">View</button>
+        <button ng-show="isAdmin" ng-click="deleteStudent(student.id)">Delete</button>
+    </div>
+</div>
+
+--- 3.4 Filters, Events, Form Validation ---
+
+// Custom filter for attendance percentage
+app.filter('attendanceColor', function() {
+    return function(percentage) {
+        if (percentage >= 90) return 'excellent';
+        if (percentage >= 75) return 'good';
+        if (percentage >= 60) return 'warning';
+        return 'critical';
+    };
+});
+
+// Event handling
+app.controller('AttendanceCtrl', function($scope, $http) {
+    $scope.markAttendance = function(studentId, status) {
+        $http.post('/api/attendance/mark', {
+            studentId: studentId,
+            status: status,
+            date: new Date().toISOString().split('T')[0]
+        }).then(function(res) {
+            $scope.message = 'Attendance marked!';
+        });
+    };
+});
+
+// Form validation
+<form name="studentForm" ng-submit="saveStudent()" novalidate>
+    <input ng-model="student.firstName" required ng-minlength="2" />
+    <span ng-show="studentForm.firstName.$error.required">Required</span>
+    <input ng-model="student.parentPhone" ng-pattern="/^\d{10}$/" required />
+    <button ng-disabled="studentForm.$invalid">Save</button>
+</form>
+
+--- 3.5 SPA with Routing (ngRoute) ---
+
+app.config(function($routeProvider) {
+    $routeProvider
+        .when('/dashboard',    { templateUrl: 'views/dashboard.html',   controller: 'DashboardCtrl' })
+        .when('/students',     { templateUrl: 'views/students.html',    controller: 'StudentCtrl' })
+        .when('/students/:id', { templateUrl: 'views/profile.html',     controller: 'ProfileCtrl' })
+        .when('/attendance',   { templateUrl: 'views/attendance.html',  controller: 'AttendanceCtrl' })
+        .when('/teachers',     { templateUrl: 'views/teachers.html',    controller: 'TeacherCtrl' })
+        .when('/notices',      { templateUrl: 'views/notices.html',     controller: 'NoticeCtrl' })
+        .when('/timetable',    { templateUrl: 'views/timetable.html',   controller: 'TimetableCtrl' })
+        .when('/reports',      { templateUrl: 'views/reports.html',     controller: 'ReportCtrl' })
+        .when('/settings',     { templateUrl: 'views/settings.html',    controller: 'SettingsCtrl' })
+        .otherwise({ redirectTo: '/dashboard' });
+});
+
+// Service for shared data
+app.service('StudentService', function($http) {
+    this.getAll = () => $http.get('/api/students');
+    this.getById = (id) => $http.get('/api/students/' + id);
+    this.create = (data) => $http.post('/api/students', data);
+    this.update = (id, data) => $http.put('/api/students/' + id, data);
+    this.delete = (id) => $http.delete('/api/students/' + id);
+});
+
+================================================================================
+UNIT 4: HTTP REQUEST/RESPONSE & REST API DESIGN
+================================================================================
+
+--- 4.1 HTTP Request/Response Model ---
+
+REQUEST MESSAGE STRUCTURE:
+  [METHOD] [URL] [HTTP/1.1]
+  Host: localhost:5000
+  Content-Type: application/json
+  Authorization: Bearer <jwt_token>
+  [Body: JSON payload]
+
+RESPONSE MESSAGE STRUCTURE:
+  [HTTP/1.1] [STATUS_CODE] [STATUS_TEXT]
+  Content-Type: application/json
+  [Body: JSON response]
+
+Example for Charronix:
+  REQUEST:
+    POST /api/students HTTP/1.1
+    Host: localhost:5000
+    Content-Type: application/json
+    Authorization: Bearer eyJhbGciOi...
+    { "firstName": "Aarav", "lastName": "Sharma", "class": "10", "section": "A" }
+
+  RESPONSE:
+    HTTP/1.1 201 Created
+    Content-Type: application/json
+    { "success": true, "data": { "id": "65a1b...", "admissionNo": "ADM2026001" } }
+
+--- 4.2 HTTP Methods & REST API Endpoints ---
+
+METHOD  | ENDPOINT                   | DESCRIPTION                    | AUTH
+--------|----------------------------|--------------------------------|----------
+GET     | /api/students              | List all students              | ADMIN,TEACHER
+GET     | /api/students/:id          | Get student by ID              | ALL
+POST    | /api/students              | Create new student             | ADMIN
+PUT     | /api/students/:id          | Update student                 | ADMIN
+DELETE  | /api/students/:id          | Delete student                 | ADMIN
+GET     | /api/teachers              | List all teachers              | ADMIN
+POST    | /api/teachers              | Create teacher                 | ADMIN
+PUT     | /api/teachers/:id          | Update teacher                 | ADMIN
+DELETE  | /api/teachers/:id          | Delete teacher                 | ADMIN
+GET     | /api/attendance            | Get attendance records         | ALL
+POST    | /api/attendance/mark       | Mark attendance (bulk)         | TEACHER
+PUT     | /api/attendance/:id        | Update attendance record       | TEACHER
+GET     | /api/attendance/report     | Attendance summary             | ADMIN,TEACHER
+GET     | /api/grades/:studentId     | Get student grades             | ALL
+POST    | /api/grades                | Add grades                     | TEACHER
+GET     | /api/notices               | List notices                   | ALL
+POST    | /api/notices               | Create notice                  | ADMIN,TEACHER
+PUT     | /api/notices/:id           | Update notice                  | ADMIN
+DELETE  | /api/notices/:id           | Delete notice                  | ADMIN
+GET     | /api/complaints            | List complaints                | ADMIN,TEACHER
+POST    | /api/complaints            | File complaint                 | TEACHER
+PUT     | /api/complaints/:id        | Update complaint status        | ADMIN
+GET     | /api/timetable/active      | Get active timetable           | ALL
+POST    | /api/timetable/generate    | Generate timetable (AI)        | ADMIN
+POST    | /api/auth/login            | Login                          | PUBLIC
+POST    | /api/auth/register         | Register user                  | ADMIN
+POST    | /api/auth/refresh          | Refresh JWT                    | AUTH
+GET     | /api/dashboard/stats       | Dashboard statistics           | ADMIN
+POST    | /api/ai/chat               | AI assistant chat              | AUTH
+GET     | /api/reports/attendance    | Attendance report PDF          | ADMIN
+GET     | /api/reports/academic      | Academic report PDF            | ADMIN
+
+--- 4.3 JSON Data Format ---
+
+// Student JSON (used between frontend <-> backend <-> MongoDB)
+{
+    "_id": "65a1b2c3d4e5f6a7b8c9d0e1",
+    "admissionNo": "ADM2026001",
+    "firstName": "Aarav",
+    "lastName": "Sharma",
+    "class": "10",
+    "section": "A",
+    "rollNo": 1,
+    "parentName": "Rajesh Sharma",
+    "parentPhone": "9876543210",
+    "status": "ACTIVE",
+    "medicalInfo": {
+        "bloodGroup": "B+",
+        "allergies": ["Peanuts"],
+        "chronicConditions": [],
+        "lastCheckup": "2025-11-15"
+    },
+    "achievements": [
+        { "title": "1st Place Debate", "date": "2025-09-12", "category": "Academic" }
+    ],
+    "academicGrades": [
+        { "subject": "Mathematics", "score": 85, "maxScore": 100, "grade": "A", "term": "Term-1" }
+    ],
+    "overallAttendance": 94,
+    "createdAt": "2026-01-15T10:30:00Z",
+    "updatedAt": "2026-02-10T14:20:00Z"
+}
+
+================================================================================
+UNIT 5: AJAX COMMUNICATION
+================================================================================
+
+--- 5.1 AJAX with XMLHttpRequest ---
+
+// Raw XMLHttpRequest for student data
+function fetchStudents() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:5000/api/students', true);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const students = JSON.parse(xhr.responseText);
+                renderStudentTable(students.data);
+            } else {
+                console.error('Error:', xhr.status, xhr.statusText);
+            }
+        }
+    };
+    xhr.send();
+}
+
+// POST with XMLHttpRequest
+function createStudent(studentData) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:5000/api/students', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    xhr.onload = function() {
+        if (xhr.status === 201) {
+            alert('Student created!');
+        }
+    };
+    xhr.send(JSON.stringify(studentData));
+}
+
+--- 5.2 AJAX with jQuery ---
+
+// GET request
+$.ajax({
+    url: '/api/students',
+    method: 'GET',
+    headers: { 'Authorization': 'Bearer ' + token },
+    success: function(response) {
+        response.data.forEach(function(student) {
+            addStudentRow(student);
+        });
+    },
+    error: function(xhr) {
+        $('.error-msg').text('Failed to load students: ' + xhr.statusText);
+    }
+});
+
+// POST request with form data
+$('#attendanceForm').submit(function(e) {
+    e.preventDefault();
+    $.post('/api/attendance/mark', {
+        classId: $('#class').val(),
+        date: $('#date').val(),
+        records: getAttendanceData()
+    }).done(function(res) {
+        $.notify('Attendance marked successfully!', 'success');
+    }).fail(function(err) {
+        $.notify('Failed to mark attendance', 'error');
+    });
+});
+
+// Shorthand methods
+$.get('/api/dashboard/stats', function(data) { updateDashboard(data); });
+$.getJSON('/api/notices', function(notices) { renderNotices(notices); });
+
+================================================================================
+UNIT 6: NODE.JS SERVER-SIDE DEVELOPMENT
+================================================================================
+
+--- 6.1 Node.js Basics ---
+
+// server.js - Entry point
+const http = require('http');
+const url = require('url');
+const querystring = require('querystring');
+const fs = require('fs');
+
+// URL parsing
+const parsedUrl = url.parse('http://localhost:5000/api/students?class=10&section=A', true);
+console.log(parsedUrl.pathname);    // /api/students
+console.log(parsedUrl.query.class); // 10
+
+// Query string parsing
+const qs = querystring.parse('class=10&section=A&status=ACTIVE');
+console.log(qs); // { class: '10', section: 'A', status: 'ACTIVE' }
+
+--- 6.2 File System (fs) & NPM ---
+
+// Read school config file
+const config = JSON.parse(fs.readFileSync('./config/school.json', 'utf8'));
+
+// Write report to file
+fs.writeFileSync('./reports/attendance_feb2026.json', JSON.stringify(reportData, null, 2));
+
+// Async file operations for logging
+fs.appendFile('./logs/server.log', `[${new Date().toISOString()}] ${message}\n`, (err) => {
+    if (err) console.error('Log write failed');
+});
+
+// Check if upload directory exists
+if (!fs.existsSync('./uploads/photos')) {
+    fs.mkdirSync('./uploads/photos', { recursive: true });
+}
+
+// NPM packages used:
+//   npm install express mongoose bcrypt jsonwebtoken dotenv cors helmet
+//   npm install morgan multer nodemailer socket.io
+//   npm install -D nodemon typescript @types/express @types/node
+
+================================================================================
+UNIT 7: EXPRESS.JS BACKEND FRAMEWORK
+================================================================================
+
+--- 7.1 Express Setup & Basics ---
+
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware stack
+app.use(helmet());                              // Security headers
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(morgan('dev'));                          // Request logging
+app.use(express.json({ limit: '10mb' }));       // Parse JSON
+app.use(express.urlencoded({ extended: true })); // Parse form data
+app.use(cookieParser());                         // Parse cookies
+app.use('/uploads', express.static('uploads'));   // Serve static files
+
+--- 7.2 Routing & Routers ---
+
+// routes/student.routes.js
+const router = express.Router();
+const auth = require('../middleware/auth');
+const role = require('../middleware/role');
+const StudentController = require('../controllers/student.controller');
+
+router.get('/',      auth, StudentController.getAll);
+router.get('/:id',   auth, StudentController.getById);
+router.post('/',     auth, role('ADMIN'), StudentController.create);
+router.put('/:id',   auth, role('ADMIN', 'TEACHER'), StudentController.update);
+router.delete('/:id', auth, role('ADMIN'), StudentController.delete);
+
+module.exports = router;
+
+// app.js - Mount all routers
+app.use('/api/auth',          require('./routes/auth.routes'));
+app.use('/api/students',      require('./routes/student.routes'));
+app.use('/api/teachers',      require('./routes/teacher.routes'));
+app.use('/api/attendance',    require('./routes/attendance.routes'));
+app.use('/api/grades',        require('./routes/grade.routes'));
+app.use('/api/notices',       require('./routes/notice.routes'));
+app.use('/api/complaints',    require('./routes/complaint.routes'));
+app.use('/api/timetable',     require('./routes/timetable.routes'));
+app.use('/api/ai',            require('./routes/ai.routes'));
+app.use('/api/dashboard',     require('./routes/dashboard.routes'));
+app.use('/api/reports',       require('./routes/report.routes'));
+
+--- 7.3 Request & Response Objects ---
+
+// controllers/student.controller.js
+exports.getAll = async (req, res) => {
+    // REQUEST object properties
+    const page = parseInt(req.query.page) || 1;       // Query params
+    const limit = parseInt(req.query.limit) || 20;
+    const classFilter = req.query.class;               // ?class=10
+    const section = req.query.section;                  // ?section=A
+    const token = req.headers.authorization;            // Auth header
+    const userId = req.user.id;                         // From auth middleware
+
+    // Build query
+    const query = { status: 'ACTIVE' };
+    if (classFilter) query.class = classFilter;
+    if (section) query.section = section;
+
+    const students = await Student.find(query)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort({ rollNo: 1 });
+
+    const total = await Student.countDocuments(query);
+
+    // RESPONSE object methods
+    res.status(200).json({
+        success: true,
+        data: students,
+        pagination: { page, limit, total, pages: Math.ceil(total / limit) }
+    });
+};
+
+// Handling form GET and POST
+// GET: Search students
+exports.search = async (req, res) => {
+    const { q } = req.query; // GET /api/students/search?q=Aarav
+    const results = await Student.find({
+        $or: [
+            { firstName: new RegExp(q, 'i') },
+            { lastName: new RegExp(q, 'i') },
+            { admissionNo: new RegExp(q, 'i') }
+        ]
+    });
+    res.json({ success: true, data: results });
+};
+
+// POST: Create student from form
+exports.create = async (req, res) => {
+    const { firstName, lastName, class: cls, section, rollNo, parentName, parentPhone } = req.body;
+    const admissionNo = await generateAdmissionNo();
+    const student = await Student.create({
+        admissionNo, firstName, lastName, class: cls,
+        section, rollNo, parentName, parentPhone
+    });
+    res.status(201).json({ success: true, data: student });
+};
+
+--- 7.4 Cookies, Sessions & Email ---
+
+// Cookies: Store refresh token
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user || !await bcrypt.compare(password, user.passwordHash)) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    const accessToken = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
+
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true, secure: true, sameSite: 'strict', maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    res.json({ success: true, token: accessToken, user: { id: user._id, role: user.role, email: user.email } });
+};
+
+// Sessions (express-session)
+const session = require('express-session');
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }
+}));
+
+// Sending email (Nodemailer)
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+});
+
+async function sendParentNotification(parentEmail, subject, message) {
+    await transporter.sendMail({
+        from: '"Charronix School" <noreply@charronix.edu>',
+        to: parentEmail,
+        subject: subject,
+        html: `<h2>${subject}</h2><p>${message}</p><p>- Charronix School Management</p>`
+    });
+}
+
+================================================================================
+UNIT 8: MongoDB NoSQL DATABASE (Replaces PostgreSQL + Prisma)
+================================================================================
+
+--- 8.1 Why MongoDB for Charronix ---
+
+- Schema flexibility: Student records have variable fields (medical, achievements)
+- Embedded documents: Grades, achievements stored within student document
+- JSON-native: Perfect match for Express.js REST APIs
+- Scalable: Handles growing school data efficiently
+
+--- 8.2 MongoDB Basics & CRUD Operations ---
+
+// Connect to MongoDB
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/charronix_db');
+
+// CLI CRUD examples:
+// CREATE:
+//   db.students.insertOne({ admissionNo: "ADM2026001", firstName: "Aarav", class: "10" })
+//   db.students.insertMany([{ ... }, { ... }])
+//
+// READ:
+//   db.students.find({ class: "10", section: "A" })
+//   db.students.findOne({ admissionNo: "ADM2026001" })
+//   db.students.find({ "academicGrades.score": { $gte: 90 } })
+//   db.students.find({}).sort({ rollNo: 1 }).limit(20).skip(0)
+//
+// UPDATE:
+//   db.students.updateOne({ _id: id }, { $set: { status: "INACTIVE" } })
+//   db.students.updateMany({ class: "10" }, { $set: { status: "ACTIVE" } })
+//   db.students.updateOne({ _id: id }, { $push: { achievements: newAchievement } })
+//
+// DELETE:
+//   db.students.deleteOne({ _id: id })
+//   db.students.deleteMany({ status: "INACTIVE" })
+
+--- 8.3 Mongoose Schemas & Models ---
+
+// models/Student.js
+const mongoose = require('mongoose');
+
+const studentSchema = new mongoose.Schema({
+    admissionNo:  { type: String, required: true, unique: true },
+    firstName:    { type: String, required: true, trim: true },
+    lastName:     { type: String, required: true, trim: true },
+    class:        { type: String, required: true },
+    section:      { type: String, required: true },
+    rollNo:       { type: Number, required: true },
+    parentName:   { type: String, required: true },
+    parentPhone:  { type: String, required: true, match: /^\d{10}$/ },
+    status:       { type: String, enum: ['ACTIVE', 'INACTIVE'], default: 'ACTIVE' },
+    photoUrl:     { type: String },
+    medicalInfo: {
+        bloodGroup:        { type: String },
+        allergies:         [String],
+        chronicConditions: [String],
+        lastCheckup:       { type: Date }
+    },
+    achievements: [{
+        title:    { type: String, required: true },
+        date:     { type: Date },
+        category: { type: String }
+    }],
+    academicGrades: [{
+        subject:  { type: String, required: true },
+        score:    { type: Number, required: true },
+        maxScore: { type: Number, required: true },
+        grade:    { type: String },
+        term:     { type: String }
+    }],
+    complaints: [{
+        teacherId:   { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' },
+        description: { type: String },
+        date:        { type: Date },
+        severity:    { type: String, enum: ['LOW', 'MEDIUM', 'HIGH'] }
+    }],
+    communicationLogs: [{
+        date:   { type: Date },
+        type:   { type: String, enum: ['SMS', 'Call', 'Meeting', 'Portal'] },
+        note:   { type: String },
+        author: { type: String }
+    }],
+    overallAttendance: { type: Number, default: 0 },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}, { timestamps: true });
+
+// Indexes for fast queries
+studentSchema.index({ class: 1, section: 1, rollNo: 1 });
+studentSchema.index({ admissionNo: 1 });
+studentSchema.index({ status: 1 });
+
+module.exports = mongoose.model('Student', studentSchema);
+
+// models/User.js
+const userSchema = new mongoose.Schema({
+    email:        { type: String, required: true, unique: true, lowercase: true },
+    passwordHash: { type: String, required: true },
+    role:         { type: String, enum: ['ADMIN','TEACHER','PARENT','PRINCIPAL','STUDENT'], required: true },
+    isActive:     { type: Boolean, default: true },
+    lastLogin:    { type: Date }
+}, { timestamps: true });
+module.exports = mongoose.model('User', userSchema);
+
+// models/Teacher.js
+const teacherSchema = new mongoose.Schema({
+    employeeId:      { type: String, required: true, unique: true },
+    firstName:       { type: String, required: true },
+    lastName:        { type: String, required: true },
+    phone:           { type: String, required: true },
+    email:           { type: String },
+    subjects:        [String],
+    assignedClasses: [String],
+    isClassTeacherOf: { type: String },
+    userId:          { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}, { timestamps: true });
+module.exports = mongoose.model('Teacher', teacherSchema);
+
+// models/Attendance.js
+const attendanceSchema = new mongoose.Schema({
+    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
+    date:      { type: Date, required: true },
+    status:    { type: String, enum: ['PRESENT','ABSENT','LATE','LEAVE'], required: true },
+    markedBy:  { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' },
+    remarks:   { type: String }
+}, { timestamps: true });
+attendanceSchema.index({ studentId: 1, date: 1 }, { unique: true });
+module.exports = mongoose.model('Attendance', attendanceSchema);
+
+// models/Notice.js
+const noticeSchema = new mongoose.Schema({
+    title:   { type: String, required: true },
+    message: { type: String, required: true },
+    target:  { type: String, required: true },
+    date:    { type: Date, required: true },
+    author:  { type: String, required: true },
+    smsSent: { type: Boolean, default: false },
+    type:    { type: String, enum: ['GENERAL','EVENT','EXAM'] },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}, { timestamps: true });
+module.exports = mongoose.model('Notice', noticeSchema);
+
+// models/Timetable.js
+const timetableEntrySchema = new mongoose.Schema({
+    subjectId:   String,
+    subjectName: String,
+    subjectCode: String,
+    teacherId:   String,
+    teacherName: String
+});
+
+const sectionScheduleSchema = new mongoose.Schema({
+    classId:     String,
+    className:   String,
+    sectionId:   String,
+    sectionName: String,
+    grid:        { type: Map, of: [timetableEntrySchema] }
+});
+
+const timetableSchema = new mongoose.Schema({
+    sections:    [sectionScheduleSchema],
+    score:       Number,
+    violations:  [String],
+    isActive:    { type: Boolean, default: false },
+    generatedAt: { type: Date, default: Date.now },
+    constraints: { type: mongoose.Schema.Types.Mixed }
+}, { timestamps: true });
+module.exports = mongoose.model('Timetable', timetableSchema);
+
+// models/ChatHistory.js
+const chatSchema = new mongoose.Schema({
+    userId:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    role:    { type: String, enum: ['user', 'assistant'] },
+    message: String
+}, { timestamps: true });
+module.exports = mongoose.model('ChatHistory', chatSchema);
+
+--- 8.4 Seed Data Script ---
+
+// prisma/seed.js  =>  scripts/seed.js
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
+
+async function seed() {
+    await mongoose.connect(process.env.MONGODB_URI);
+
+    // Create admin user
+    const hash = await bcrypt.hash('admin123', 10);
+    await User.create({ email: 'admin@charronix.edu', passwordHash: hash, role: 'ADMIN' });
+
+    // Create sample students (same as current MOCK_STUDENTS)
+    await Student.insertMany([
+        { admissionNo: 'ADM2024001', firstName: 'Aarav', lastName: 'Sharma',
+          class: '10', section: 'A', rollNo: 1, parentName: 'Rajesh Sharma',
+          parentPhone: '9876543210', status: 'ACTIVE', overallAttendance: 94 },
+        // ... more students
+    ]);
+
+    // Create sample teachers
+    await Teacher.insertMany([
+        { employeeId: 'TCH001', firstName: 'Meera', lastName: 'Iyer',
+          phone: '9000000001', subjects: ['Mathematics', 'Physics'],
+          assignedClasses: ['10-A', '10-B'] },
+        // ... more teachers
+    ]);
+
+    console.log('Database seeded!');
+    process.exit(0);
+}
+seed();
+
+================================================================================
+UNIT 9: REACT.JS FRONTEND INTEGRATION
+================================================================================
+
+--- 9.1 API Service Layer (Replace Mock Data) ---
+
+// src/services/api.js
+const API_URL = 'http://localhost:5000/api';
+
+const getToken = () => localStorage.getItem('token');
+
+const headers = () => ({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${getToken()}`
+});
+
+// Generic fetch wrapper
+async function apiCall(endpoint, method = 'GET', body = null) {
+    const config = { method, headers: headers() };
+    if (body) config.body = JSON.stringify(body);
+    const res = await fetch(`${API_URL}${endpoint}`, config);
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'API Error');
+    }
+    return res.json();
+}
+
+// Exported API functions
+export const studentAPI = {
+    getAll:    (params) => apiCall(`/students?${new URLSearchParams(params)}`),
+    getById:   (id)     => apiCall(`/students/${id}`),
+    create:    (data)   => apiCall('/students', 'POST', data),
+    update:    (id, d)  => apiCall(`/students/${id}`, 'PUT', d),
+    delete:    (id)     => apiCall(`/students/${id}`, 'DELETE'),
+};
+
+export const authAPI = {
+    login:    (creds)  => apiCall('/auth/login', 'POST', creds),
+    register: (data)   => apiCall('/auth/register', 'POST', data),
+    me:       ()       => apiCall('/auth/me'),
+};
+
+export const attendanceAPI = {
+    getByDate:  (date, cls) => apiCall(`/attendance?date=${date}&class=${cls}`),
+    mark:       (records)   => apiCall('/attendance/mark', 'POST', records),
+};
+
+--- 9.2 React Hooks for Data Fetching ---
+
+// hooks/useStudents.js
+import { useState, useEffect } from 'react';
+import { studentAPI } from '../services/api';
+
+export function useStudents(filters) {
+    const [students, setStudents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+        studentAPI.getAll(filters)
+            .then(res => setStudents(res.data))
+            .catch(err => setError(err.message))
+            .finally(() => setLoading(false));
+    }, [filters]);
+
+    return { students, loading, error, setStudents };
+}
+
+--- 9.3 Updated Component Example ---
+
+// components/StudentList.tsx (updated to use real API)
+import React, { useState } from 'react';
+import { useStudents } from '../hooks/useStudents';
+
+function StudentList() {
+    const [filters, setFilters] = useState({ class: '', section: '' });
+    const { students, loading, error } = useStudents(filters);
+
+    if (loading) return <div className="spinner">Loading...</div>;
+    if (error) return <div className="error">Error: {error}</div>;
+
+    return (
+        <div>
+            <h2>Students ({students.length})</h2>
+            <table>
+                <thead>
+                    <tr><th>Adm No</th><th>Name</th><th>Class</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    {students.map(s => (
+                        <tr key={s._id}>
+                            <td>{s.admissionNo}</td>
+                            <td>{s.firstName} {s.lastName}</td>
+                            <td>{s.class}-{s.section}</td>
+                            <td>{s.status}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+================================================================================
+UNIT 10: COMPLETE PROJECT STRUCTURE
+================================================================================
+
+charronix-school-management/
+├── frontend/                     (existing React + Vite code)
+│   ├── src/
+│   │   ├── components/           (Dashboard, StudentList, etc.)
+│   │   ├── hooks/                (useStudents, useAuth, etc.)
+│   │   ├── services/api.js       (API call functions)
+│   │   ├── App.tsx
+│   │   └── types.ts
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── backend/
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Student.js
+│   │   ├── Teacher.js
+│   │   ├── Attendance.js
+│   │   ├── Notice.js
+│   │   ├── Timetable.js
+│   │   └── ChatHistory.js
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── student.routes.js
+│   │   ├── teacher.routes.js
+│   │   ├── attendance.routes.js
+│   │   ├── grade.routes.js
+│   │   ├── notice.routes.js
+│   │   ├── complaint.routes.js
+│   │   ├── timetable.routes.js
+│   │   ├── ai.routes.js
+│   │   ├── dashboard.routes.js
+│   │   └── report.routes.js
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── student.controller.js
+│   │   ├── teacher.controller.js
+│   │   ├── attendance.controller.js
+│   │   ├── notice.controller.js
+│   │   ├── timetable.controller.js
+│   │   ├── ai.controller.js
+│   │   └── dashboard.controller.js
+│   ├── middleware/
+│   │   ├── auth.js               (JWT verification)
+│   │   ├── role.js               (Role-based access)
+│   │   ├── validate.js           (Request validation)
+│   │   └── errorHandler.js       (Global error handling)
+│   ├── config/
+│   │   └── db.js                 (MongoDB connection)
+│   ├── scripts/
+│   │   └── seed.js               (Seed database)
+│   ├── app.js                    (Express app setup)
+│   ├── server.js                 (Entry point)
+│   ├── package.json
+│   └── .env
+
+================================================================================
+UNIT 11: SETUP & INSTALLATION
+================================================================================
+
+STEP 1: Install MongoDB
+  Option A: Download from https://www.mongodb.com/try/download/community
+  Option B: Use MongoDB Atlas (free cloud): https://cloud.mongodb.com
+  Option C: Docker: docker run -d -p 27017:27017 --name mongo mongo:7
+
+STEP 2: Create backend project
+  mkdir backend && cd backend
+  npm init -y
+  npm install express mongoose bcrypt jsonwebtoken dotenv cors helmet morgan
+  npm install cookie-parser multer nodemailer @google/genai
+  npm install -D nodemon
+
+STEP 3: Create .env file
+  PORT=5000
+  MONGODB_URI=mongodb://localhost:27017/charronix_db
+  JWT_SECRET=your-secret-key-here
+  JWT_REFRESH_SECRET=your-refresh-secret
+  FRONTEND_URL=http://localhost:3000
+  GOOGLE_AI_API_KEY=your-api-key
+  SMTP_USER=your-email@gmail.com
+  SMTP_PASS=your-app-password
+
+STEP 4: Add scripts to package.json
+  "scripts": {
+      "dev": "nodemon server.js",
+      "start": "node server.js",
+      "seed": "node scripts/seed.js"
+  }
+
+STEP 5: Run both servers
+  Terminal 1: cd backend && npm run dev     (Express on port 5000)
+  Terminal 2: cd frontend && npm run dev    (Vite on port 3000)
+
+STEP 6: Seed the database
+  cd backend && npm run seed
+
+================================================================================
+UNIT 12: ADVANCED CONCEPTS & ENHANCEMENTS
+================================================================================
+
+1.  WebSocket (Socket.io)       - Real-time attendance updates & notifications
+2.  File Upload (Multer)        - Student photo uploads, document attachments
+3.  PDF Generation (PDFKit)     - Report cards, attendance reports
+4.  Rate Limiting               - Prevent API abuse (express-rate-limit)
+5.  Input Sanitization          - Prevent NoSQL injection (express-mongo-sanitize)
+6.  Compression (gzip)          - Reduce response sizes
+7.  Caching (Redis)             - Cache dashboard stats, frequent queries
+8.  Aggregation Pipeline        - MongoDB aggregations for analytics
+9.  Pagination & Sorting        - Efficient large dataset handling
+10. Error Logging (Winston)     - Structured logging to files
+11. API Versioning              - /api/v1/, /api/v2/ for backward compatibility
+12. Unit Testing (Jest)         - Test controllers and services
+13. CI/CD Pipeline              - GitHub Actions for auto-deploy
+14. Docker Containerization     - Dockerfile for backend + docker-compose
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================

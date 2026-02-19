@@ -1,0 +1,749 @@
+================================================================================
+     CHARRONIX SCHOOL MANAGEMENT SYSTEM - BACKEND & DATABASE DEVELOPMENT GUIDE
+================================================================================
+                           Version 1.0 | February 2026
+================================================================================
+
+TABLE OF CONTENTS
+-----------------
+1.  Project Overview & Current State
+2.  Recommended Technology Stack
+3.  Database Design (PostgreSQL Schema)
+4.  Backend API Architecture
+5.  API Endpoints (Complete Reference)
+6.  Authentication & Authorization
+7.  File & Folder Structure
+8.  Environment Configuration
+9.  Setup & Installation Steps
+10. Deployment Guide
+11. Future Enhancements
+
+================================================================================
+1. PROJECT OVERVIEW & CURRENT STATE
+================================================================================
+
+The Charronix School Management System currently has:
+  - A React + TypeScript + Vite frontend
+  - 10 UI Components: Dashboard, StudentList, StudentProfile, AttendanceMarker,
+    TimetableGenerator, AIAssistant, ParentPortal, StudentPortal, TeacherPortal, Layout
+  - Mock/hardcoded data in constants.tsx (no real backend)
+  - Google Generative AI integration for the AI Assistant
+  - User roles: ADMIN, TEACHER, PARENT, PRINCIPAL, STUDENT
+
+GOAL: Build a production-ready backend with a real database to replace all mock
+data and support full CRUD operations, authentication, and role-based access.
+
+================================================================================
+2. RECOMMENDED TECHNOLOGY STACK
+================================================================================
+
+Category              | Technology               | Why
+----------------------|--------------------------|------------------------------------
+Runtime               | Node.js (v20 LTS)        | Same language as frontend (JS/TS)
+Framework             | Express.js + TypeScript   | Lightweight, mature, huge ecosystem
+Database              | PostgreSQL 16             | Robust relational DB, great for school data
+ORM                   | Prisma                   | Type-safe queries, easy migrations
+Authentication        | JSON Web Tokens (JWT)     | Stateless auth, works with React SPA
+Password Hashing      | bcrypt                   | Industry standard
+Validation            | Zod                      | TypeScript-first schema validation
+File Uploads          | Multer                   | Middleware for handling multipart/form
+Email/SMS             | Nodemailer + Twilio       | Notifications to parents
+AI Integration        | @google/genai             | Already used in frontend, move to backend
+Environment Config    | dotenv                   | Manage secrets securely
+API Documentation     | Swagger (swagger-jsdoc)   | Auto-generated API docs
+
+================================================================================
+3. DATABASE DESIGN (PostgreSQL Schema)
+================================================================================
+
+----- 3.1 USERS TABLE (Authentication & Roles) -----
+
+CREATE TABLE users (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email           VARCHAR(255) UNIQUE NOT NULL,
+    password_hash   VARCHAR(255) NOT NULL,
+    role            VARCHAR(20) NOT NULL CHECK (role IN ('ADMIN','TEACHER','PARENT','PRINCIPAL','STUDENT')),
+    is_active       BOOLEAN DEFAULT true,
+    last_login      TIMESTAMP,
+    created_at      TIMESTAMP DEFAULT NOW(),
+    updated_at      TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.2 STUDENTS TABLE -----
+
+CREATE TABLE students (
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id           UUID REFERENCES users(id) ON DELETE CASCADE,
+    admission_no      VARCHAR(20) UNIQUE NOT NULL,
+    first_name        VARCHAR(100) NOT NULL,
+    last_name         VARCHAR(100) NOT NULL,
+    date_of_birth     DATE,
+    gender            VARCHAR(10),
+    class             VARCHAR(10) NOT NULL,
+    section           VARCHAR(5) NOT NULL,
+    roll_no           INTEGER NOT NULL,
+    parent_name       VARCHAR(200) NOT NULL,
+    parent_phone      VARCHAR(15) NOT NULL,
+    parent_email      VARCHAR(255),
+    status            VARCHAR(10) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE','INACTIVE')),
+    blood_group       VARCHAR(5),
+    photo_url         TEXT,
+    address           TEXT,
+    created_at        TIMESTAMP DEFAULT NOW(),
+    updated_at        TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.3 TEACHERS TABLE -----
+
+CREATE TABLE teachers (
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id           UUID REFERENCES users(id) ON DELETE CASCADE,
+    employee_id       VARCHAR(20) UNIQUE NOT NULL,
+    first_name        VARCHAR(100) NOT NULL,
+    last_name         VARCHAR(100) NOT NULL,
+    phone             VARCHAR(15) NOT NULL,
+    email             VARCHAR(255),
+    qualification     VARCHAR(200),
+    date_of_joining   DATE,
+    is_class_teacher_of VARCHAR(10),
+    photo_url         TEXT,
+    status            VARCHAR(10) DEFAULT 'ACTIVE',
+    created_at        TIMESTAMP DEFAULT NOW(),
+    updated_at        TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.4 TEACHER-SUBJECT MAPPING -----
+
+CREATE TABLE teacher_subjects (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    teacher_id  UUID REFERENCES teachers(id) ON DELETE CASCADE,
+    subject     VARCHAR(100) NOT NULL,
+    UNIQUE(teacher_id, subject)
+);
+
+----- 3.5 TEACHER-CLASS MAPPING -----
+
+CREATE TABLE teacher_classes (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    teacher_id  UUID REFERENCES teachers(id) ON DELETE CASCADE,
+    class_section VARCHAR(10) NOT NULL,
+    UNIQUE(teacher_id, class_section)
+);
+
+----- 3.6 ATTENDANCE TABLE -----
+
+CREATE TABLE attendance (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID REFERENCES students(id) ON DELETE CASCADE,
+    date        DATE NOT NULL,
+    status      VARCHAR(10) NOT NULL CHECK (status IN ('PRESENT','ABSENT','LATE','LEAVE')),
+    marked_by   UUID REFERENCES teachers(id),
+    remarks     TEXT,
+    created_at  TIMESTAMP DEFAULT NOW(),
+    UNIQUE(student_id, date)
+);
+
+----- 3.7 ACADEMIC GRADES TABLE -----
+
+CREATE TABLE academic_grades (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id      UUID REFERENCES students(id) ON DELETE CASCADE,
+    subject         VARCHAR(100) NOT NULL,
+    score           DECIMAL(5,2) NOT NULL,
+    max_score       DECIMAL(5,2) NOT NULL,
+    grade           VARCHAR(5),
+    term            VARCHAR(50) NOT NULL,
+    academic_year   VARCHAR(10) NOT NULL,
+    entered_by      UUID REFERENCES teachers(id),
+    created_at      TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.8 ACHIEVEMENTS TABLE -----
+
+CREATE TABLE achievements (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID REFERENCES students(id) ON DELETE CASCADE,
+    title       VARCHAR(300) NOT NULL,
+    date        DATE NOT NULL,
+    category    VARCHAR(50) NOT NULL,
+    description TEXT,
+    created_at  TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.9 COMPLAINTS TABLE -----
+
+CREATE TABLE complaints (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID REFERENCES students(id) ON DELETE CASCADE,
+    teacher_id  UUID REFERENCES teachers(id),
+    description TEXT NOT NULL,
+    date        DATE NOT NULL,
+    severity    VARCHAR(10) CHECK (severity IN ('LOW','MEDIUM','HIGH')),
+    status      VARCHAR(20) DEFAULT 'OPEN' CHECK (status IN ('OPEN','RESOLVED','ESCALATED')),
+    created_at  TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.10 MEDICAL INFO TABLE -----
+
+CREATE TABLE medical_info (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id          UUID UNIQUE REFERENCES students(id) ON DELETE CASCADE,
+    blood_group         VARCHAR(5),
+    allergies           TEXT[],
+    chronic_conditions  TEXT[],
+    last_checkup        DATE,
+    emergency_contact   VARCHAR(15),
+    notes               TEXT,
+    updated_at          TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.11 COMMUNICATION LOGS TABLE -----
+
+CREATE TABLE communication_logs (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id  UUID REFERENCES students(id) ON DELETE CASCADE,
+    date        DATE NOT NULL,
+    type        VARCHAR(20) CHECK (type IN ('SMS','Call','Meeting','Portal')),
+    note        TEXT NOT NULL,
+    author      VARCHAR(200) NOT NULL,
+    created_at  TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.12 NOTICES TABLE -----
+
+CREATE TABLE notices (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title       VARCHAR(300) NOT NULL,
+    message     TEXT NOT NULL,
+    target      VARCHAR(50) NOT NULL,
+    date        DATE NOT NULL,
+    author      VARCHAR(200) NOT NULL,
+    sms_sent    BOOLEAN DEFAULT false,
+    type        VARCHAR(20) CHECK (type IN ('GENERAL','EVENT','EXAM')),
+    created_by  UUID REFERENCES users(id),
+    created_at  TIMESTAMP DEFAULT NOW()
+);
+
+----- 3.13 TIMETABLE CLASSES TABLE -----
+
+CREATE TABLE timetable_classes (
+    id      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name    VARCHAR(50) NOT NULL
+);
+
+----- 3.14 TIMETABLE SECTIONS TABLE -----
+
+CREATE TABLE timetable_sections (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    class_id        UUID REFERENCES timetable_classes(id) ON DELETE CASCADE,
+    name            VARCHAR(10) NOT NULL,
+    student_count   INTEGER DEFAULT 0,
+    room_number     VARCHAR(20)
+);
+
+----- 3.15 TIMETABLE SUBJECTS TABLE -----
+
+CREATE TABLE timetable_subjects (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name            VARCHAR(100) NOT NULL,
+    code            VARCHAR(20) NOT NULL,
+    type            VARCHAR(20) CHECK (type IN ('core','elective','activity','language')),
+    periods_per_week INTEGER NOT NULL,
+    requires_lab    BOOLEAN DEFAULT false,
+    max_consecutive INTEGER DEFAULT 2,
+    preferred_time  VARCHAR(20) DEFAULT 'any'
+);
+
+----- 3.16 TIMETABLE TEACHERS TABLE -----
+
+CREATE TABLE timetable_teachers (
+    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    teacher_id          UUID REFERENCES teachers(id),
+    name                VARCHAR(200) NOT NULL,
+    level               INTEGER CHECK (level BETWEEN 1 AND 4),
+    max_periods_per_day INTEGER DEFAULT 6,
+    max_periods_per_week INTEGER DEFAULT 30,
+    max_consecutive     INTEGER DEFAULT 3
+);
+
+----- 3.17 TIMETABLE TEACHER-SUBJECT MAPPING -----
+
+CREATE TABLE timetable_teacher_subjects (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    tt_teacher_id   UUID REFERENCES timetable_teachers(id) ON DELETE CASCADE,
+    tt_subject_id   UUID REFERENCES timetable_subjects(id) ON DELETE CASCADE,
+    UNIQUE(tt_teacher_id, tt_subject_id)
+);
+
+----- 3.18 TIMETABLE UNAVAILABLE SLOTS -----
+
+CREATE TABLE timetable_unavailable_slots (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    tt_teacher_id   UUID REFERENCES timetable_teachers(id) ON DELETE CASCADE,
+    day             VARCHAR(20) NOT NULL,
+    period          INTEGER NOT NULL
+);
+
+----- 3.19 SCHOOL TIMINGS TABLE -----
+
+CREATE TABLE school_timings (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    start_time      TIME NOT NULL,
+    end_time        TIME NOT NULL,
+    periods_per_day INTEGER NOT NULL,
+    period_duration INTEGER NOT NULL,
+    is_active       BOOLEAN DEFAULT true
+);
+
+----- 3.20 SCHOOL WORKING DAYS -----
+
+CREATE TABLE school_working_days (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    timing_id   UUID REFERENCES school_timings(id) ON DELETE CASCADE,
+    day_name    VARCHAR(20) NOT NULL
+);
+
+----- 3.21 SCHOOL BREAKS -----
+
+CREATE TABLE school_breaks (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    timing_id       UUID REFERENCES school_timings(id) ON DELETE CASCADE,
+    name            VARCHAR(50) NOT NULL,
+    after_period    INTEGER NOT NULL,
+    duration        INTEGER NOT NULL
+);
+
+----- 3.22 GENERATED TIMETABLES TABLE -----
+
+CREATE TABLE generated_timetables (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    score           DECIMAL(5,2),
+    violations      TEXT[],
+    generated_at    TIMESTAMP DEFAULT NOW(),
+    is_active       BOOLEAN DEFAULT false,
+    constraint_settings JSONB
+);
+
+----- 3.23 TIMETABLE ENTRIES TABLE -----
+
+CREATE TABLE timetable_entries (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    timetable_id    UUID REFERENCES generated_timetables(id) ON DELETE CASCADE,
+    class_id        UUID REFERENCES timetable_classes(id),
+    section_id      UUID REFERENCES timetable_sections(id),
+    day             VARCHAR(20) NOT NULL,
+    period          INTEGER NOT NULL,
+    subject_id      UUID REFERENCES timetable_subjects(id),
+    teacher_id      UUID REFERENCES timetable_teachers(id)
+);
+
+----- 3.24 AI CHAT HISTORY TABLE -----
+
+CREATE TABLE ai_chat_history (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id     UUID REFERENCES users(id) ON DELETE CASCADE,
+    role        VARCHAR(20) NOT NULL,
+    message     TEXT NOT NULL,
+    created_at  TIMESTAMP DEFAULT NOW()
+);
+
+================================================================================
+4. BACKEND API ARCHITECTURE
+================================================================================
+
+Architecture Pattern: MVC (Model-View-Controller) with Service Layer
+
+  Request Flow:
+  Client (React) --> Express Router --> Middleware (Auth/Validate)
+                 --> Controller --> Service Layer --> Prisma ORM --> PostgreSQL
+
+Middleware Stack:
+  1. CORS - Allow frontend origin
+  2. helmet - Security headers
+  3. express.json() - Parse JSON bodies
+  4. morgan - HTTP request logging
+  5. authMiddleware - JWT verification
+  6. roleMiddleware - Role-based access control
+  7. rateLimiter - Prevent abuse
+
+================================================================================
+5. API ENDPOINTS (Complete Reference)
+================================================================================
+
+Base URL: http://localhost:5000/api/v1
+
+----- 5.1 AUTHENTICATION -----
+POST   /auth/register          Register a new user (Admin only)
+POST   /auth/login             Login with email & password
+POST   /auth/refresh           Refresh access token
+POST   /auth/forgot-password   Send password reset email
+POST   /auth/reset-password    Reset password with token
+GET    /auth/me                Get current user profile
+
+----- 5.2 STUDENTS -----
+GET    /students               List all students (filter by class, section, status)
+GET    /students/:id           Get student by ID (includes grades, attendance, etc.)
+POST   /students               Create a new student (Admin only)
+PUT    /students/:id           Update student details
+DELETE /students/:id           Soft-delete a student (set status INACTIVE)
+GET    /students/:id/report    Generate student report card (PDF)
+
+----- 5.3 TEACHERS -----
+GET    /teachers               List all teachers
+GET    /teachers/:id           Get teacher by ID
+POST   /teachers               Create a new teacher (Admin only)
+PUT    /teachers/:id           Update teacher details
+DELETE /teachers/:id           Soft-delete a teacher
+
+----- 5.4 ATTENDANCE -----
+GET    /attendance             Get attendance records (filter by date, class, section)
+POST   /attendance/mark        Mark attendance for a class (bulk)
+PUT    /attendance/:id         Update a single attendance record
+GET    /attendance/report      Get attendance summary/report
+
+----- 5.5 ACADEMIC GRADES -----
+GET    /grades/:studentId      Get grades for a student
+POST   /grades                 Add grades (bulk by class/subject)
+PUT    /grades/:id             Update a grade entry
+GET    /grades/report/:class   Get class-wide grade report
+
+----- 5.6 NOTICES -----
+GET    /notices                List all notices (filter by type, target)
+GET    /notices/:id            Get notice by ID
+POST   /notices                Create a notice (Admin/Teacher)
+PUT    /notices/:id            Update a notice
+DELETE /notices/:id            Delete a notice
+POST   /notices/:id/send-sms  Send SMS notification for a notice
+
+----- 5.7 COMPLAINTS -----
+GET    /complaints             List complaints (filter by student, severity, status)
+GET    /complaints/:id         Get complaint by ID
+POST   /complaints             File a new complaint
+PUT    /complaints/:id         Update complaint (resolve/escalate)
+
+----- 5.8 MEDICAL INFO -----
+GET    /medical/:studentId     Get medical info for a student
+POST   /medical                Create/update medical info
+PUT    /medical/:studentId     Update medical info
+
+----- 5.9 ACHIEVEMENTS -----
+GET    /achievements/:studentId  Get achievements for a student
+POST   /achievements              Add an achievement
+DELETE /achievements/:id           Delete an achievement
+
+----- 5.10 COMMUNICATION LOGS -----
+GET    /communications/:studentId  Get communication logs
+POST   /communications              Add a communication log
+
+----- 5.11 TIMETABLE -----
+GET    /timetable/classes       List timetable classes
+POST   /timetable/classes       Add a class
+GET    /timetable/subjects      List timetable subjects
+POST   /timetable/subjects      Add a subject
+GET    /timetable/teachers      List timetable teachers
+POST   /timetable/teachers      Add a timetable teacher
+GET    /timetable/timings       Get school timings
+POST   /timetable/timings       Set school timings
+POST   /timetable/generate      Generate a timetable (AI solver)
+GET    /timetable/active        Get the currently active timetable
+GET    /timetable/history       List all previously generated timetables
+PUT    /timetable/:id/activate  Set a timetable as active
+
+----- 5.12 AI ASSISTANT -----
+POST   /ai/chat                 Send a message to AI assistant
+GET    /ai/chat/history         Get chat history for current user
+
+----- 5.13 DASHBOARD -----
+GET    /dashboard/stats         Get dashboard statistics (counts, trends)
+GET    /dashboard/recent        Get recent activities
+
+----- 5.14 REPORTS -----
+GET    /reports/attendance      Generate attendance report (PDF/Excel)
+GET    /reports/academic        Generate academic report (PDF/Excel)
+GET    /reports/student/:id     Generate individual student report
+
+================================================================================
+6. AUTHENTICATION & AUTHORIZATION
+================================================================================
+
+JWT Token Structure:
+  Access Token  - expires in 15 minutes
+  Refresh Token - expires in 7 days, stored in httpOnly cookie
+
+Role-Based Access Control (RBAC):
+
+  Role        | Students | Teachers | Attendance | Grades | Notices  | Timetable | Settings
+  ------------|----------|----------|------------|--------|----------|-----------|--------
+  ADMIN       | CRUD     | CRUD     | CRUD       | CRUD   | CRUD     | CRUD      | CRUD
+  PRINCIPAL   | Read     | Read     | Read       | Read   | CRUD     | Read      | Read
+  TEACHER     | Read Own | Read Own | Create     | Create | Create   | Read      | None
+  PARENT      | Read Own | None     | Read Own   | Read Own| Read    | Read      | None
+  STUDENT     | Read Own | None     | Read Own   | Read Own| Read    | Read      | None
+
+  CRUD = Create, Read, Update, Delete
+  Read Own = Can only read their own data
+
+================================================================================
+7. FILE & FOLDER STRUCTURE
+================================================================================
+
+charronix-school-management/
+├── frontend/                    <-- Move current code here
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.tsx
+│   │   ├── types.ts
+│   │   └── ...
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── database.ts      # Prisma client initialization
+│   │   │   ├── env.ts           # Environment variable validation
+│   │   │   └── cors.ts          # CORS configuration
+│   │   │
+│   │   ├── middleware/
+│   │   │   ├── auth.ts          # JWT authentication middleware
+│   │   │   ├── role.ts          # Role-based access control
+│   │   │   ├── validate.ts      # Request validation (Zod)
+│   │   │   ├── errorHandler.ts  # Global error handling
+│   │   │   └── rateLimiter.ts   # Rate limiting
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── auth.routes.ts
+│   │   │   ├── student.routes.ts
+│   │   │   ├── teacher.routes.ts
+│   │   │   ├── attendance.routes.ts
+│   │   │   ├── grade.routes.ts
+│   │   │   ├── notice.routes.ts
+│   │   │   ├── complaint.routes.ts
+│   │   │   ├── medical.routes.ts
+│   │   │   ├── achievement.routes.ts
+│   │   │   ├── communication.routes.ts
+│   │   │   ├── timetable.routes.ts
+│   │   │   ├── ai.routes.ts
+│   │   │   ├── dashboard.routes.ts
+│   │   │   └── report.routes.ts
+│   │   │
+│   │   ├── controllers/
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── student.controller.ts
+│   │   │   ├── teacher.controller.ts
+│   │   │   ├── attendance.controller.ts
+│   │   │   ├── grade.controller.ts
+│   │   │   ├── notice.controller.ts
+│   │   │   ├── complaint.controller.ts
+│   │   │   ├── timetable.controller.ts
+│   │   │   ├── ai.controller.ts
+│   │   │   ├── dashboard.controller.ts
+│   │   │   └── report.controller.ts
+│   │   │
+│   │   ├── services/
+│   │   │   ├── auth.service.ts
+│   │   │   ├── student.service.ts
+│   │   │   ├── teacher.service.ts
+│   │   │   ├── attendance.service.ts
+│   │   │   ├── grade.service.ts
+│   │   │   ├── notice.service.ts
+│   │   │   ├── timetable.service.ts
+│   │   │   ├── ai.service.ts           # Google GenAI integration
+│   │   │   ├── sms.service.ts          # Twilio SMS
+│   │   │   ├── email.service.ts        # Nodemailer
+│   │   │   └── report.service.ts       # PDF/Excel generation
+│   │   │
+│   │   ├── validators/
+│   │   │   ├── auth.validator.ts
+│   │   │   ├── student.validator.ts
+│   │   │   ├── teacher.validator.ts
+│   │   │   ├── attendance.validator.ts
+│   │   │   └── ...
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── jwt.ts               # Token generation/verification
+│   │   │   ├── password.ts          # bcrypt hash/compare
+│   │   │   ├── apiResponse.ts       # Standardized API responses
+│   │   │   ├── errors.ts            # Custom error classes
+│   │   │   └── logger.ts            # Winston logger
+│   │   │
+│   │   ├── types/
+│   │   │   └── index.ts             # Backend TypeScript types
+│   │   │
+│   │   └── app.ts                   # Express app setup
+│   │   └── server.ts                # Server entry point
+│   │
+│   ├── prisma/
+│   │   ├── schema.prisma            # Prisma schema (database models)
+│   │   ├── migrations/              # Auto-generated migrations
+│   │   └── seed.ts                  # Seed data for development
+│   │
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── .env                         # Environment variables
+│   └── .env.example                 # Example env file
+│
+├── docker-compose.yml               # PostgreSQL + App containers
+└── README.md
+
+================================================================================
+8. ENVIRONMENT CONFIGURATION
+================================================================================
+
+Create a .env file in the backend/ directory:
+
+  # Server
+  PORT=5000
+  NODE_ENV=development
+
+  # Database
+  DATABASE_URL=postgresql://charronix_user:your_password@localhost:5432/charronix_db
+
+  # JWT
+  JWT_SECRET=your-super-secret-jwt-key-change-this
+  JWT_REFRESH_SECRET=your-refresh-secret-key
+  JWT_EXPIRY=15m
+  JWT_REFRESH_EXPIRY=7d
+
+  # Frontend URL (for CORS)
+  FRONTEND_URL=http://localhost:3000
+
+  # Google AI
+  GOOGLE_AI_API_KEY=your-google-genai-api-key
+
+  # Twilio (SMS)
+  TWILIO_ACCOUNT_SID=your-twilio-sid
+  TWILIO_AUTH_TOKEN=your-twilio-token
+  TWILIO_PHONE_NUMBER=+1234567890
+
+  # Email (SMTP)
+  SMTP_HOST=smtp.gmail.com
+  SMTP_PORT=587
+  SMTP_USER=your-email@gmail.com
+  SMTP_PASS=your-app-password
+
+================================================================================
+9. SETUP & INSTALLATION STEPS
+================================================================================
+
+STEP 1: Install PostgreSQL
+  - Download from https://www.postgresql.org/download/
+  - Or use Docker: docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres:16
+
+STEP 2: Create the database
+  psql -U postgres
+  CREATE DATABASE charronix_db;
+  CREATE USER charronix_user WITH ENCRYPTED PASSWORD 'your_password';
+  GRANT ALL PRIVILEGES ON DATABASE charronix_db TO charronix_user;
+
+STEP 3: Initialize the backend project
+  mkdir backend && cd backend
+  npm init -y
+  npm install express cors helmet morgan dotenv bcrypt jsonwebtoken
+  npm install @prisma/client @google/genai zod multer nodemailer
+  npm install -D typescript @types/node @types/express @types/cors
+  npm install -D @types/bcrypt @types/jsonwebtoken @types/morgan
+  npm install -D @types/multer @types/nodemailer ts-node-dev prisma
+
+STEP 4: Initialize Prisma
+  npx prisma init
+  (Copy the schema from Section 3 into prisma/schema.prisma)
+  npx prisma migrate dev --name init
+  npx prisma generate
+
+STEP 5: Set up TypeScript
+  npx tsc --init
+  (Configure tsconfig.json with target ES2022, module NodeNext, outDir ./dist)
+
+STEP 6: Add scripts to package.json
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:seed": "npx prisma db seed",
+    "prisma:studio": "npx prisma studio"
+  }
+
+STEP 7: Update the frontend
+  - Replace all mock data imports with API calls using fetch()
+  - Create an api.ts service file in the frontend for centralized API calls
+  - Store JWT tokens in localStorage or httpOnly cookies
+  - Add loading states and error handling to all components
+
+STEP 8: Run both servers
+  Terminal 1 (Backend):  cd backend && npm run dev
+  Terminal 2 (Frontend): cd frontend && npm run dev
+
+================================================================================
+10. DEPLOYMENT GUIDE
+================================================================================
+
+Option A: Railway / Render (Easiest)
+  - Push code to GitHub
+  - Connect repository to Railway/Render
+  - Add PostgreSQL as a service
+  - Set environment variables
+  - Auto-deploys on git push
+
+Option B: Docker (Recommended for Production)
+  docker-compose.yml:
+    version: '3.8'
+    services:
+      db:
+        image: postgres:16
+        environment:
+          POSTGRES_DB: charronix_db
+          POSTGRES_USER: charronix_user
+          POSTGRES_PASSWORD: your_password
+        ports:
+          - "5432:5432"
+        volumes:
+          - pgdata:/var/lib/postgresql/data
+
+      backend:
+        build: ./backend
+        ports:
+          - "5000:5000"
+        depends_on:
+          - db
+        environment:
+          DATABASE_URL: postgresql://charronix_user:your_password@db:5432/charronix_db
+
+      frontend:
+        build: ./frontend
+        ports:
+          - "3000:3000"
+        depends_on:
+          - backend
+
+    volumes:
+      pgdata:
+
+Option C: VPS (DigitalOcean, AWS EC2, etc.)
+  - Install Node.js, PostgreSQL, Nginx on the server
+  - Use PM2 to run the backend as a daemon
+  - Configure Nginx as a reverse proxy
+  - Set up SSL with Let's Encrypt
+
+================================================================================
+11. FUTURE ENHANCEMENTS
+================================================================================
+
+Phase 2 Features:
+  [ ] Fee Management Module (payments, receipts, due tracking)
+  [ ] Library Management (book inventory, issue/return tracking)
+  [ ] Transport Management (bus routes, tracking)
+  [ ] Exam Management (exam scheduling, hall tickets, results)
+  [ ] Real-time Notifications (WebSocket with Socket.io)
+  [ ] Parent Mobile App (React Native)
+  [ ] Bulk Import/Export (CSV upload for students, teachers)
+  [ ] Audit Logging (track all admin actions)
+  [ ] Multi-school/Branch Support
+  [ ] Advanced Analytics Dashboard (charts, trends, predictions)
+  [ ] Biometric Attendance Integration
+  [ ] WhatsApp Bot for Parent Communication
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================

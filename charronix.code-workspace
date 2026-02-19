@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "name": "Frontend",
+            "path": "."
+        },
+        {
+            "name": "Backend",
+            "path": "backend"
+        }
+    ],
+    "settings": {
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "eslint.workingDirectories": [
+            {
+                "directory": ".",
+                "changeProcessCWD": true
+            },
+            {
+                "directory": "backend",
+                "changeProcessCWD": true
+            }
+        ],
+        "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+    }
+}

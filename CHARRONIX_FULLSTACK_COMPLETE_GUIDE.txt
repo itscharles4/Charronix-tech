@@ -1,0 +1,1089 @@
+================================================================================
+     CHARRONIX SCHOOL MANAGEMENT SYSTEM - COMPLETE FULL-STACK GUIDE
+================================================================================
+                          Version 2.0 | February 2026
+          Frontend + Backend + Database + Cache + Services + Deployment
+================================================================================
+
+TABLE OF CONTENTS
+-----------------
+ 1.  Project Overview & Vision
+ 2.  System Architecture Diagram
+ 3.  Technology Stack (All Layers)
+ 4.  FRONTEND — React + TypeScript + Vite
+      4.1  Entry Points & Configuration
+      4.2  Role-Based Portal System
+      4.3  Login System & ID Format Rules
+      4.4  Components (11 UI Modules)
+      4.5  State Management
+      4.6  API Communication
+      4.7  Frontend File Structure
+      4.8  Frontend Environment Variables
+ 5.  BACKEND — Node.js + Express + TypeScript
+      5.1  Architecture Pattern (MVC + Service Layer)
+      5.2  Request Pipeline (Middleware Stack)
+      5.3  All API Modules & Endpoints
+      5.4  Controllers & Services
+      5.5  Validators (Zod Schemas)
+      5.6  Utilities
+      5.7  Backend File Structure
+      5.8  Backend Environment Variables (.env)
+ 6.  DATABASE — PostgreSQL 17 + Prisma ORM
+      6.1  Connection Details
+      6.2  Enums (All Defined Types)
+      6.3  All 31 Prisma Models (Tables)
+      6.4  Prisma Configuration
+      6.5  Migrations & Seeding
+      6.6  Seed Credentials (Test Accounts)
+ 7.  CACHING — Redis
+      7.1  Connection Details
+      7.2  Cache Strategy
+      7.3  Cache Configuration in Code
+ 8.  AUTHENTICATION & AUTHORIZATION
+      8.1  JWT Token Flow
+      8.2  Role-Based Access Control (RBAC)
+      8.3  Login ID Format per Role
+ 9.  EXTERNAL SERVICES
+      9.1  Google Gemini AI
+      9.2  Twilio SMS (Optional)
+      9.3  SMTP Email (Optional)
+10.  RUNNING THE APPLICATION
+      10.1  Prerequisites
+      10.2  Starting the Application
+      10.3  Stopping the Application
+11.  PORT REFERENCE
+12.  FILE & FOLDER STRUCTURE (Complete)
+13.  DEPLOYMENT GUIDE
+14.  FUTURE ENHANCEMENTS
+
+================================================================================
+ 1. PROJECT OVERVIEW & VISION
+================================================================================
+
+Charronix School Management System is a full-stack web application designed to
+digitize and streamline school operations. It provides role-specific portals for
+Administrators, Principals, Teachers, Students, and Parents.
+
+Current Status (February 2026):
+  - Frontend: COMPLETE (React + TypeScript + Vite, 11 components)
+  - Backend:  COMPLETE (Express.js + TypeScript, 19 API modules)
+  - Database: COMPLETE (PostgreSQL 17, 31 tables, migrated + seeded)
+  - Cache:    COMPLETE (Redis 5.x, enabled with 100MB limit)
+  - Auth:     COMPLETE (JWT Access + Refresh tokens, RBAC)
+
+Roles Supported:
+  ADMIN       - Full system control
+  PRINCIPAL   - School-wide view and management
+  TEACHER     - Class and student management
+  STUDENT     - Self-view portal (grades, attendance, notices)
+  PARENT      - Child progress view portal
+
+================================================================================
+ 2. SYSTEM ARCHITECTURE DIAGRAM
+================================================================================
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                           BROWSER (User)                                │
+  │          http://localhost:3000   (React + Vite frontend)                │
+  └──────────────────────────┬──────────────────────────────────────────────┘
+                             │  HTTP REST (fetch + JWT Bearer token)
+                             ▼
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                     BACKEND SERVER  :5000                               │
+  │              Node.js + Express.js + TypeScript                          │
+  │                                                                         │
+  │  Rate Limiter → CORS → Helmet → Body Parser → Morgan → Router          │
+  │       → Auth Middleware → Role Middleware → Controller                  │
+  │       → Service Layer → Prisma ORM → Database                          │
+  └──────────────┬─────────────────────────┬───────────────────────────────┘
+                 │                         │
+                 ▼                         ▼
+  ┌─────────────────────────┐   ┌─────────────────────────┐
+  │   PostgreSQL  :5432     │   │   Redis Cache  :6379    │
+  │   charronix_db          │   │   100MB Limit           │
+  │   31 Tables             │   │   Sessions, KPIs        │
+  │   Prisma Migrations     │   │   Rate Limiting         │
+  └─────────────────────────┘   └─────────────────────────┘
+                 │
+                 ▼
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                      EXTERNAL SERVICES                                  │
+  │   Google Gemini AI (AI Assistant)                                       │
+  │   Twilio (SMS Notifications - optional)                                 │
+  │   SMTP/Nodemailer (Email Notifications - optional)                      │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+ 3. TECHNOLOGY STACK (ALL LAYERS)
+================================================================================
+
+Layer           | Technology                   | Version   | Purpose
+----------------|------------------------------|-----------|------------------------
+Runtime         | Node.js                      | v20 LTS   | Backend runtime
+Frontend        | React                        | 18.x      | UI framework
+Language        | TypeScript                   | 5.x       | Type safety everywhere
+Build Tool      | Vite                         | 6.x       | Frontend bundler
+Backend         | Express.js                   | 4.x       | HTTP server framework
+Database        | PostgreSQL                   | 17.x      | Relational data store
+ORM             | Prisma                       | 5.x       | Type-safe DB access
+Cache           | Redis                        | 5.x       | In-memory caching
+Auth            | JSON Web Tokens (JWT)        | -         | Stateless authentication
+Password        | bcrypt                       | 5.x       | Secure password hashing
+Validation      | Zod                          | 3.x       | Schema validation
+HTTP Client     | fetch (native)               | -         | Frontend API calls
+Logging         | Winston + Morgan             | -         | Structured logging
+File Upload     | Multer                       | -         | Multipart/form handling
+AI              | @google/genai (Gemini)       | -         | AI assistant feature
+SMS             | Twilio                       | -         | SMS notifications
+Email           | Nodemailer                   | -         | Email notifications
+Dev Server      | ts-node-dev                  | -         | Hot-reload for backend
+
+================================================================================
+ 4. FRONTEND — React + TypeScript + Vite
+================================================================================
+
+--- 4.1 ENTRY POINTS & CONFIGURATION ---
+
+  index.html        Root HTML, loads index.tsx
+  index.tsx         React DOM render, mounts <App />
+  App.tsx           Main app — portal, login, routing, auth state
+  types.ts          Shared TypeScript types (UserRole enum, interfaces)
+  constants.tsx     Static data constants
+  vite.config.ts    Vite configuration
+    - Port: 3000
+    - Host: 0.0.0.0 (accessible on network)
+    - Alias: @ → project root
+    - Gemini API key injected as process.env.API_KEY
+  tsconfig.json     TypeScript config (extends backend via references)
+  package.json      Frontend dependencies
+
+--- 4.2 ROLE-BASED PORTAL SYSTEM ---
+
+  The app opens to a PORTAL SELECTION page with 4 cards:
+  ┌────────────┬────────────┬────────────┬────────────┐
+  │  Student   │  Teacher   │   Parent   │ Principal  │
+  │ (indigo)   │  (blue)    │ (emerald)  │  (amber)   │
+  └────────────┴────────────┴────────────┴────────────┘
+
+  After login, the user is routed to their role-specific view:
+  - STUDENT     → StudentPortal component
+  - PARENT      → ParentPortal component
+  - TEACHER     → TeacherPortal component
+  - PRINCIPAL / ADMIN → Admin views (Dashboard, StudentList, etc.)
+
+--- 4.3 LOGIN SYSTEM & ID FORMAT RULES ---
+
+  Each role uses a different ID format validated by regex:
+
+  Role       | ID Format                      | Example          | Regex
+  -----------|--------------------------------|------------------|----------------------
+  Student    | 2 digits + 3 letters + 4 digits | 24BIT0522       | ^\d{2}[A-Za-z]{3}\d{4}$
+  Teacher    | Exactly 6 digits               | 100001           | ^\d{6}$
+  Principal  | Exactly 6 digits               | 900001           | ^\d{6}$
+  Parent     | Student first name + DDMMYYYY  | Aarav15032008    | ^[A-Za-z]+(0[1-9]|...)$
+
+  Login Flow:
+  1. User selects portal role
+  2. Enters their custom ID + password
+  3. handleLoginSubmit() maps ID → email, calls backend API
+  4. Backend returns JWT accessToken + refreshToken
+  5. Tokens stored in localStorage
+  6. User redirected to their dashboard
+
+  Custom ID → Email mapping (seeded accounts):
+  Student  24BIT0522  → aarav.sharma@student.charronix.edu
+  Student  24BIT0523  → priya.patel@student.charronix.edu
+  Teacher  100001     → meera.iyer@charronix.edu
+  Teacher  100002     → rajesh.kumar@charronix.edu
+  Principal 900001    → admin@charronix.edu
+  Parent   Aarav15032008 → aarav.sharma@student.charronix.edu
+
+--- 4.4 COMPONENTS (11 UI MODULES) ---
+
+  File                      | Role Access         | Purpose
+  --------------------------|---------------------|-------------------------------
+  Layout.tsx                | All                 | Shell: navbar, sidebar, theme
+  Dashboard.tsx             | Admin / Principal   | KPIs, charts, recent activity
+  StudentList.tsx           | Admin / Teacher     | Full student table, search, filter
+  StudentProfile.tsx        | Admin / Teacher     | Single student deep-dive view
+  StudentPortal.tsx         | Student             | Student self-view (grades, notices)
+  TeacherPortal.tsx         | Teacher             | Classes, marks entry, schedule
+  TeacherManagement.tsx     | Admin               | Teacher CRUD, subject assignment
+  AttendanceMarker.tsx      | Teacher / Admin     | Bulk attendance marking per class
+  TimetableGenerator.tsx    | Admin               | AI timetable solver + viewer
+  ParentPortal.tsx          | Parent              | Child's progress, notices, PTM
+  AIAssistant.tsx           | All                 | Gemini AI chat interface
+
+--- 4.5 STATE MANAGEMENT ---
+
+  State is managed locally using React hooks (useState, useEffect).
+  No external state library (Redux/Zustand) is used.
+  Key states in App.tsx:
+  - isAuthenticated: boolean
+  - appState: 'portal' | 'login' | 'reset-password'
+  - selectedRole: string
+  - userRole: UserRole
+  - activeView: string (controls which component to show)
+  - isDarkMode: boolean (persisted in localStorage)
+
+--- 4.6 API COMMUNICATION ---
+
+  All API calls use the native fetch() API.
+  Base URL: http://localhost:5000/api/v1
+  Headers: Content-Type: application/json, Authorization: Bearer <token>
+
+  Token storage:
+  - accessToken  → localStorage.getItem('accessToken')
+  - refreshToken → localStorage.getItem('refreshToken')
+  - userRole     → localStorage.getItem('userRole')
+
+--- 4.7 FRONTEND FILE STRUCTURE ---
+
+  charronix-school-management (3)/
+  ├── App.tsx                   Main app component
+  ├── index.tsx                 React entry point
+  ├── index.html                HTML shell
+  ├── types.ts                  UserRole enum + TypeScript interfaces
+  ├── constants.tsx             Static data / placeholders
+  ├── vite.config.ts            Vite build configuration
+  ├── tsconfig.json             TypeScript config
+  ├── package.json              Frontend dependencies
+  ├── .env.local                Frontend env (Gemini API key)
+  ├── components/
+  │   ├── AIAssistant.tsx
+  │   ├── AttendanceMarker.tsx
+  │   ├── Dashboard.tsx
+  │   ├── Layout.tsx
+  │   ├── ParentPortal.tsx
+  │   ├── StudentList.tsx
+  │   ├── StudentPortal.tsx
+  │   ├── StudentProfile.tsx
+  │   ├── TeacherManagement.tsx
+  │   ├── TeacherPortal.tsx
+  │   └── TimetableGenerator.tsx
+  └── node_modules/
+
+--- 4.8 FRONTEND ENVIRONMENT VARIABLES ---
+
+  File: .env.local (in project root)
+  GEMINI_API_KEY=your-google-gemini-api-key
+
+================================================================================
+ 5. BACKEND — Node.js + Express + TypeScript
+================================================================================
+
+--- 5.1 ARCHITECTURE PATTERN ---
+
+  Pattern: MVC (Model-View-Controller) + Service Layer
+
+  Client (React)
+     ↓  HTTP Request
+  Express Router
+     ↓
+  Middleware (Rate Limit → CORS → Helmet → Auth → Role → Validate)
+     ↓
+  Controller (handles request, calls service)
+     ↓
+  Service Layer (business logic, cache check/set)
+     ↓
+  Prisma ORM (type-safe database queries)
+     ↓
+  PostgreSQL (data storage)
+     ↓  Response
+  ApiResponse utility (standardized JSON format)
+     ↓
+  Client
+
+--- 5.2 REQUEST PIPELINE (MIDDLEWARE STACK) ---
+
+  Order  | Middleware         | What it does
+  -------|--------------------|-------------------------------------------------
+  1      | Rate Limiter       | 100 requests per 15 minutes per IP
+  2      | CORS               | Allow: localhost:3000, localhost:5173
+  3      | Helmet             | Set security HTTP headers
+  4      | express.json()     | Parse JSON request bodies
+  5      | Morgan             | Log all HTTP requests to console
+  6      | Route Handler      | Match URL to controller
+  7      | Zod Validate       | Validate request body/params/query
+  8      | authMiddleware     | Verify JWT access token
+  9      | roleMiddleware     | Check user role has permission
+  10     | Controller         | Execute business logic
+
+  Error Handler (catch-all at end, returns structured error response)
+
+--- 5.3 ALL API MODULES & ENDPOINTS ---
+
+  Base URL: http://localhost:5000/api/v1
+
+  ── AUTH ─────────────────────────────────────────
+  POST   /auth/register           Register user (Admin only)
+  POST   /auth/login              Login → returns accessToken + refreshToken
+  POST   /auth/refresh            Refresh access token
+  POST   /auth/logout             Logout (invalidate refresh token)
+  POST   /auth/change-password    Change own password
+  POST   /auth/forgot-password    Request password reset email
+  POST   /auth/reset-password     Reset password with token
+  GET    /auth/me                 Get current user profile
+  GET    /health                  Health check (no auth)
+
+  ── STUDENTS ─────────────────────────────────────
+  GET    /students                List all (filter: class, section, status)
+  GET    /students/:id            Get student + grades + attendance
+  POST   /students                Create student (Admin)
+  PUT    /students/:id            Update student
+  DELETE /students/:id            Soft-delete (set INACTIVE)
+  GET    /students/:id/report     Generate report card
+
+  ── TEACHERS ─────────────────────────────────────
+  GET    /teachers                List all teachers
+  GET    /teachers/:id            Get teacher details
+  POST   /teachers                Create teacher (Admin)
+  PUT    /teachers/:id            Update teacher
+  DELETE /teachers/:id            Soft-delete teacher
+
+  ── ATTENDANCE ───────────────────────────────────
+  GET    /attendance              Get records (filter: date, class, section)
+  POST   /attendance/mark         Bulk mark attendance for a class
+  PUT    /attendance/:id          Update single record
+  GET    /attendance/report       Attendance summary/report
+
+  ── GRADES ───────────────────────────────────────
+  GET    /grades/:studentId       Get all grades for a student
+  POST   /grades                  Bulk add grades (by class + subject)
+  PUT    /grades/:id              Update a grade entry
+  GET    /grades/report/:class    Class-wide grade report
+
+  ── NOTICES ──────────────────────────────────────
+  GET    /notices                 List all (filter: type, target, priority)
+  GET    /notices/:id             Get notice by ID
+  POST   /notices                 Create notice (Admin/Teacher)
+  PUT    /notices/:id             Update notice
+  DELETE /notices/:id             Delete notice
+  POST   /notices/:id/send-sms    Send SMS for notice (Twilio)
+
+  ── COMPLAINTS ───────────────────────────────────
+  GET    /complaints              List (filter: student, severity, status)
+  GET    /complaints/:id          Get complaint by ID
+  POST   /complaints              File new complaint
+  PUT    /complaints/:id          Resolve / Escalate
+
+  ── MEDICAL ──────────────────────────────────────
+  GET    /medical/:studentId      Get medical record
+  POST   /medical                 Create medical record
+  PUT    /medical/:studentId      Update medical record
+
+  ── ACHIEVEMENTS ─────────────────────────────────
+  GET    /achievements/:studentId Get all achievements
+  POST   /achievements            Add achievement
+  DELETE /achievements/:id        Delete achievement
+
+  ── COMMUNICATION ────────────────────────────────
+  GET    /communication/:studentId Get communication logs
+  POST   /communication            Add communication log
+
+  ── TIMETABLE ────────────────────────────────────
+  GET    /timetable/classes        List timetable classes
+  POST   /timetable/classes        Add class
+  GET    /timetable/subjects       List subjects
+  POST   /timetable/subjects       Add subject
+  GET    /timetable/teachers       List timetable teachers
+  POST   /timetable/teachers       Add timetable teacher
+  GET    /timetable/timings        Get school timings
+  POST   /timetable/timings        Set timings
+  POST   /timetable/generate       AI timetable solver
+  GET    /timetable/active         Get active timetable
+  GET    /timetable/history        Previously generated timetables
+  PUT    /timetable/:id/activate   Set timetable as active
+
+  ── AI ASSISTANT ─────────────────────────────────
+  POST   /ai/chat                  Send message to Gemini AI
+  GET    /ai/chat/history          Get chat history for user
+
+  ── DASHBOARD ────────────────────────────────────
+  GET    /dashboard/stats          KPIs (counts, trends)
+  GET    /dashboard/recent         Recent activities
+
+  ── REPORTS ──────────────────────────────────────
+  GET    /reports/attendance       Attendance report (PDF/Excel)
+  GET    /reports/academic         Academic report (PDF/Excel)
+  GET    /reports/student/:id      Individual student report
+
+  ── ANALYTICS ────────────────────────────────────
+  GET    /analytics/overview       School-wide analytics
+  GET    /analytics/trends         Performance trends
+
+  ── NOTIFICATIONS ────────────────────────────────
+  GET    /notifications            Get user notifications
+  PUT    /notifications/:id/read   Mark as read
+  DELETE /notifications/:id        Delete notification
+
+  ── FILES ────────────────────────────────────────
+  POST   /files/upload             Upload file (Multer)
+  GET    /files/:id                Download file
+  DELETE /files/:id                Delete file
+
+  ── SETTINGS ─────────────────────────────────────
+  GET    /settings                 Get system settings
+  PUT    /settings/:key            Update a setting (Admin)
+
+  ── AUDIT LOGS ───────────────────────────────────
+  GET    /audit                    List audit log entries
+  GET    /audit/:userId            Audit trail for a user
+
+--- 5.4 CONTROLLERS & SERVICES ---
+
+  Each module follows this pattern:
+
+  routes/module.routes.ts       → URL mapping to controller methods
+  controllers/module.controller.ts → Parse request, call service, return response
+  services/module.service.ts    → Business logic, Prisma queries, cache calls
+  validators/module.validator.ts → Zod schemas for request validation
+
+  Files in backend/src/:
+
+  controllers/
+    auth.controller.ts
+    student.controller.ts
+    teacher.controller.ts
+    attendance.controller.ts
+    grade.controller.ts
+    notice.controller.ts
+    complaint.controller.ts
+    medical.controller.ts
+    achievement.controller.ts
+    communication.controller.ts
+    timetable.controller.ts
+    ai.controller.ts
+    dashboard.controller.ts
+    report.controller.ts
+    analytics.controller.ts
+    notification.controller.ts
+    file.controller.ts
+    settings.controller.ts
+    audit.controller.ts
+
+  services/
+    auth.service.ts             JWT generation, bcrypt comparison
+    student.service.ts          Student CRUD, stats, report card
+    teacher.service.ts          Teacher CRUD, class assignment
+    attendance.service.ts       Bulk marking, summary generation
+    grade.service.ts            Grade entry, GPA calculation
+    notice.service.ts           Notice CRUD, SMS trigger
+    complaint.service.ts        Complaint lifecycle
+    medical.service.ts          Health records
+    achievement.service.ts      Award tracking
+    communication.service.ts    Communication logs
+    timetable.service.ts        AI solver, schedule management
+    ai.service.ts               Google GenAI integration
+    dashboard.service.ts        Aggregated KPI queries
+    report.service.ts           PDF/Excel generation
+    analytics.service.ts        Trend analysis
+    notification.service.ts     In-app push notifications
+    file.service.ts             Multer file management
+    settings.service.ts         System settings CRUD
+    audit.service.ts            Activity trail logging
+    cache.service.ts            Redis get/set/delete/increment
+    email.service.ts            Nodemailer SMTP
+    sms.service.ts              Twilio SMS
+
+--- 5.5 VALIDATORS (ZOD SCHEMAS) ---
+
+  validators/
+    auth.validator.ts           loginSchema, registerSchema, changePasswordSchema
+    student.validator.ts        createStudentSchema, updateStudentSchema
+    teacher.validator.ts        createTeacherSchema, updateTeacherSchema
+    attendance.validator.ts     markAttendanceSchema, bulkAttendanceSchema
+    grade.validator.ts          addGradeSchema, bulkGradeSchema
+    notice.validator.ts         createNoticeSchema
+    complaint.validator.ts      fileComplaintSchema
+    medical.validator.ts        medicalRecordSchema
+    timetable.validator.ts      generateTimetableSchema
+
+--- 5.6 UTILITIES ---
+
+  utils/
+    jwt.ts          generateAccessToken(), generateRefreshToken(), verifyToken()
+    password.ts     hashPassword(), comparePassword()
+    apiResponse.ts  ApiResponse.success(), ApiResponse.error(), ApiResponse.paginated()
+    errors.ts       AppError, NotFoundError, UnauthorizedError, ForbiddenError
+    logger.ts       Winston logger (info, warn, error, debug)
+    pagination.ts   getPaginationParams(), buildPaginatedResponse()
+
+--- 5.7 BACKEND FILE STRUCTURE ---
+
+  backend/
+  ├── src/
+  │   ├── config/
+  │   │   ├── database.ts       Prisma client singleton
+  │   │   ├── env.ts            Zod environment validation
+  │   │   └── cors.ts           CORS allowed origins
+  │   ├── middleware/
+  │   │   ├── auth.ts           JWT verification middleware
+  │   │   ├── role.ts           RBAC middleware
+  │   │   ├── validate.ts       Zod request validation middleware
+  │   │   ├── errorHandler.ts   Global error handler
+  │   │   └── rateLimiter.ts    express-rate-limit config
+  │   ├── routes/               (19 route files, one per module)
+  │   ├── controllers/          (19 controller files)
+  │   ├── services/             (21 service files)
+  │   ├── validators/           (9 validator files)
+  │   ├── utils/                (6 utility files)
+  │   ├── __tests__/
+  │   │   ├── auth.test.ts
+  │   │   ├── students.test.ts
+  │   │   └── attendance.test.ts
+  │   ├── app.ts                Express app setup, middleware, routes
+  │   └── server.ts             Server entry point, DB/Redis connect
+  ├── prisma/
+  │   ├── schema.prisma         Full Prisma schema (31 models)
+  │   ├── seed.ts               Seed script for development data
+  │   └── migrations/           Auto-generated migration SQL files
+  ├── logs/                     Winston log files
+  ├── uploads/                  Multer uploaded files
+  ├── package.json
+  ├── tsconfig.json
+  ├── jest.config.js
+  ├── .eslintrc.js
+  ├── .env                      Environment variables (DO NOT commit)
+  ├── .env.example              Template for .env
+  ├── docker-compose.yml
+  └── README.md
+
+--- 5.8 BACKEND ENVIRONMENT VARIABLES ---
+
+  File: backend/.env
+
+  # Server
+  NODE_ENV=development
+  PORT=5000
+  API_VERSION=v1
+
+  # Database (PostgreSQL)
+  DATABASE_URL=postgresql://charronix_user:charronix_pass_2024@localhost:5432/charronix_db
+  DIRECT_URL=postgresql://charronix_user:charronix_pass_2024@localhost:5432/charronix_db
+
+  # Cache (Redis)
+  REDIS_URL=redis://localhost:6379
+  REDIS_ENABLED=true
+
+  # JWT Authentication
+  JWT_SECRET=charronix-super-secret-jwt-key-change-in-production-32chars
+  JWT_REFRESH_SECRET=charronix-refresh-secret-key-change-in-production-32chars
+  JWT_ACCESS_EXPIRY=15m
+  JWT_REFRESH_EXPIRY=7d
+
+  # CORS
+  FRONTEND_URL=http://localhost:3000
+  ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
+
+  # File Uploads
+  MAX_FILE_SIZE=5242880      (5 MB)
+  UPLOAD_DIR=./uploads
+  ALLOWED_FILE_TYPES=image/jpeg,image/png,image/jpg,application/pdf
+
+  # Google AI
+  GOOGLE_AI_API_KEY=         (optional)
+  GOOGLE_AI_MODEL=gemini-1.5-flash
+
+  # Twilio SMS (optional)
+  TWILIO_ENABLED=false
+  TWILIO_ACCOUNT_SID=
+  TWILIO_AUTH_TOKEN=
+  TWILIO_PHONE_NUMBER=
+
+  # Email SMTP (optional)
+  EMAIL_ENABLED=false
+  SMTP_HOST=
+  SMTP_PORT=587
+  SMTP_SECURE=false
+  SMTP_USER=
+  SMTP_PASS=
+  EMAIL_FROM=Charronix School <noreply@charronix.com>
+
+  # Security
+  RATE_LIMIT_WINDOW_MS=900000   (15 minutes)
+  RATE_LIMIT_MAX_REQUESTS=100
+  BCRYPT_ROUNDS=12
+  PASSWORD_MIN_LENGTH=8
+  MAX_LOGIN_ATTEMPTS=5
+  ACCOUNT_LOCK_DURATION_MINUTES=30
+
+  # Logging
+  LOG_LEVEL=info
+  LOG_FILE=./logs/app.log
+
+================================================================================
+ 6. DATABASE — PostgreSQL 17 + Prisma ORM
+================================================================================
+
+--- 6.1 CONNECTION DETAILS ---
+
+  Host:     localhost
+  Port:     5432
+  Database: charronix_db
+  User:     charronix_user
+  Password: charronix_pass_2024
+
+  Connect via psql:
+    psql -U charronix_user -d charronix_db
+
+  Connect via Prisma Studio:
+    cd backend && npx prisma studio
+    Opens browser at http://localhost:5555
+
+--- 6.2 ENUMS (ALL DEFINED TYPES) ---
+
+  Role:              ADMIN | PRINCIPAL | TEACHER | PARENT | STUDENT
+  StudentStatus:     ACTIVE | INACTIVE
+  AttendanceStatus:  PRESENT | ABSENT | LATE | LEAVE
+  ComplaintSeverity: LOW | MEDIUM | HIGH
+  ComplaintStatus:   OPEN | RESOLVED | ESCALATED
+  NoticeType:        GENERAL | EVENT | EXAM
+  NoticePriority:    LOW | NORMAL | HIGH | URGENT
+  CommunicationType: SMS | Call | Meeting | Portal
+  SubjectType:       core | elective | activity | language
+  NotificationType:  INFO | WARNING | SUCCESS | ERROR
+  ReportType:        ATTENDANCE | ACADEMIC | INDIVIDUAL | CUSTOM
+  SettingCategory:   SCHOOL | ACADEMIC | NOTIFICATION | SECURITY | SYSTEM
+  AuditAction:       CREATE | UPDATE | DELETE | LOGIN | LOGOUT | VIEW | EXPORT
+
+--- 6.3 ALL 31 PRISMA MODELS (TABLES) ---
+
+  #   Model Name              Key Fields
+  ----|------------------------|---------------------------------------------------
+   1  User                    id, email, passwordHash, role, isActive, lastLogin
+   2  Student                 id, userId, admissionNo, firstName, lastName,
+                              class, section, rollNo, parentName, parentPhone,
+                              attendancePercentage, status
+   3  Teacher                 id, userId, employeeId, firstName, lastName,
+                              phone, qualification, dateOfJoining, status
+   4  TeacherSubject          id, teacherId, subject
+   5  TeacherClass            id, teacherId, classSection
+   6  Attendance              id, studentId, date, status, markedById, remarks
+   7  AcademicGrade           id, studentId, subject, score, maxScore, grade,
+                              term, academicYear, enteredById
+   8  Achievement             id, studentId, title, date, category, description
+   9  Complaint               id, studentId, teacherId, description, severity,
+                              status, resolution
+  10  MedicalRecord           id, studentId, bloodGroup, allergies[],
+                              chronicConditions[], lastCheckup, emergencyContact
+  11  CommunicationLog        id, studentId, date, type, note, author
+  12  Notice                  id, title, message, target, date, type, priority,
+                              smsSent, createdById
+  13  TimetableClass          id, name
+  14  TimetableSection        id, classId, name, studentCount, roomNumber
+  15  TimetableSubject        id, name, code, type, periodsPerWeek,
+                              requiresLab, maxConsecutive
+  16  TimetableTeacher        id, teacherId, name, level, maxPeriodsPerDay,
+                              maxPeriodsPerWeek, maxConsecutive
+  17  TimetableTeacherSubject id, ttTeacherId, ttSubjectId
+  18  TimetableUnavailableSlot id, ttTeacherId, day, period
+  19  SchoolTiming            id, startTime, endTime, periodsPerDay,
+                              periodDuration, isActive
+  20  SchoolWorkingDay        id, timingId, dayName
+  21  SchoolBreak             id, timingId, name, afterPeriod, duration
+  22  GeneratedTimetable      id, score, violations[], isActive, generatedAt
+  23  TimetableEntry          id, timetableId, classId, sectionId, day, period,
+                              subjectId, teacherId
+  24  AIChatHistory           id, userId, role, message, createdAt
+  25  Report                  id, userId, type, title, parameters, filePath,
+                              generatedAt
+  26  Notification            id, userId, type, title, message, isRead
+  27  FileUpload              id, userId, filename, originalName, mimeType,
+                              size, path, uploadedAt
+  28  SystemSetting           id, key, value, category, updatedBy, updatedAt
+  29  AuditLog                id, userId, action, resource, resourceId,
+                              changes, ipAddress, createdAt
+  30  Message                 id, senderId, recipientId, subject, body, isRead
+  31  RefreshToken            id, userId, token, expiresAt, isRevoked
+
+--- 6.4 PRISMA CONFIGURATION ---
+
+  File: backend/prisma/schema.prisma
+
+  generator client {
+    provider = "prisma-client-js"
+  }
+
+  datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+  }
+
+--- 6.5 MIGRATIONS & SEEDING ---
+
+  Run migrations (create/update tables):
+    cd backend
+    npx prisma migrate dev --name <migration-name>
+    npx prisma generate
+
+  Seed database (insert test data):
+    cd backend
+    npx prisma db seed
+
+  Reset database completely:
+    npx prisma migrate reset
+
+  View database in browser (Prisma Studio):
+    npx prisma studio
+
+--- 6.6 SEED CREDENTIALS (TEST ACCOUNTS) ---
+
+  These accounts are created by prisma/seed.ts:
+
+  Role       | Login ID (Frontend) | Email                                   | Password
+  -----------|---------------------|------------------------------------------|---------------
+  Principal  | 900001              | admin@charronix.edu                     | Admin@1234
+  Teacher    | 100001              | meera.iyer@charronix.edu                | Teacher@1234
+  Teacher    | 100002              | rajesh.kumar@charronix.edu              | Teacher@1234
+  Student    | 24BIT0522           | aarav.sharma@student.charronix.edu      | Student@1234
+  Student    | 24BIT0523           | priya.patel@student.charronix.edu       | Student@1234
+  Parent     | Aarav15032008       | aarav.sharma@student.charronix.edu      | Student@1234
+
+  Note: The "Login ID" is what the user types in the frontend.
+        The frontend maps it to the email before calling the backend API.
+
+================================================================================
+ 7. CACHING — Redis
+================================================================================
+
+--- 7.1 CONNECTION DETAILS ---
+
+  Host:       localhost
+  Port:       6379
+  Max Memory: 100 MB (maxmemory 100mb)
+  Installed:  Windows Redis (tporadowski/redis v5.x)
+  Service:    Runs as a Windows Service (auto-start)
+
+--- 7.2 CACHE STRATEGY ---
+
+  What is cached:
+  ─────────────────────────────────────────────────────
+  Dashboard KPIs          TTL: 1 hour
+  School settings         TTL: 6 hours
+  Active timetable        TTL: 1 hour
+  Notice lists            TTL: 30 minutes
+  Rate limit counters     TTL: 15 minutes (per IP)
+  Blacklisted JWT tokens  TTL: Until token expiry
+
+  Key naming convention: resource:id:field
+  Example: student:uuid:grades, dashboard:stats
+
+--- 7.3 CACHE CONFIGURATION IN CODE ---
+
+  File: backend/src/services/cache.service.ts
+  Methods:
+    cache.get<T>(key)             → T | null
+    cache.set(key, value, ttl)    → void
+    cache.delete(key)             → void
+    cache.deletePattern(pattern)  → void (bulk invalidation)
+    cache.exists(key)             → boolean
+    cache.increment(key, ttl)     → number (for rate limiting)
+    cache.getClient()             → Redis instance
+
+  Connection is wrapped in retryStrategy (exponential backoff).
+  If Redis is unavailable, all cache methods return null/false gracefully.
+
+================================================================================
+ 8. AUTHENTICATION & AUTHORIZATION
+================================================================================
+
+--- 8.1 JWT TOKEN FLOW ---
+
+  1. User logs in → POST /api/v1/auth/login { email, password }
+  2. Backend verifies password with bcrypt
+  3. Backend generates:
+       accessToken  (JWT, 15 minute expiry)
+       refreshToken (JWT, 7 day expiry)
+  4. Frontend stores both in localStorage
+  5. All protected requests include: Authorization: Bearer <accessToken>
+  6. When access token expires → POST /auth/refresh with refreshToken
+  7. Logout → refreshToken blacklisted in Redis
+
+  JWT Payload:
+    { userId, email, role, iat, exp }
+
+--- 8.2 ROLE-BASED ACCESS CONTROL (RBAC) ---
+
+  Resource      | ADMIN | PRINCIPAL | TEACHER  | PARENT   | STUDENT
+  --------------|-------|-----------|----------|----------|----------
+  Students      | CRUD  | Read      | Read Own | Read Own | Read Self
+  Teachers      | CRUD  | Read      | Read Own | None     | None
+  Attendance    | CRUD  | Read      | Create   | Read Own | Read Self
+  Grades        | CRUD  | Read      | Create   | Read Own | Read Self
+  Notices       | CRUD  | CRUD      | Create   | Read     | Read
+  Complaints    | CRUD  | Read      | Create   | Create   | Create
+  Medical       | CRUD  | Read      | Read     | Read Own | Read Self
+  Timetable     | CRUD  | Read      | Read     | Read     | Read
+  Reports       | CRUD  | Read      | Read Own | None     | None
+  Settings      | CRUD  | Read      | None     | None     | None
+  Audit Logs    | Read  | None      | None     | None     | None
+  AI Assistant  | Yes   | Yes       | Yes      | Yes      | Yes
+
+--- 8.3 LOGIN ID FORMAT PER ROLE ---
+
+  (See Section 4.3 for full details)
+
+  Student:    2 digits + 3 letters + 4 digits   24BIT0522
+  Teacher:    6 digits                           100001
+  Principal:  6 digits                           900001
+  Parent:     FirstName + DDMMYYYY               Aarav15032008
+
+================================================================================
+ 9. EXTERNAL SERVICES
+================================================================================
+
+--- 9.1 GOOGLE GEMINI AI ---
+
+  Package:    @google/genai
+  Model:      gemini-1.5-flash (configurable via env)
+  Key:        GOOGLE_AI_API_KEY (set in .env.local for frontend, .env for backend)
+  Used by:    AIAssistant.tsx (frontend) + ai.service.ts (backend)
+  Features:
+    - AI chat assistant for all user roles
+    - Natural language school queries
+    - Report generation assistance
+    - AI-powered timetable suggestions
+
+--- 9.2 TWILIO SMS (OPTIONAL) ---
+
+  TWILIO_ENABLED=false (by default)
+  When enabled: sends SMS for notices, attendance alerts, exam reminders
+  Triggered by: POST /notices/:id/send-sms
+
+--- 9.3 SMTP EMAIL (OPTIONAL) ---
+
+  EMAIL_ENABLED=false (by default)
+  When enabled: sends emails for password reset, notice announcements
+  Triggered by: forgot-password, send-email-notification
+
+================================================================================
+10. RUNNING THE APPLICATION
+================================================================================
+
+--- 10.1 PREREQUISITES ---
+
+  Required:
+  ✅ Node.js v20 LTS          (node -v)
+  ✅ npm v10+                 (npm -v)
+  ✅ PostgreSQL 17             (port 5432, running as Windows Service)
+  ✅ Redis 5.x                (port 6379, running as Windows Service)
+
+  Database credentials:
+  ✅ charronix_db exists
+  ✅ charronix_user exists with full permissions
+  ✅ Migrations run (all 31 tables created)
+  ✅ Seed data loaded
+
+--- 10.2 STARTING THE APPLICATION ---
+
+  Start Frontend (Terminal 1):
+    cd "charronix-school-management (3)"
+    npm run dev
+    → Opens at http://localhost:3000
+
+  Start Backend (Terminal 2):
+    cd "charronix-school-management (3)/backend"
+    npm run dev
+    → Listens at http://localhost:5000
+
+  Verify everything is running:
+    Health check: http://localhost:5000/health
+    Expected: { "status": "ok", "environment": "development" }
+
+--- 10.3 STOPPING THE APPLICATION ---
+
+  Press Ctrl+C in each terminal to stop the servers.
+  PostgreSQL and Redis continue running as Windows Services.
+
+================================================================================
+11. PORT REFERENCE
+================================================================================
+
+  Port  | Service              | Status
+  ------|----------------------|--------
+  3000  | Frontend (Vite)      | Started manually via npm run dev
+  5000  | Backend (Express)    | Started manually via npm run dev
+  5173  | Frontend (alt Vite)  | Sometimes used by Vite as fallback
+  5432  | PostgreSQL           | Windows Service (auto-start)
+  5555  | Prisma Studio        | Started manually via npx prisma studio
+  6379  | Redis                | Windows Service (auto-start)
+
+================================================================================
+12. FILE & FOLDER STRUCTURE (COMPLETE)
+================================================================================
+
+  charronix-school-management (3)/
+  │
+  ├── ── FRONTEND FILES ──
+  ├── App.tsx                    Main app (portal, login, routing)
+  ├── index.tsx                  React DOM entry
+  ├── index.html                 HTML shell
+  ├── types.ts                   TypeScript types (UserRole, interfaces)
+  ├── constants.tsx              Static data
+  ├── vite.config.ts             Vite config (port 3000)
+  ├── tsconfig.json              Root TypeScript config
+  ├── package.json               Frontend deps (React, Vite, Lucide, etc.)
+  ├── package-lock.json
+  ├── .env.local                 GEMINI_API_KEY
+  ├── .gitignore
+  │
+  ├── components/
+  │   ├── AIAssistant.tsx        Gemini AI chat UI
+  │   ├── AttendanceMarker.tsx   Bulk attendance marking
+  │   ├── Dashboard.tsx          Admin/Principal KPI dashboard
+  │   ├── Layout.tsx             App shell (header, sidebar, nav)
+  │   ├── ParentPortal.tsx       Parent view (child progress)
+  │   ├── StudentList.tsx        Full student table
+  │   ├── StudentPortal.tsx      Student self-view
+  │   ├── StudentProfile.tsx     Single student deep-dive
+  │   ├── TeacherManagement.tsx  Admin teacher CRUD
+  │   ├── TeacherPortal.tsx      Teacher class management
+  │   └── TimetableGenerator.tsx AI timetable solver
+  │
+  ├── ── BACKEND ──
+  ├── backend/
+  │   ├── src/
+  │   │   ├── config/
+  │   │   │   ├── database.ts
+  │   │   │   ├── env.ts
+  │   │   │   └── cors.ts
+  │   │   ├── middleware/
+  │   │   │   ├── auth.ts
+  │   │   │   ├── role.ts
+  │   │   │   ├── validate.ts
+  │   │   │   ├── errorHandler.ts
+  │   │   │   └── rateLimiter.ts
+  │   │   ├── routes/            (19 files)
+  │   │   ├── controllers/       (19 files)
+  │   │   ├── services/          (21 files)
+  │   │   ├── validators/        (9 files)
+  │   │   ├── utils/             (6 files)
+  │   │   ├── __tests__/         (3 test files)
+  │   │   ├── app.ts
+  │   │   └── server.ts
+  │   ├── prisma/
+  │   │   ├── schema.prisma      31 models
+  │   │   ├── seed.ts
+  │   │   └── migrations/
+  │   ├── logs/                  Winston log output
+  │   ├── uploads/               Multer uploaded files
+  │   ├── package.json
+  │   ├── tsconfig.json
+  │   ├── jest.config.js
+  │   ├── .eslintrc.js
+  │   ├── .env                   All backend secrets
+  │   ├── .env.example
+  │   ├── docker-compose.yml
+  │   └── README.md
+  │
+  ├── ── DOCS ──
+  ├── BACKEND_DATABASE_DEVELOPMENT.txt    Original backend guide
+  ├── CHARRONIX_FULLSTACK_BACKEND_GUIDE.txt
+  ├── CHARRONIX_FULLSTACK_COMPLETE_GUIDE.txt  ← THIS FILE
+  │
+  ├── ── IDE CONFIG ──
+  ├── .vscode/
+  │   └── settings.json          typescript.tsdk → backend TS, ESLint config
+  └── charronix.code-workspace   VS Code workspace file
+
+================================================================================
+13. DEPLOYMENT GUIDE
+================================================================================
+
+  Option A: Local (Current — Development)
+    → Run both npm run dev servers (see Section 10)
+
+  Option B: Railway / Render (Easiest Cloud)
+    1. Push code to GitHub
+    2. Connect repo to Railway.app or Render.com
+    3. Add PostgreSQL + Redis as services
+    4. Set all environment variables
+    5. Auto-deploys on git push to main branch
+
+  Option C: Docker (Recommended for Production)
+
+    docker-compose.yml:
+      version: '3.8'
+      services:
+        db:
+          image: postgres:17
+          environment:
+            POSTGRES_DB: charronix_db
+            POSTGRES_USER: charronix_user
+            POSTGRES_PASSWORD: charronix_pass_2024
+          ports:
+            - "5432:5432"
+          volumes:
+            - pgdata:/var/lib/postgresql/data
+
+        redis:
+          image: redis:7
+          ports:
+            - "6379:6379"
+          command: redis-server --maxmemory 100mb
+
+        backend:
+          build: ./backend
+          ports:
+            - "5000:5000"
+          depends_on:
+            - db
+            - redis
+          env_file: ./backend/.env
+
+        frontend:
+          build: .
+          ports:
+            - "3000:3000"
+          depends_on:
+            - backend
+
+      volumes:
+        pgdata:
+
+    Run:
+      docker-compose up -d
+
+  Option D: VPS (DigitalOcean / AWS EC2)
+    1. Install Node.js 20, PostgreSQL 17, Redis, Nginx
+    2. Clone repo on server
+    3. Run backend with PM2: pm2 start dist/server.js
+    4. Configure Nginx as reverse proxy on port 80/443
+    5. Set up SSL with Let's Encrypt (certbot)
+    6. Build frontend: npm run build → serve with Nginx
+
+================================================================================
+14. FUTURE ENHANCEMENTS
+================================================================================
+
+  Short-term (Phase 2):
+  [ ] Connect all frontend portals to real backend API endpoints
+      (StudentPortal, TeacherPortal, ParentPortal still use mock data)
+  [ ] Add Prisma Studio for admin DB viewing
+  [ ] Add API documentation with Swagger UI
+  [ ] Implement password reset via email (SMTP)
+  [ ] Add student photo upload (Multer + file storage)
+
+  Medium-term (Phase 3):
+  [ ] Fee Management (payments, receipts, dues, Razorpay integration)
+  [ ] Library Management (book inventory, issue/return)
+  [ ] Exam / Hall Ticket Management
+  [ ] Real-time notifications (Socket.io / WebSocket)
+  [ ] Bulk import (CSV upload for students and teachers)
+  [ ] WhatsApp integration via Twilio WhatsApp API
+  [ ] PWA (Progressive Web App) support
+
+  Long-term (Phase 4):
+  [ ] React Native mobile app (Android + iOS) for parents
+  [ ] Biometric attendance integration
+  [ ] Advanced analytics (ML-based performance predictions)
+  [ ] Multi-school / multi-branch support
+  [ ] Custom report builder (drag-and-drop)
+  [ ] Video conferencing integration (Jitsi / Zoom API)
+
+================================================================================
+                     END OF CHARRONIX FULL-STACK GUIDE
+                       Version 2.0 | February 2026
+================================================================================

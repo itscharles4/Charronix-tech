@@ -1,0 +1,7 @@
+{
+  "name": "Charronix School Management",
+  "description": "A comprehensive, mobile-first school management platform designed for Indian schools to streamline attendance, communication, and reporting.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,133 @@
+=== USERS (All Accounts) ===
+  Role: ADMIN        Email: admin@charronix.edu  Active: true
+  Role: TEACHER      Email: rajesh.kumar@charronix.edu  Active: true
+  Role: TEACHER      Email: meera.iyer@charronix.edu  Active: true
+  Role: STUDENT      Email: priya.patel@student.charronix.edu  Active: true
+  Role: STUDENT      Email: aarav.sharma@student.charronix.edu  Active: true
+
+=== STUDENTS ===
+  Name:          Aarav Sharma
+  Admission No:  ADM2024001
+  Frontend ID:   24BIT0522
+  Class/Section: 10-A  Roll No: 1
+  Date of Birth: 2008-03-15
+  Gender:        MALE
+  Blood Group:   B+
+  Status:        ACTIVE
+  Attendance:    94% (Present: 94, Absent: 6)
+  Parent Name:   Rajesh Sharma
+  Parent Phone:  9876543210
+  Parent Email:  rajesh.sharma@gmail.com
+  Allergies:     Peanuts
+  Conditions:    None
+  Last Checkup:  2025-11-15
+  Achievements:
+    - [Academic] Science Olympiad Gold (2025-01-15)
+    - [Sports] Chess Champion (2024-11-20)
+  Login Email:   aarav.sharma@student.charronix.edu
+  Password:      Student@1234
+  ─────────────────────────────────────────────
+  Name:          Priya Patel
+  Admission No:  ADM2024002
+  Frontend ID:   24BIT0523
+  Class/Section: 10-A  Roll No: 2
+  Date of Birth: 2008-07-22
+  Gender:        FEMALE
+  Blood Group:   O+
+  Status:        ACTIVE
+  Attendance:    98% (Present: 98, Absent: 2)
+  Parent Name:   Suresh Patel
+  Parent Phone:  9876543213
+  Parent Email:  suresh.patel@gmail.com
+  Allergies:     None
+  Conditions:    None
+  Last Checkup:  2025-10-10
+  Login Email:   priya.patel@student.charronix.edu
+  Password:      Student@1234
+  ─────────────────────────────────────────────
+
+=== TEACHERS ===
+  Name:           Meera Iyer
+  Employee ID:    EMP001
+  Frontend ID:    100001
+  Email:          meera.iyer@charronix.edu
+  Phone:          9876543211
+  Qualification:  M.Sc Mathematics
+  Date of Joining:2020-06-01
+  Class Teacher of: 10-A
+  Subjects:       Mathematics, Physics
+  Classes:        10-A, 10-B
+  Status:         ACTIVE
+  Login Email:    meera.iyer@charronix.edu
+  Password:       Teacher@1234
+  ─────────────────────────────────────────────
+  Name:           Rajesh Kumar
+  Employee ID:    EMP002
+  Frontend ID:    100002
+  Email:          rajesh.kumar@charronix.edu
+  Phone:          9876543212
+  Qualification:  M.A English
+  Date of Joining:2019-07-15
+  Class Teacher of: N/A
+  Subjects:       English, Social Studies
+  Classes:        10-A, 9-A
+  Status:         ACTIVE
+  Login Email:    rajesh.kumar@charronix.edu
+  Password:       Teacher@1234
+  ─────────────────────────────────────────────
+
+=== PRINCIPAL / ADMIN ===
+  Role:           ADMIN (acts as Principal)
+  Email:          admin@charronix.edu
+  Frontend ID:    900001
+  Password:       Admin@1234
+  Active:         true
+
+=== PARENTS (linked via student records) ===
+  Parent of:     Aarav Sharma (ADM2024001)
+  Parent Name:   Rajesh Sharma
+  Parent Phone:  9876543210
+  Parent Email:  rajesh.sharma@gmail.com
+  Frontend ID:   Aarav03150808
+  Login Email:   aarav.sharma@student.charronix.edu
+  Password:      Student@1234
+  ─────────────────────────────────────────────
+  Parent of:     Priya Patel (ADM2024002)
+  Parent Name:   Suresh Patel
+  Parent Phone:  9876543213
+  Parent Email:  suresh.patel@gmail.com
+  Frontend ID:   Priya07220808
+  Login Email:   priya.patel@student.charronix.edu
+  Password:      Student@1234
+  ─────────────────────────────────────────────
+
+=== ACADEMIC GRADES ===
+  Aarav Sharma         | Mathematics     | 92/100 | Grade: A+ | Term 1 2024-25
+  Aarav Sharma         | Physics         | 88/100 | Grade: A | Term 1 2024-25
+  Aarav Sharma         | English         | 85/100 | Grade: A | Term 1 2024-25
+  Aarav Sharma         | Social Studies  | 78/100 | Grade: B+ | Term 1 2024-25
+  Priya Patel          | Mathematics     | 96/100 | Grade: A+ | Term 1 2024-25
+  Priya Patel          | English         | 94/100 | Grade: A+ | Term 1 2024-25
+
+=== NOTICES ===
+  [HIGH] Annual Sports Day
+    Type: EVENT  Target: ALL
+    Message: Annual Sports Day will be held on March 15th. All students must participate....
+  [URGENT] Term 2 Examinations
+    Type: EXAM  Target: STUDENTS
+    Message: Term 2 examinations will commence from April 1st. Timetable attached....
+  [NORMAL] Parent-Teacher Meeting
+    Type: GENERAL  Target: PARENTS
+    Message: PTM scheduled for February 28th from 9 AM to 1 PM....
+
+=== ATTENDANCE (Last 7 days sample) ===
+  Aarav Sharma: 2026-02-12:ABSENT  2026-02-13:PRESENT  2026-02-14:PRESENT  2026-02-15:ABSENT  2026-02-16:PRESENT  2026-02-17:PRESENT  2026-02-18:PRESENT
+  Priya Patel: 2026-02-12:PRESENT  2026-02-13:PRESENT  2026-02-14:PRESENT  2026-02-15:PRESENT  2026-02-16:PRESENT  2026-02-17:PRESENT  2026-02-18:PRESENT
+
+=== SYSTEM SETTINGS ===
+  [SCHOOL] school_name = Charronix International School
+  [SCHOOL] school_address = 123 Education Lane, Knowledge City
+  [SCHOOL] school_phone = +91-9876543200
+  [SCHOOL] school_email = info@charronix.edu
+  [SCHOOL] academic_year = 2024-25
+  [SCHOOL] attendance_threshold = 75

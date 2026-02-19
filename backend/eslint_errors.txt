@@ -1,0 +1,113 @@
+﻿
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\__tests__\auth.test.ts
+  0:0  error  Parsing error: ESLint was configured to run on `<tsconfigRootDir>/src\__tests__\auth.test.ts` using `parserOptions.project`: <tsconfigRootDir>/tsconfig.json
+However, that TSConfig does not include this file. Either:
+- Change ESLint's list of included files to not include this file
+- Change that TSConfig to include this file
+- Create a new TSConfig that includes this file and include it in your parserOptions.project
+See the typescript-eslint docs for more info: https://typescript-eslint.io/troubleshooting/typed-linting#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\__tests__\students.test.ts
+  0:0  error  Parsing error: ESLint was configured to run on `<tsconfigRootDir>/src\__tests__\students.test.ts` using `parserOptions.project`: <tsconfigRootDir>/tsconfig.json
+However, that TSConfig does not include this file. Either:
+- Change ESLint's list of included files to not include this file
+- Change that TSConfig to include this file
+- Create a new TSConfig that includes this file and include it in your parserOptions.project
+See the typescript-eslint docs for more info: https://typescript-eslint.io/troubleshooting/typed-linting#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\config\database.ts
+  21:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  21:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\config\env.ts
+  47:5  warning  Unexpected console statement  no-console
+  48:5  warning  Unexpected console statement  no-console
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\controllers\auth.controller.ts
+   4:36  warning  'sendError' is defined but never used  @typescript-eslint/no-unused-vars
+  41:50  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+  51:46  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+  60:60  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+  69:45  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+  78:49  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+  88:49  warning  Forbidden non-null assertion           @typescript-eslint/no-non-null-assertion
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\middleware\auth.ts
+  44:19  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\middleware\errorHandler.ts
+  34:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\middleware\validate.ts
+  3:10  warning  'sendError' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\ai.routes.ts
+   5:24  warning  'Request' is defined but never used       @typescript-eslint/no-unused-vars
+  23:30  warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+  30:29  warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+  56:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  63:29  warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+  75:30  warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+  86:66  warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\analytics.routes.ts
+   26:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   40:53  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   80:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   96:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  110:58  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\attendance.routes.ts
+  31:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\audit.routes.ts
+  16:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  18:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\grade.routes.ts
+  27:74  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\notice.routes.ts
+  16:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\notification.routes.ts
+  19:34  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  23:58  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  33:49  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+  44:30  warning  Forbidden non-null assertion  @typescript-eslint/no-non-null-assertion
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\routes\teacher.routes.ts
+  4:10  warning  'requireTeacherOrAbove' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\services\attendance.service.ts
+   6:26  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  11:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:65  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  62:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  64:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  95:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\services\auth.service.ts
+   4:10  warning  'AppError' is defined but never used      @typescript-eslint/no-unused-vars
+  32:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\services\student.service.ts
+   7:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  11:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:40  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  86:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\services\teacher.service.ts
+   6:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  10:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  44:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  61:36  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\CHARLESJK\OneDrive\Documents\Rani_charonix\charronix-school-management (3)\backend\src\utils\jwt.ts
+  17:45  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  23:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+Γ£û 58 problems (2 errors, 56 warnings)
+
