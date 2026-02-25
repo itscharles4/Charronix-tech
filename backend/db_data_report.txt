@@ -1,133 +1,2118 @@
-=== USERS (All Accounts) ===
-  Role: ADMIN        Email: admin@charronix.edu  Active: true
-  Role: TEACHER      Email: rajesh.kumar@charronix.edu  Active: true
-  Role: TEACHER      Email: meera.iyer@charronix.edu  Active: true
-  Role: STUDENT      Email: priya.patel@student.charronix.edu  Active: true
-  Role: STUDENT      Email: aarav.sharma@student.charronix.edu  Active: true
+=== CHARRONIX EXHAUSTIVE DATABASE REPORT ===
+Generated: 2026-02-21T03:22:51.923Z
 
-=== STUDENTS ===
-  Name:          Aarav Sharma
-  Admission No:  ADM2024001
-  Frontend ID:   24BIT0522
-  Class/Section: 10-A  Roll No: 1
-  Date of Birth: 2008-03-15
-  Gender:        MALE
-  Blood Group:   B+
-  Status:        ACTIVE
-  Attendance:    94% (Present: 94, Absent: 6)
-  Parent Name:   Rajesh Sharma
-  Parent Phone:  9876543210
-  Parent Email:  rajesh.sharma@gmail.com
-  Allergies:     Peanuts
-  Conditions:    None
-  Last Checkup:  2025-11-15
-  Achievements:
-    - [Academic] Science Olympiad Gold (2025-01-15)
-    - [Sports] Chess Champion (2024-11-20)
-  Login Email:   aarav.sharma@student.charronix.edu
-  Password:      Student@1234
-  ─────────────────────────────────────────────
-  Name:          Priya Patel
-  Admission No:  ADM2024002
-  Frontend ID:   24BIT0523
-  Class/Section: 10-A  Roll No: 2
-  Date of Birth: 2008-07-22
-  Gender:        FEMALE
-  Blood Group:   O+
-  Status:        ACTIVE
-  Attendance:    98% (Present: 98, Absent: 2)
-  Parent Name:   Suresh Patel
-  Parent Phone:  9876543213
-  Parent Email:  suresh.patel@gmail.com
-  Allergies:     None
-  Conditions:    None
-  Last Checkup:  2025-10-10
-  Login Email:   priya.patel@student.charronix.edu
-  Password:      Student@1234
-  ─────────────────────────────────────────────
+[SUMMARY]
+Total Users: 131
+Total Students: 100
+Total Teachers: 30
+Total Attendance Records: 50
+Total Academic Grades: 30
+Total Notices: 2
+Total System Settings: 2
 
-=== TEACHERS ===
+============================================
+I. PRINCIPAL / ADMIN ACCOUNTS
+============================================
+  Email:          admin@charronix.edu
+  Frontend ID:    900001
+  Role:           ADMIN
+  Active:         true
+  Created:        2026-02-21T03:22:49.295Z
+--------------------------------------------
+
+============================================
+II. TEACHER RECORDS (Total: 30)
+============================================
+[1] Teacher Profile:
   Name:           Meera Iyer
   Employee ID:    EMP001
   Frontend ID:    100001
-  Email:          meera.iyer@charronix.edu
+  Email:          meera.iyer1@charronix.edu
   Phone:          9876543211
-  Qualification:  M.Sc Mathematics
-  Date of Joining:2020-06-01
-  Class Teacher of: 10-A
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-01
+  Class Teacher:  10-A
   Subjects:       Mathematics, Physics
   Classes:        10-A, 10-B
   Status:         ACTIVE
-  Login Email:    meera.iyer@charronix.edu
-  Password:       Teacher@1234
-  ─────────────────────────────────────────────
+--------------------------------------------
+[2] Teacher Profile:
   Name:           Rajesh Kumar
   Employee ID:    EMP002
   Frontend ID:    100002
-  Email:          rajesh.kumar@charronix.edu
+  Email:          rajesh.kumar2@charronix.edu
   Phone:          9876543212
-  Qualification:  M.A English
-  Date of Joining:2019-07-15
-  Class Teacher of: N/A
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-02
+  Class Teacher:  None
   Subjects:       English, Social Studies
   Classes:        10-A, 9-A
   Status:         ACTIVE
-  Login Email:    rajesh.kumar@charronix.edu
-  Password:       Teacher@1234
-  ─────────────────────────────────────────────
+--------------------------------------------
+[3] Teacher Profile:
+  Name:           Sunita Iyer
+  Employee ID:    EMP003
+  Frontend ID:    100003
+  Email:          sunita.iyer3@charronix.edu
+  Phone:          9876504003
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-03
+  Class Teacher:  None
+  Subjects:       Chemistry, Biology
+  Classes:        10-B
+  Status:         ACTIVE
+--------------------------------------------
+[4] Teacher Profile:
+  Name:           Karan Kumar
+  Employee ID:    EMP004
+  Frontend ID:    100004
+  Email:          karan.kumar4@charronix.edu
+  Phone:          9876504004
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-04
+  Class Teacher:  None
+  Subjects:       Biology, English
+  Classes:        11-A
+  Status:         ACTIVE
+--------------------------------------------
+[5] Teacher Profile:
+  Name:           Deepa Singh
+  Employee ID:    EMP005
+  Frontend ID:    100005
+  Email:          deepa.singh5@charronix.edu
+  Phone:          9876504005
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-05
+  Class Teacher:  None
+  Subjects:       English, History
+  Classes:        12-B
+  Status:         ACTIVE
+--------------------------------------------
+[6] Teacher Profile:
+  Name:           Sanjay Gupta
+  Employee ID:    EMP006
+  Frontend ID:    100006
+  Email:          sanjay.gupta6@charronix.edu
+  Phone:          9876504006
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-06
+  Class Teacher:  None
+  Subjects:       History, Geography
+  Classes:        7-A
+  Status:         ACTIVE
+--------------------------------------------
+[7] Teacher Profile:
+  Name:           Neha Rao
+  Employee ID:    EMP007
+  Frontend ID:    100007
+  Email:          neha.rao7@charronix.edu
+  Phone:          9876504007
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-07
+  Class Teacher:  None
+  Subjects:       Geography, Computer Science
+  Classes:        8-B
+  Status:         ACTIVE
+--------------------------------------------
+[8] Teacher Profile:
+  Name:           Amit Mehta
+  Employee ID:    EMP008
+  Frontend ID:    100008
+  Email:          amit.mehta8@charronix.edu
+  Phone:          9876504008
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-08
+  Class Teacher:  None
+  Subjects:       Computer Science, Art
+  Classes:        9-A
+  Status:         ACTIVE
+--------------------------------------------
+[9] Teacher Profile:
+  Name:           Renu Joshi
+  Employee ID:    EMP009
+  Frontend ID:    100009
+  Email:          renu.joshi9@charronix.edu
+  Phone:          9876504009
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-09
+  Class Teacher:  None
+  Subjects:       Art, Physical Education
+  Classes:        10-B
+  Status:         ACTIVE
+--------------------------------------------
+[10] Teacher Profile:
+  Name:           Harish Bose
+  Employee ID:    EMP010
+  Frontend ID:    100010
+  Email:          harish.bose10@charronix.edu
+  Phone:          9876504010
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-10
+  Class Teacher:  None
+  Subjects:       Physical Education, Economics
+  Classes:        11-A
+  Status:         ACTIVE
+--------------------------------------------
+[11] Teacher Profile:
+  Name:           Priya Chatterjee
+  Employee ID:    EMP011
+  Frontend ID:    100011
+  Email:          priya.chatterjee11@charronix.edu
+  Phone:          9876504011
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-11
+  Class Teacher:  None
+  Subjects:       Economics, Accountancy
+  Classes:        12-B
+  Status:         ACTIVE
+--------------------------------------------
+[12] Teacher Profile:
+  Name:           Rohit Nair
+  Employee ID:    EMP012
+  Frontend ID:    100012
+  Email:          rohit.nair12@charronix.edu
+  Phone:          9876504012
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-12
+  Class Teacher:  None
+  Subjects:       Accountancy, Mathematics
+  Classes:        7-A
+  Status:         ACTIVE
+--------------------------------------------
+[13] Teacher Profile:
+  Name:           Suresh Khan
+  Employee ID:    EMP013
+  Frontend ID:    100013
+  Email:          suresh.khan13@charronix.edu
+  Phone:          9876504013
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-13
+  Class Teacher:  None
+  Subjects:       Mathematics, Physics
+  Classes:        8-B
+  Status:         ACTIVE
+--------------------------------------------
+[14] Teacher Profile:
+  Name:           Meena Desai
+  Employee ID:    EMP014
+  Frontend ID:    100014
+  Email:          meena.desai14@charronix.edu
+  Phone:          9876504014
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-14
+  Class Teacher:  None
+  Subjects:       Physics, Chemistry
+  Classes:        9-A
+  Status:         ACTIVE
+--------------------------------------------
+[15] Teacher Profile:
+  Name:           Varun Menon
+  Employee ID:    EMP015
+  Frontend ID:    100015
+  Email:          varun.menon15@charronix.edu
+  Phone:          9876504015
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-15
+  Class Teacher:  None
+  Subjects:       Chemistry, Biology
+  Classes:        10-B
+  Status:         ACTIVE
+--------------------------------------------
+[16] Teacher Profile:
+  Name:           Rakesh Sharma
+  Employee ID:    EMP016
+  Frontend ID:    100016
+  Email:          rakesh.sharma16@charronix.edu
+  Phone:          9876504016
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-16
+  Class Teacher:  None
+  Subjects:       Biology, English
+  Classes:        11-A
+  Status:         ACTIVE
+--------------------------------------------
+[17] Teacher Profile:
+  Name:           Shreya Patel
+  Employee ID:    EMP017
+  Frontend ID:    100017
+  Email:          shreya.patel17@charronix.edu
+  Phone:          9876504017
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-17
+  Class Teacher:  None
+  Subjects:       English, History
+  Classes:        12-B
+  Status:         ACTIVE
+--------------------------------------------
+[18] Teacher Profile:
+  Name:           Kabir Iyer
+  Employee ID:    EMP018
+  Frontend ID:    100018
+  Email:          kabir.iyer18@charronix.edu
+  Phone:          9876504018
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-18
+  Class Teacher:  None
+  Subjects:       History, Geography
+  Classes:        7-A
+  Status:         ACTIVE
+--------------------------------------------
+[19] Teacher Profile:
+  Name:           Lata Kumar
+  Employee ID:    EMP019
+  Frontend ID:    100019
+  Email:          lata.kumar19@charronix.edu
+  Phone:          9876504019
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-19
+  Class Teacher:  None
+  Subjects:       Geography, Computer Science
+  Classes:        8-B
+  Status:         ACTIVE
+--------------------------------------------
+[20] Teacher Profile:
+  Name:           Manish Singh
+  Employee ID:    EMP020
+  Frontend ID:    100020
+  Email:          manish.singh20@charronix.edu
+  Phone:          9876504020
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-20
+  Class Teacher:  None
+  Subjects:       Computer Science, Art
+  Classes:        9-A
+  Status:         ACTIVE
+--------------------------------------------
+[21] Teacher Profile:
+  Name:           Rekha Gupta
+  Employee ID:    EMP021
+  Frontend ID:    100021
+  Email:          rekha.gupta21@charronix.edu
+  Phone:          9876504021
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-21
+  Class Teacher:  None
+  Subjects:       Art, Physical Education
+  Classes:        10-B
+  Status:         ACTIVE
+--------------------------------------------
+[22] Teacher Profile:
+  Name:           Gopal Rao
+  Employee ID:    EMP022
+  Frontend ID:    100022
+  Email:          gopal.rao22@charronix.edu
+  Phone:          9876504022
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-22
+  Class Teacher:  None
+  Subjects:       Physical Education, Economics
+  Classes:        11-A
+  Status:         ACTIVE
+--------------------------------------------
+[23] Teacher Profile:
+  Name:           Kavita Mehta
+  Employee ID:    EMP023
+  Frontend ID:    100023
+  Email:          kavita.mehta23@charronix.edu
+  Phone:          9876504023
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-23
+  Class Teacher:  None
+  Subjects:       Economics, Accountancy
+  Classes:        12-B
+  Status:         ACTIVE
+--------------------------------------------
+[24] Teacher Profile:
+  Name:           Nisha Joshi
+  Employee ID:    EMP024
+  Frontend ID:    100024
+  Email:          nisha.joshi24@charronix.edu
+  Phone:          9876504024
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-24
+  Class Teacher:  None
+  Subjects:       Accountancy, Mathematics
+  Classes:        7-A
+  Status:         ACTIVE
+--------------------------------------------
+[25] Teacher Profile:
+  Name:           Dev Bose
+  Employee ID:    EMP025
+  Frontend ID:    100025
+  Email:          dev.bose25@charronix.edu
+  Phone:          9876504025
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-25
+  Class Teacher:  None
+  Subjects:       Mathematics, Physics
+  Classes:        8-B
+  Status:         ACTIVE
+--------------------------------------------
+[26] Teacher Profile:
+  Name:           Ritu Chatterjee
+  Employee ID:    EMP026
+  Frontend ID:    100026
+  Email:          ritu.chatterjee26@charronix.edu
+  Phone:          9876504026
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-26
+  Class Teacher:  None
+  Subjects:       Physics, Chemistry
+  Classes:        9-A
+  Status:         ACTIVE
+--------------------------------------------
+[27] Teacher Profile:
+  Name:           Arjun Nair
+  Employee ID:    EMP027
+  Frontend ID:    100027
+  Email:          arjun.nair27@charronix.edu
+  Phone:          9876504027
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-27
+  Class Teacher:  None
+  Subjects:       Chemistry, Biology
+  Classes:        10-B
+  Status:         ACTIVE
+--------------------------------------------
+[28] Teacher Profile:
+  Name:           Sonia Khan
+  Employee ID:    EMP028
+  Frontend ID:    100028
+  Email:          sonia.khan28@charronix.edu
+  Phone:          9876504028
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-28
+  Class Teacher:  None
+  Subjects:       Biology, English
+  Classes:        11-A
+  Status:         ACTIVE
+--------------------------------------------
+[29] Teacher Profile:
+  Name:           Pooja Desai
+  Employee ID:    EMP029
+  Frontend ID:    100029
+  Email:          pooja.desai29@charronix.edu
+  Phone:          9876504029
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-29
+  Class Teacher:  None
+  Subjects:       English, History
+  Classes:        12-B
+  Status:         ACTIVE
+--------------------------------------------
+[30] Teacher Profile:
+  Name:           Nitin Menon
+  Employee ID:    EMP030
+  Frontend ID:    100030
+  Email:          nitin.menon30@charronix.edu
+  Phone:          9876504030
+  Qualification:  M.A / M.Sc
+  Joining Date:   2018-01-30
+  Class Teacher:  None
+  Subjects:       History, Geography
+  Classes:        7-A
+  Status:         ACTIVE
+--------------------------------------------
 
-=== PRINCIPAL / ADMIN ===
-  Role:           ADMIN (acts as Principal)
-  Email:          admin@charronix.edu
-  Frontend ID:    900001
-  Password:       Admin@1234
-  Active:         true
+============================================
+III. STUDENT RECORDS (Total: 100)
+============================================
+[1] Student Profile:
+  Name:           Rahul Khan
+  Admission No:   ADM2024522
+  Frontend ID:    24BIT0522
+  Email:          rahul.khan522@student.charronix.edu
+  Class/Section:  1-A
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505522
+  Parent Email:   parent.rahul522@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[2] Student Profile:
+  Name:           Arjun Nair
+  Admission No:   ADM2024523
+  Frontend ID:    24BIT0523
+  Email:          arjun.nair523@student.charronix.edu
+  Class/Section:  1-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505523
+  Parent Email:   parent.arjun523@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[3] Student Profile:
+  Name:           Aarav Mehta
+  Admission No:   ADM2024524
+  Frontend ID:    24BIT0524
+  Email:          aarav.mehta524@student.charronix.edu
+  Class/Section:  1-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505524
+  Parent Email:   parent.aarav524@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[4] Student Profile:
+  Name:           Rahul Iyer
+  Admission No:   ADM2024525
+  Frontend ID:    24BIT0525
+  Email:          rahul.iyer525@student.charronix.edu
+  Class/Section:  1-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505525
+  Parent Email:   parent.rahul525@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[5] Student Profile:
+  Name:           Priya Sharma
+  Admission No:   ADM2024526
+  Frontend ID:    24BIT0526
+  Email:          priya.sharma526@student.charronix.edu
+  Class/Section:  1-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505526
+  Parent Email:   parent.priya526@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[6] Student Profile:
+  Name:           Tara Singh
+  Admission No:   ADM2024527
+  Frontend ID:    24BIT0527
+  Email:          tara.singh527@student.charronix.edu
+  Class/Section:  1-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Singh Parents
+  Parent Phone:   9876505527
+  Parent Email:   parent.tara527@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[7] Student Profile:
+  Name:           Nisha Sharma
+  Admission No:   ADM2024528
+  Frontend ID:    24BIT0528
+  Email:          nisha.sharma528@student.charronix.edu
+  Class/Section:  1-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505528
+  Parent Email:   parent.nisha528@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[8] Student Profile:
+  Name:           Maya Verma
+  Admission No:   ADM2024529
+  Frontend ID:    24BIT0529
+  Email:          maya.verma529@student.charronix.edu
+  Class/Section:  1-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505529
+  Parent Email:   parent.maya529@example.com
+  Blood Group:    N/A
+  Attendance:     93% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[9] Student Profile:
+  Name:           Neha Nair
+  Admission No:   ADM2024530
+  Frontend ID:    24BIT0530
+  Email:          neha.nair530@student.charronix.edu
+  Class/Section:  1-B
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505530
+  Parent Email:   parent.neha530@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[10] Student Profile:
+  Name:           Ananya Nair
+  Admission No:   ADM2024531
+  Frontend ID:    24BIT0531
+  Email:          ananya.nair531@student.charronix.edu
+  Class/Section:  1-B
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505531
+  Parent Email:   parent.ananya531@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[11] Student Profile:
+  Name:           Ananya Gupta
+  Admission No:   ADM2024532
+  Frontend ID:    24BIT0532
+  Email:          ananya.gupta532@student.charronix.edu
+  Class/Section:  2-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505532
+  Parent Email:   parent.ananya532@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[12] Student Profile:
+  Name:           Soham Nair
+  Admission No:   ADM2024533
+  Frontend ID:    24BIT0533
+  Email:          soham.nair533@student.charronix.edu
+  Class/Section:  2-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505533
+  Parent Email:   parent.soham533@example.com
+  Blood Group:    N/A
+  Attendance:     93% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[13] Student Profile:
+  Name:           Neha Khan
+  Admission No:   ADM2024534
+  Frontend ID:    24BIT0534
+  Email:          neha.khan534@student.charronix.edu
+  Class/Section:  2-A
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505534
+  Parent Email:   parent.neha534@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[14] Student Profile:
+  Name:           Ritu Rao
+  Admission No:   ADM2024535
+  Frontend ID:    24BIT0535
+  Email:          ritu.rao535@student.charronix.edu
+  Class/Section:  2-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505535
+  Parent Email:   parent.ritu535@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[15] Student Profile:
+  Name:           Kunal Gupta
+  Admission No:   ADM2024536
+  Frontend ID:    24BIT0536
+  Email:          kunal.gupta536@student.charronix.edu
+  Class/Section:  2-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505536
+  Parent Email:   parent.kunal536@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[16] Student Profile:
+  Name:           Tanvi Kumar
+  Admission No:   ADM2024537
+  Frontend ID:    24BIT0537
+  Email:          tanvi.kumar537@student.charronix.edu
+  Class/Section:  2-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505537
+  Parent Email:   parent.tanvi537@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[17] Student Profile:
+  Name:           Ananya Iyer
+  Admission No:   ADM2024538
+  Frontend ID:    24BIT0538
+  Email:          ananya.iyer538@student.charronix.edu
+  Class/Section:  2-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505538
+  Parent Email:   parent.ananya538@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[18] Student Profile:
+  Name:           Diya Verma
+  Admission No:   ADM2024539
+  Frontend ID:    24BIT0539
+  Email:          diya.verma539@student.charronix.edu
+  Class/Section:  2-B
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505539
+  Parent Email:   parent.diya539@example.com
+  Blood Group:    N/A
+  Attendance:     95% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[19] Student Profile:
+  Name:           Tara Joshi
+  Admission No:   ADM2024540
+  Frontend ID:    24BIT0540
+  Email:          tara.joshi540@student.charronix.edu
+  Class/Section:  2-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505540
+  Parent Email:   parent.tara540@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[20] Student Profile:
+  Name:           Priya Patel
+  Admission No:   ADM2024541
+  Frontend ID:    24BIT0541
+  Email:          priya.patel541@student.charronix.edu
+  Class/Section:  2-B
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505541
+  Parent Email:   parent.priya541@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[21] Student Profile:
+  Name:           Tanvi Kumar
+  Admission No:   ADM2024542
+  Frontend ID:    24BIT0542
+  Email:          tanvi.kumar542@student.charronix.edu
+  Class/Section:  3-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505542
+  Parent Email:   parent.tanvi542@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[22] Student Profile:
+  Name:           Aarav Nair
+  Admission No:   ADM2024543
+  Frontend ID:    24BIT0543
+  Email:          aarav.nair543@student.charronix.edu
+  Class/Section:  3-A
+  Roll No:        2
+  Gender:         MALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505543
+  Parent Email:   parent.aarav543@example.com
+  Blood Group:    N/A
+  Attendance:     85% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[23] Student Profile:
+  Name:           Ananya Kumar
+  Admission No:   ADM2024544
+  Frontend ID:    24BIT0544
+  Email:          ananya.kumar544@student.charronix.edu
+  Class/Section:  3-A
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505544
+  Parent Email:   parent.ananya544@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[24] Student Profile:
+  Name:           Vikram Rao
+  Admission No:   ADM2024545
+  Frontend ID:    24BIT0545
+  Email:          vikram.rao545@student.charronix.edu
+  Class/Section:  3-A
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505545
+  Parent Email:   parent.vikram545@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[25] Student Profile:
+  Name:           Arjun Gupta
+  Admission No:   ADM2024546
+  Frontend ID:    24BIT0546
+  Email:          arjun.gupta546@student.charronix.edu
+  Class/Section:  3-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505546
+  Parent Email:   parent.arjun546@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[26] Student Profile:
+  Name:           Kunal Joshi
+  Admission No:   ADM2024547
+  Frontend ID:    24BIT0547
+  Email:          kunal.joshi547@student.charronix.edu
+  Class/Section:  3-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505547
+  Parent Email:   parent.kunal547@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[27] Student Profile:
+  Name:           Aarav Nair
+  Admission No:   ADM2024548
+  Frontend ID:    24BIT0548
+  Email:          aarav.nair548@student.charronix.edu
+  Class/Section:  3-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505548
+  Parent Email:   parent.aarav548@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[28] Student Profile:
+  Name:           Karan Kumar
+  Admission No:   ADM2024549
+  Frontend ID:    24BIT0549
+  Email:          karan.kumar549@student.charronix.edu
+  Class/Section:  3-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505549
+  Parent Email:   parent.karan549@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[29] Student Profile:
+  Name:           Vikram Verma
+  Admission No:   ADM2024550
+  Frontend ID:    24BIT0550
+  Email:          vikram.verma550@student.charronix.edu
+  Class/Section:  3-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505550
+  Parent Email:   parent.vikram550@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[30] Student Profile:
+  Name:           Tanvi Rao
+  Admission No:   ADM2024551
+  Frontend ID:    24BIT0551
+  Email:          tanvi.rao551@student.charronix.edu
+  Class/Section:  3-B
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505551
+  Parent Email:   parent.tanvi551@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[31] Student Profile:
+  Name:           Vikram Patel
+  Admission No:   ADM2024552
+  Frontend ID:    24BIT0552
+  Email:          vikram.patel552@student.charronix.edu
+  Class/Section:  4-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505552
+  Parent Email:   parent.vikram552@example.com
+  Blood Group:    N/A
+  Attendance:     99% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[32] Student Profile:
+  Name:           Simran Mehta
+  Admission No:   ADM2024553
+  Frontend ID:    24BIT0553
+  Email:          simran.mehta553@student.charronix.edu
+  Class/Section:  4-A
+  Roll No:        2
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505553
+  Parent Email:   parent.simran553@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[33] Student Profile:
+  Name:           Diya Kumar
+  Admission No:   ADM2024554
+  Frontend ID:    24BIT0554
+  Email:          diya.kumar554@student.charronix.edu
+  Class/Section:  4-A
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505554
+  Parent Email:   parent.diya554@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[34] Student Profile:
+  Name:           Aarav Khan
+  Admission No:   ADM2024555
+  Frontend ID:    24BIT0555
+  Email:          aarav.khan555@student.charronix.edu
+  Class/Section:  4-A
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505555
+  Parent Email:   parent.aarav555@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[35] Student Profile:
+  Name:           Imran Patel
+  Admission No:   ADM2024556
+  Frontend ID:    24BIT0556
+  Email:          imran.patel556@student.charronix.edu
+  Class/Section:  4-A
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505556
+  Parent Email:   parent.imran556@example.com
+  Blood Group:    N/A
+  Attendance:     95% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[36] Student Profile:
+  Name:           Isha Khan
+  Admission No:   ADM2024557
+  Frontend ID:    24BIT0557
+  Email:          isha.khan557@student.charronix.edu
+  Class/Section:  4-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505557
+  Parent Email:   parent.isha557@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[37] Student Profile:
+  Name:           Rohan Patel
+  Admission No:   ADM2024558
+  Frontend ID:    24BIT0558
+  Email:          rohan.patel558@student.charronix.edu
+  Class/Section:  4-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505558
+  Parent Email:   parent.rohan558@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[38] Student Profile:
+  Name:           Rohan Verma
+  Admission No:   ADM2024559
+  Frontend ID:    24BIT0559
+  Email:          rohan.verma559@student.charronix.edu
+  Class/Section:  4-B
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505559
+  Parent Email:   parent.rohan559@example.com
+  Blood Group:    N/A
+  Attendance:     99% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[39] Student Profile:
+  Name:           Ananya Sharma
+  Admission No:   ADM2024560
+  Frontend ID:    24BIT0560
+  Email:          ananya.sharma560@student.charronix.edu
+  Class/Section:  4-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505560
+  Parent Email:   parent.ananya560@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[40] Student Profile:
+  Name:           Neha Mehta
+  Admission No:   ADM2024561
+  Frontend ID:    24BIT0561
+  Email:          neha.mehta561@student.charronix.edu
+  Class/Section:  4-B
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505561
+  Parent Email:   parent.neha561@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[41] Student Profile:
+  Name:           Soham Gupta
+  Admission No:   ADM2024562
+  Frontend ID:    24BIT0562
+  Email:          soham.gupta562@student.charronix.edu
+  Class/Section:  5-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505562
+  Parent Email:   parent.soham562@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[42] Student Profile:
+  Name:           Simran Gupta
+  Admission No:   ADM2024563
+  Frontend ID:    24BIT0563
+  Email:          simran.gupta563@student.charronix.edu
+  Class/Section:  5-A
+  Roll No:        2
+  Gender:         MALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505563
+  Parent Email:   parent.simran563@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[43] Student Profile:
+  Name:           Ritu Desai
+  Admission No:   ADM2024564
+  Frontend ID:    24BIT0564
+  Email:          ritu.desai564@student.charronix.edu
+  Class/Section:  5-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Desai Parents
+  Parent Phone:   9876505564
+  Parent Email:   parent.ritu564@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[44] Student Profile:
+  Name:           Tanvi Sharma
+  Admission No:   ADM2024565
+  Frontend ID:    24BIT0565
+  Email:          tanvi.sharma565@student.charronix.edu
+  Class/Section:  5-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505565
+  Parent Email:   parent.tanvi565@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[45] Student Profile:
+  Name:           Neha Verma
+  Admission No:   ADM2024566
+  Frontend ID:    24BIT0566
+  Email:          neha.verma566@student.charronix.edu
+  Class/Section:  5-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505566
+  Parent Email:   parent.neha566@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[46] Student Profile:
+  Name:           Kunal Joshi
+  Admission No:   ADM2024567
+  Frontend ID:    24BIT0567
+  Email:          kunal.joshi567@student.charronix.edu
+  Class/Section:  5-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505567
+  Parent Email:   parent.kunal567@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[47] Student Profile:
+  Name:           Isha Rao
+  Admission No:   ADM2024568
+  Frontend ID:    24BIT0568
+  Email:          isha.rao568@student.charronix.edu
+  Class/Section:  5-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505568
+  Parent Email:   parent.isha568@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[48] Student Profile:
+  Name:           Ravi Verma
+  Admission No:   ADM2024569
+  Frontend ID:    24BIT0569
+  Email:          ravi.verma569@student.charronix.edu
+  Class/Section:  5-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505569
+  Parent Email:   parent.ravi569@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[49] Student Profile:
+  Name:           Nisha Rao
+  Admission No:   ADM2024570
+  Frontend ID:    24BIT0570
+  Email:          nisha.rao570@student.charronix.edu
+  Class/Section:  5-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505570
+  Parent Email:   parent.nisha570@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[50] Student Profile:
+  Name:           Manav Singh
+  Admission No:   ADM2024571
+  Frontend ID:    24BIT0571
+  Email:          manav.singh571@student.charronix.edu
+  Class/Section:  5-B
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Singh Parents
+  Parent Phone:   9876505571
+  Parent Email:   parent.manav571@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[51] Student Profile:
+  Name:           Rahul Patel
+  Admission No:   ADM2024572
+  Frontend ID:    24BIT0572
+  Email:          rahul.patel572@student.charronix.edu
+  Class/Section:  6-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505572
+  Parent Email:   parent.rahul572@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[52] Student Profile:
+  Name:           Soham Sharma
+  Admission No:   ADM2024573
+  Frontend ID:    24BIT0573
+  Email:          soham.sharma573@student.charronix.edu
+  Class/Section:  6-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505573
+  Parent Email:   parent.soham573@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[53] Student Profile:
+  Name:           Priya Iyer
+  Admission No:   ADM2024574
+  Frontend ID:    24BIT0574
+  Email:          priya.iyer574@student.charronix.edu
+  Class/Section:  6-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505574
+  Parent Email:   parent.priya574@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[54] Student Profile:
+  Name:           Kunal Rao
+  Admission No:   ADM2024575
+  Frontend ID:    24BIT0575
+  Email:          kunal.rao575@student.charronix.edu
+  Class/Section:  6-A
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505575
+  Parent Email:   parent.kunal575@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[55] Student Profile:
+  Name:           Sanya Sharma
+  Admission No:   ADM2024576
+  Frontend ID:    24BIT0576
+  Email:          sanya.sharma576@student.charronix.edu
+  Class/Section:  6-A
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505576
+  Parent Email:   parent.sanya576@example.com
+  Blood Group:    N/A
+  Attendance:     85% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[56] Student Profile:
+  Name:           Kunal Iyer
+  Admission No:   ADM2024577
+  Frontend ID:    24BIT0577
+  Email:          kunal.iyer577@student.charronix.edu
+  Class/Section:  6-B
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505577
+  Parent Email:   parent.kunal577@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[57] Student Profile:
+  Name:           Ved Joshi
+  Admission No:   ADM2024578
+  Frontend ID:    24BIT0578
+  Email:          ved.joshi578@student.charronix.edu
+  Class/Section:  6-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505578
+  Parent Email:   parent.ved578@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[58] Student Profile:
+  Name:           Rohan Mehta
+  Admission No:   ADM2024579
+  Frontend ID:    24BIT0579
+  Email:          rohan.mehta579@student.charronix.edu
+  Class/Section:  6-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505579
+  Parent Email:   parent.rohan579@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[59] Student Profile:
+  Name:           Isha Iyer
+  Admission No:   ADM2024580
+  Frontend ID:    24BIT0580
+  Email:          isha.iyer580@student.charronix.edu
+  Class/Section:  6-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505580
+  Parent Email:   parent.isha580@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[60] Student Profile:
+  Name:           Rahul Kumar
+  Admission No:   ADM2024581
+  Frontend ID:    24BIT0581
+  Email:          rahul.kumar581@student.charronix.edu
+  Class/Section:  6-B
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505581
+  Parent Email:   parent.rahul581@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[61] Student Profile:
+  Name:           Nisha Iyer
+  Admission No:   ADM2024582
+  Frontend ID:    24BIT0582
+  Email:          nisha.iyer582@student.charronix.edu
+  Class/Section:  7-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505582
+  Parent Email:   parent.nisha582@example.com
+  Blood Group:    N/A
+  Attendance:     95% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[62] Student Profile:
+  Name:           Diya Khan
+  Admission No:   ADM2024583
+  Frontend ID:    24BIT0583
+  Email:          diya.khan583@student.charronix.edu
+  Class/Section:  7-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505583
+  Parent Email:   parent.diya583@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[63] Student Profile:
+  Name:           Maya Iyer
+  Admission No:   ADM2024584
+  Frontend ID:    24BIT0584
+  Email:          maya.iyer584@student.charronix.edu
+  Class/Section:  7-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505584
+  Parent Email:   parent.maya584@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[64] Student Profile:
+  Name:           Kabir Sharma
+  Admission No:   ADM2024585
+  Frontend ID:    24BIT0585
+  Email:          kabir.sharma585@student.charronix.edu
+  Class/Section:  7-A
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505585
+  Parent Email:   parent.kabir585@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[65] Student Profile:
+  Name:           Vikram Kumar
+  Admission No:   ADM2024586
+  Frontend ID:    24BIT0586
+  Email:          vikram.kumar586@student.charronix.edu
+  Class/Section:  7-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505586
+  Parent Email:   parent.vikram586@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[66] Student Profile:
+  Name:           Vikram Nair
+  Admission No:   ADM2024587
+  Frontend ID:    24BIT0587
+  Email:          vikram.nair587@student.charronix.edu
+  Class/Section:  7-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505587
+  Parent Email:   parent.vikram587@example.com
+  Blood Group:    N/A
+  Attendance:     95% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[67] Student Profile:
+  Name:           Soham Nair
+  Admission No:   ADM2024588
+  Frontend ID:    24BIT0588
+  Email:          soham.nair588@student.charronix.edu
+  Class/Section:  7-B
+  Roll No:        2
+  Gender:         MALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505588
+  Parent Email:   parent.soham588@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[68] Student Profile:
+  Name:           Diya Khan
+  Admission No:   ADM2024589
+  Frontend ID:    24BIT0589
+  Email:          diya.khan589@student.charronix.edu
+  Class/Section:  7-B
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505589
+  Parent Email:   parent.diya589@example.com
+  Blood Group:    N/A
+  Attendance:     94% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[69] Student Profile:
+  Name:           Ananya Kumar
+  Admission No:   ADM2024590
+  Frontend ID:    24BIT0590
+  Email:          ananya.kumar590@student.charronix.edu
+  Class/Section:  7-B
+  Roll No:        4
+  Gender:         MALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505590
+  Parent Email:   parent.ananya590@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[70] Student Profile:
+  Name:           Arjun Kumar
+  Admission No:   ADM2024591
+  Frontend ID:    24BIT0591
+  Email:          arjun.kumar591@student.charronix.edu
+  Class/Section:  7-B
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505591
+  Parent Email:   parent.arjun591@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[71] Student Profile:
+  Name:           Aarav Sharma
+  Admission No:   ADM2024592
+  Frontend ID:    24BIT0592
+  Email:          aarav.sharma592@student.charronix.edu
+  Class/Section:  8-A
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505592
+  Parent Email:   parent.aarav592@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[72] Student Profile:
+  Name:           Neha Sharma
+  Admission No:   ADM2024593
+  Frontend ID:    24BIT0593
+  Email:          neha.sharma593@student.charronix.edu
+  Class/Section:  8-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505593
+  Parent Email:   parent.neha593@example.com
+  Blood Group:    N/A
+  Attendance:     85% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[73] Student Profile:
+  Name:           Sanya Mehta
+  Admission No:   ADM2024594
+  Frontend ID:    24BIT0594
+  Email:          sanya.mehta594@student.charronix.edu
+  Class/Section:  8-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505594
+  Parent Email:   parent.sanya594@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[74] Student Profile:
+  Name:           Diya Iyer
+  Admission No:   ADM2024595
+  Frontend ID:    24BIT0595
+  Email:          diya.iyer595@student.charronix.edu
+  Class/Section:  8-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505595
+  Parent Email:   parent.diya595@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[75] Student Profile:
+  Name:           Simran Khan
+  Admission No:   ADM2024596
+  Frontend ID:    24BIT0596
+  Email:          simran.khan596@student.charronix.edu
+  Class/Section:  8-A
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505596
+  Parent Email:   parent.simran596@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[76] Student Profile:
+  Name:           Ritu Verma
+  Admission No:   ADM2024597
+  Frontend ID:    24BIT0597
+  Email:          ritu.verma597@student.charronix.edu
+  Class/Section:  8-B
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505597
+  Parent Email:   parent.ritu597@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[77] Student Profile:
+  Name:           Isha Iyer
+  Admission No:   ADM2024598
+  Frontend ID:    24BIT0598
+  Email:          isha.iyer598@student.charronix.edu
+  Class/Section:  8-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505598
+  Parent Email:   parent.isha598@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[78] Student Profile:
+  Name:           Kunal Kumar
+  Admission No:   ADM2024599
+  Frontend ID:    24BIT0599
+  Email:          kunal.kumar599@student.charronix.edu
+  Class/Section:  8-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Kumar Parents
+  Parent Phone:   9876505599
+  Parent Email:   parent.kunal599@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[79] Student Profile:
+  Name:           Karan Patel
+  Admission No:   ADM2024600
+  Frontend ID:    24BIT0600
+  Email:          karan.patel600@student.charronix.edu
+  Class/Section:  8-B
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505600
+  Parent Email:   parent.karan600@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[80] Student Profile:
+  Name:           Imran Iyer
+  Admission No:   ADM2024601
+  Frontend ID:    24BIT0601
+  Email:          imran.iyer601@student.charronix.edu
+  Class/Section:  8-B
+  Roll No:        5
+  Gender:         FEMALE
+  Parent Name:    Iyer Parents
+  Parent Phone:   9876505601
+  Parent Email:   parent.imran601@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[81] Student Profile:
+  Name:           Priya Joshi
+  Admission No:   ADM2024602
+  Frontend ID:    24BIT0602
+  Email:          priya.joshi602@student.charronix.edu
+  Class/Section:  9-A
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505602
+  Parent Email:   parent.priya602@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[82] Student Profile:
+  Name:           Diya Khan
+  Admission No:   ADM2024603
+  Frontend ID:    24BIT0603
+  Email:          diya.khan603@student.charronix.edu
+  Class/Section:  9-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505603
+  Parent Email:   parent.diya603@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[83] Student Profile:
+  Name:           Priya Gupta
+  Admission No:   ADM2024604
+  Frontend ID:    24BIT0604
+  Email:          priya.gupta604@student.charronix.edu
+  Class/Section:  9-A
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505604
+  Parent Email:   parent.priya604@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[84] Student Profile:
+  Name:           Diya Khan
+  Admission No:   ADM2024605
+  Frontend ID:    24BIT0605
+  Email:          diya.khan605@student.charronix.edu
+  Class/Section:  9-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505605
+  Parent Email:   parent.diya605@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[85] Student Profile:
+  Name:           Tanvi Patel
+  Admission No:   ADM2024606
+  Frontend ID:    24BIT0606
+  Email:          tanvi.patel606@student.charronix.edu
+  Class/Section:  9-A
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505606
+  Parent Email:   parent.tanvi606@example.com
+  Blood Group:    N/A
+  Attendance:     95% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[86] Student Profile:
+  Name:           Nisha Gupta
+  Admission No:   ADM2024607
+  Frontend ID:    24BIT0607
+  Email:          nisha.gupta607@student.charronix.edu
+  Class/Section:  9-B
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Gupta Parents
+  Parent Phone:   9876505607
+  Parent Email:   parent.nisha607@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
+[87] Student Profile:
+  Name:           Diya Patel
+  Admission No:   ADM2024608
+  Frontend ID:    24BIT0608
+  Email:          diya.patel608@student.charronix.edu
+  Class/Section:  9-B
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505608
+  Parent Email:   parent.diya608@example.com
+  Blood Group:    N/A
+  Attendance:     89% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[88] Student Profile:
+  Name:           Maya Nair
+  Admission No:   ADM2024609
+  Frontend ID:    24BIT0609
+  Email:          maya.nair609@student.charronix.edu
+  Class/Section:  9-B
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Nair Parents
+  Parent Phone:   9876505609
+  Parent Email:   parent.maya609@example.com
+  Blood Group:    N/A
+  Attendance:     92% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[89] Student Profile:
+  Name:           Maya Rao
+  Admission No:   ADM2024610
+  Frontend ID:    24BIT0610
+  Email:          maya.rao610@student.charronix.edu
+  Class/Section:  9-B
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Rao Parents
+  Parent Phone:   9876505610
+  Parent Email:   parent.maya610@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[90] Student Profile:
+  Name:           Ved Joshi
+  Admission No:   ADM2024611
+  Frontend ID:    24BIT0611
+  Email:          ved.joshi611@student.charronix.edu
+  Class/Section:  9-B
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505611
+  Parent Email:   parent.ved611@example.com
+  Blood Group:    N/A
+  Attendance:     88% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=B+, Allergies=None
+--------------------------------------------
+[91] Student Profile:
+  Name:           Isha Singh
+  Admission No:   ADM2024612
+  Frontend ID:    24BIT0612
+  Email:          isha.singh612@student.charronix.edu
+  Class/Section:  10-A
+  Roll No:        1
+  Gender:         MALE
+  Parent Name:    Singh Parents
+  Parent Phone:   9876505612
+  Parent Email:   parent.isha612@example.com
+  Blood Group:    N/A
+  Attendance:     91% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[92] Student Profile:
+  Name:           Kunal Desai
+  Admission No:   ADM2024613
+  Frontend ID:    24BIT0613
+  Email:          kunal.desai613@student.charronix.edu
+  Class/Section:  10-A
+  Roll No:        2
+  Gender:         FEMALE
+  Parent Name:    Desai Parents
+  Parent Phone:   9876505613
+  Parent Email:   parent.kunal613@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[93] Student Profile:
+  Name:           Rohan Verma
+  Admission No:   ADM2024614
+  Frontend ID:    24BIT0614
+  Email:          rohan.verma614@student.charronix.edu
+  Class/Section:  10-A
+  Roll No:        3
+  Gender:         MALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505614
+  Parent Email:   parent.rohan614@example.com
+  Blood Group:    N/A
+  Attendance:     90% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[94] Student Profile:
+  Name:           Priya Patel
+  Admission No:   ADM2024615
+  Frontend ID:    24BIT0615
+  Email:          priya.patel615@student.charronix.edu
+  Class/Section:  10-A
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Patel Parents
+  Parent Phone:   9876505615
+  Parent Email:   parent.priya615@example.com
+  Blood Group:    N/A
+  Attendance:     97% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[95] Student Profile:
+  Name:           Neha Joshi
+  Admission No:   ADM2024616
+  Frontend ID:    24BIT0616
+  Email:          neha.joshi616@student.charronix.edu
+  Class/Section:  10-A
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Joshi Parents
+  Parent Phone:   9876505616
+  Parent Email:   parent.neha616@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[96] Student Profile:
+  Name:           Tara Desai
+  Admission No:   ADM2024617
+  Frontend ID:    24BIT0617
+  Email:          tara.desai617@student.charronix.edu
+  Class/Section:  10-B
+  Roll No:        1
+  Gender:         FEMALE
+  Parent Name:    Desai Parents
+  Parent Phone:   9876505617
+  Parent Email:   parent.tara617@example.com
+  Blood Group:    N/A
+  Attendance:     86% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[97] Student Profile:
+  Name:           Priya Mehta
+  Admission No:   ADM2024618
+  Frontend ID:    24BIT0618
+  Email:          priya.mehta618@student.charronix.edu
+  Class/Section:  10-B
+  Roll No:        2
+  Gender:         MALE
+  Parent Name:    Mehta Parents
+  Parent Phone:   9876505618
+  Parent Email:   parent.priya618@example.com
+  Blood Group:    N/A
+  Attendance:     96% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[98] Student Profile:
+  Name:           Rohan Sharma
+  Admission No:   ADM2024619
+  Frontend ID:    24BIT0619
+  Email:          rohan.sharma619@student.charronix.edu
+  Class/Section:  10-B
+  Roll No:        3
+  Gender:         FEMALE
+  Parent Name:    Sharma Parents
+  Parent Phone:   9876505619
+  Parent Email:   parent.rohan619@example.com
+  Blood Group:    N/A
+  Attendance:     98% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=AB+, Allergies=None
+--------------------------------------------
+[99] Student Profile:
+  Name:           Tanvi Verma
+  Admission No:   ADM2024620
+  Frontend ID:    24BIT0620
+  Email:          tanvi.verma620@student.charronix.edu
+  Class/Section:  10-B
+  Roll No:        4
+  Gender:         FEMALE
+  Parent Name:    Verma Parents
+  Parent Phone:   9876505620
+  Parent Email:   parent.tanvi620@example.com
+  Blood Group:    N/A
+  Attendance:     99% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=O+, Allergies=None
+--------------------------------------------
+[100] Student Profile:
+  Name:           Maya Khan
+  Admission No:   ADM2024621
+  Frontend ID:    24BIT0621
+  Email:          maya.khan621@student.charronix.edu
+  Class/Section:  10-B
+  Roll No:        5
+  Gender:         MALE
+  Parent Name:    Khan Parents
+  Parent Phone:   9876505621
+  Parent Email:   parent.maya621@example.com
+  Blood Group:    N/A
+  Attendance:     87% (Pres: 180, Abs: 20)
+  Status:         ACTIVE
+  Medical Info:   Blood=A+, Allergies=None
+--------------------------------------------
 
-=== PARENTS (linked via student records) ===
-  Parent of:     Aarav Sharma (ADM2024001)
-  Parent Name:   Rajesh Sharma
-  Parent Phone:  9876543210
-  Parent Email:  rajesh.sharma@gmail.com
-  Frontend ID:   Aarav03150808
-  Login Email:   aarav.sharma@student.charronix.edu
-  Password:      Student@1234
-  ─────────────────────────────────────────────
-  Parent of:     Priya Patel (ADM2024002)
-  Parent Name:   Suresh Patel
-  Parent Phone:  9876543213
-  Parent Email:  suresh.patel@gmail.com
-  Frontend ID:   Priya07220808
-  Login Email:   priya.patel@student.charronix.edu
-  Password:      Student@1234
-  ─────────────────────────────────────────────
+============================================
+IV. ATTENDANCE LOGS (Total: 50)
+============================================
+[1] 2026-02-21 | Student: Vikram Patel (ADM2024552) | Status: PRESENT | Marked By: Karan
+[2] 2026-02-21 | Student: Isha Iyer (ADM2024580) | Status: PRESENT | Marked By: Sunita
+[3] 2026-02-21 | Student: Tanvi Kumar (ADM2024537) | Status: PRESENT | Marked By: Neha
+[4] 2026-02-21 | Student: Rahul Patel (ADM2024572) | Status: PRESENT | Marked By: Meera
+[5] 2026-02-21 | Student: Maya Khan (ADM2024621) | Status: PRESENT | Marked By: Neha
+[6] 2026-02-21 | Student: Manav Singh (ADM2024571) | Status: PRESENT | Marked By: Neha
+[7] 2026-02-21 | Student: Priya Gupta (ADM2024604) | Status: PRESENT | Marked By: Meera
+[8] 2026-02-21 | Student: Maya Nair (ADM2024609) | Status: ABSENT | Marked By: Meera
+[9] 2026-02-21 | Student: Priya Joshi (ADM2024602) | Status: PRESENT | Marked By: Sunita
+[10] 2026-02-21 | Student: Ananya Iyer (ADM2024538) | Status: PRESENT | Marked By: Neha
+[11] 2026-02-20 | Student: Manav Singh (ADM2024571) | Status: PRESENT | Marked By: Neha
+[12] 2026-02-20 | Student: Priya Gupta (ADM2024604) | Status: PRESENT | Marked By: Sunita
+[13] 2026-02-20 | Student: Vikram Patel (ADM2024552) | Status: PRESENT | Marked By: Sunita
+[14] 2026-02-20 | Student: Tanvi Kumar (ADM2024537) | Status: ABSENT | Marked By: Meera
+[15] 2026-02-20 | Student: Ananya Iyer (ADM2024538) | Status: PRESENT | Marked By: Rohit
+[16] 2026-02-20 | Student: Priya Joshi (ADM2024602) | Status: PRESENT | Marked By: Rohit
+[17] 2026-02-20 | Student: Maya Nair (ADM2024609) | Status: PRESENT | Marked By: Sunita
+[18] 2026-02-20 | Student: Maya Khan (ADM2024621) | Status: PRESENT | Marked By: Sunita
+[19] 2026-02-20 | Student: Rahul Patel (ADM2024572) | Status: PRESENT | Marked By: Sunita
+[20] 2026-02-20 | Student: Isha Iyer (ADM2024580) | Status: PRESENT | Marked By: Karan
+[21] 2026-02-19 | Student: Priya Joshi (ADM2024602) | Status: PRESENT | Marked By: Rohit
+[22] 2026-02-19 | Student: Rahul Patel (ADM2024572) | Status: PRESENT | Marked By: Meera
+[23] 2026-02-19 | Student: Vikram Patel (ADM2024552) | Status: PRESENT | Marked By: Rohit
+[24] 2026-02-19 | Student: Tanvi Kumar (ADM2024537) | Status: PRESENT | Marked By: Meera
+[25] 2026-02-19 | Student: Manav Singh (ADM2024571) | Status: PRESENT | Marked By: Rohit
+[26] 2026-02-19 | Student: Ananya Iyer (ADM2024538) | Status: ABSENT | Marked By: Meera
+[27] 2026-02-19 | Student: Maya Nair (ADM2024609) | Status: PRESENT | Marked By: Rohit
+[28] 2026-02-19 | Student: Priya Gupta (ADM2024604) | Status: ABSENT | Marked By: Sunita
+[29] 2026-02-19 | Student: Isha Iyer (ADM2024580) | Status: PRESENT | Marked By: Karan
+[30] 2026-02-19 | Student: Maya Khan (ADM2024621) | Status: PRESENT | Marked By: Rohit
+[31] 2026-02-18 | Student: Manav Singh (ADM2024571) | Status: ABSENT | Marked By: Meera
+[32] 2026-02-18 | Student: Isha Iyer (ADM2024580) | Status: PRESENT | Marked By: Sunita
+[33] 2026-02-18 | Student: Priya Gupta (ADM2024604) | Status: PRESENT | Marked By: Rohit
+[34] 2026-02-18 | Student: Vikram Patel (ADM2024552) | Status: ABSENT | Marked By: Neha
+[35] 2026-02-18 | Student: Priya Joshi (ADM2024602) | Status: PRESENT | Marked By: Karan
+[36] 2026-02-18 | Student: Maya Khan (ADM2024621) | Status: PRESENT | Marked By: Karan
+[37] 2026-02-18 | Student: Rahul Patel (ADM2024572) | Status: PRESENT | Marked By: Meera
+[38] 2026-02-18 | Student: Maya Nair (ADM2024609) | Status: PRESENT | Marked By: Karan
+[39] 2026-02-18 | Student: Tanvi Kumar (ADM2024537) | Status: PRESENT | Marked By: Meera
+[40] 2026-02-18 | Student: Ananya Iyer (ADM2024538) | Status: PRESENT | Marked By: Rohit
+[41] 2026-02-17 | Student: Tanvi Kumar (ADM2024537) | Status: PRESENT | Marked By: Rohit
+[42] 2026-02-17 | Student: Rahul Patel (ADM2024572) | Status: PRESENT | Marked By: Sunita
+[43] 2026-02-17 | Student: Ananya Iyer (ADM2024538) | Status: PRESENT | Marked By: Meera
+[44] 2026-02-17 | Student: Priya Joshi (ADM2024602) | Status: PRESENT | Marked By: Sunita
+[45] 2026-02-17 | Student: Isha Iyer (ADM2024580) | Status: PRESENT | Marked By: Meera
+[46] 2026-02-17 | Student: Maya Nair (ADM2024609) | Status: PRESENT | Marked By: Meera
+[47] 2026-02-17 | Student: Priya Gupta (ADM2024604) | Status: PRESENT | Marked By: Karan
+[48] 2026-02-17 | Student: Maya Khan (ADM2024621) | Status: PRESENT | Marked By: Neha
+[49] 2026-02-17 | Student: Vikram Patel (ADM2024552) | Status: PRESENT | Marked By: Meera
+[50] 2026-02-17 | Student: Manav Singh (ADM2024571) | Status: PRESENT | Marked By: Rohit
 
-=== ACADEMIC GRADES ===
-  Aarav Sharma         | Mathematics     | 92/100 | Grade: A+ | Term 1 2024-25
-  Aarav Sharma         | Physics         | 88/100 | Grade: A | Term 1 2024-25
-  Aarav Sharma         | English         | 85/100 | Grade: A | Term 1 2024-25
-  Aarav Sharma         | Social Studies  | 78/100 | Grade: B+ | Term 1 2024-25
-  Priya Patel          | Mathematics     | 96/100 | Grade: A+ | Term 1 2024-25
-  Priya Patel          | English         | 94/100 | Grade: A+ | Term 1 2024-25
+============================================
+V. ACADEMIC GRADES (Total: 30)
+============================================
+[1] Student: Isha Iyer | Subject: English | Score: 82/100 | Grade: A | Term: Mid-Term
+[2] Student: Isha Iyer | Subject: Science | Score: 78/100 | Grade: A | Term: Mid-Term
+[3] Student: Isha Iyer | Subject: Mathematics | Score: 90/100 | Grade: A | Term: Mid-Term
+[4] Student: Rahul Patel | Subject: English | Score: 83/100 | Grade: A | Term: Mid-Term
+[5] Student: Rahul Patel | Subject: Science | Score: 83/100 | Grade: A | Term: Mid-Term
+[6] Student: Rahul Patel | Subject: Mathematics | Score: 76/100 | Grade: A | Term: Mid-Term
+[7] Student: Maya Khan | Subject: English | Score: 78/100 | Grade: A | Term: Mid-Term
+[8] Student: Maya Khan | Subject: Mathematics | Score: 83/100 | Grade: A | Term: Mid-Term
+[9] Student: Maya Khan | Subject: Science | Score: 89/100 | Grade: A | Term: Mid-Term
+[10] Student: Maya Nair | Subject: English | Score: 90/100 | Grade: A | Term: Mid-Term
+[11] Student: Maya Nair | Subject: Science | Score: 77/100 | Grade: A | Term: Mid-Term
+[12] Student: Maya Nair | Subject: Mathematics | Score: 81/100 | Grade: A | Term: Mid-Term
+[13] Student: Priya Joshi | Subject: English | Score: 77/100 | Grade: A | Term: Mid-Term
+[14] Student: Priya Joshi | Subject: Science | Score: 87/100 | Grade: A | Term: Mid-Term
+[15] Student: Priya Joshi | Subject: Mathematics | Score: 79/100 | Grade: A | Term: Mid-Term
+[16] Student: Ananya Iyer | Subject: English | Score: 83/100 | Grade: A | Term: Mid-Term
+[17] Student: Ananya Iyer | Subject: Science | Score: 94/100 | Grade: A | Term: Mid-Term
+[18] Student: Ananya Iyer | Subject: Mathematics | Score: 91/100 | Grade: A | Term: Mid-Term
+[19] Student: Tanvi Kumar | Subject: English | Score: 79/100 | Grade: A | Term: Mid-Term
+[20] Student: Tanvi Kumar | Subject: Science | Score: 82/100 | Grade: A | Term: Mid-Term
+[21] Student: Tanvi Kumar | Subject: Mathematics | Score: 92/100 | Grade: A | Term: Mid-Term
+[22] Student: Vikram Patel | Subject: English | Score: 94/100 | Grade: A | Term: Mid-Term
+[23] Student: Vikram Patel | Subject: Science | Score: 88/100 | Grade: A | Term: Mid-Term
+[24] Student: Vikram Patel | Subject: Mathematics | Score: 86/100 | Grade: A | Term: Mid-Term
+[25] Student: Manav Singh | Subject: English | Score: 89/100 | Grade: A | Term: Mid-Term
+[26] Student: Manav Singh | Subject: Science | Score: 83/100 | Grade: A | Term: Mid-Term
+[27] Student: Manav Singh | Subject: Mathematics | Score: 80/100 | Grade: A | Term: Mid-Term
+[28] Student: Priya Gupta | Subject: English | Score: 85/100 | Grade: A | Term: Mid-Term
+[29] Student: Priya Gupta | Subject: Science | Score: 89/100 | Grade: A | Term: Mid-Term
+[30] Student: Priya Gupta | Subject: Mathematics | Score: 79/100 | Grade: A | Term: Mid-Term
 
-=== NOTICES ===
-  [HIGH] Annual Sports Day
-    Type: EVENT  Target: ALL
-    Message: Annual Sports Day will be held on March 15th. All students must participate....
-  [URGENT] Term 2 Examinations
-    Type: EXAM  Target: STUDENTS
-    Message: Term 2 examinations will commence from April 1st. Timetable attached....
-  [NORMAL] Parent-Teacher Meeting
-    Type: GENERAL  Target: PARENTS
-    Message: PTM scheduled for February 28th from 9 AM to 1 PM....
+============================================
+VI. NOTICES & SYSTEM SETTINGS
+============================================
+Notices:
+  - [EVENT] Annual Sports Day (by Principal, 2026-02-21)
+  - [EXAM] Exam Season (by Admin, 2026-02-21)
 
-=== ATTENDANCE (Last 7 days sample) ===
-  Aarav Sharma: 2026-02-12:ABSENT  2026-02-13:PRESENT  2026-02-14:PRESENT  2026-02-15:ABSENT  2026-02-16:PRESENT  2026-02-17:PRESENT  2026-02-18:PRESENT
-  Priya Patel: 2026-02-12:PRESENT  2026-02-13:PRESENT  2026-02-14:PRESENT  2026-02-15:PRESENT  2026-02-16:PRESENT  2026-02-17:PRESENT  2026-02-18:PRESENT
-
-=== SYSTEM SETTINGS ===
-  [SCHOOL] school_name = Charronix International School
-  [SCHOOL] school_address = 123 Education Lane, Knowledge City
-  [SCHOOL] school_phone = +91-9876543200
-  [SCHOOL] school_email = info@charronix.edu
-  [SCHOOL] academic_year = 2024-25
-  [SCHOOL] attendance_threshold = 75
+System Settings:
+  - school_name: Charronix Model School
+  - academic_year: 2024-25

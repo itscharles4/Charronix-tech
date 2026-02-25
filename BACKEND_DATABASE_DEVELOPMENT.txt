@@ -125,7 +125,7 @@ CREATE TABLE teacher_subjects (
 
 CREATE TABLE teacher_classes (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    teacher_id  UUID REFERENCES teachers(id) ON DELETE CASCADE,
+    teacher_id  UUID REFERENCES teachers(id) ON DELETE CASCADE, 
     class_section VARCHAR(10) NOT NULL,
     UNIQUE(teacher_id, class_section)
 );

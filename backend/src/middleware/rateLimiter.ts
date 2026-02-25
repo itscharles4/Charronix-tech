@@ -13,13 +13,17 @@ export const globalRateLimiter = rateLimit({
 });
 
 export const authRateLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10, // 10 login attempts per 15 min
+    windowMs: 15 * 1000, // 15 seconds
+    max: 5, // 5 login attempts per 15 sec
     standardHeaders: true,
     legacyHeaders: false,
+    keyGenerator: (req) => {
+        // Use login identifier if available, fallback to IP
+        return (req.body?.email || req.body?.identifier || req.ip).toString();
+    },
     message: {
         success: false,
-        message: 'Too many login attempts, please try again in 15 minutes',
+        message: 'Too many login attempts, please try again in 15 seconds',
     },
 });
 

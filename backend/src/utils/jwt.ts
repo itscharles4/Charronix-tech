@@ -5,6 +5,8 @@ export interface JwtPayload {
     userId: string;
     role: string;
     email: string;
+    studentId?: string;
+    teacherId?: string;
 }
 
 export interface RefreshTokenPayload {

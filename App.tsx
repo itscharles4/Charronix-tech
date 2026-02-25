@@ -7,9 +7,12 @@ import AttendanceMarker from './components/AttendanceMarker';
 import StudentList from './components/StudentList';
 import StudentPortal from './components/StudentPortal';
 import ParentPortal from './components/ParentPortal';
-import TeacherPortal from './components/TeacherPortal';
-import TimetableGenerator from './components/TimetableGenerator';
-import TeacherManagement from './components/TeacherManagement';
+
+import TeacherPortal from '@/components/TeacherPortal';
+import TimetableGenerator from '@/components/TimetableGenerator';
+import TeacherManagement from '@/components/TeacherManagement';
+import LandingPage from '@/components/LandingPage';
+import { authAPI } from './services/api';
 
 import {
   LogIn,
@@ -27,14 +30,15 @@ import {
   Sun
 } from 'lucide-react';
 
-type AuthState = 'portal' | 'login' | 'reset-password';
+type AuthState = 'landing' | 'portal' | 'login' | 'reset-password';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [appState, setAppState] = useState<AuthState>('portal');
+  const [appState, setAppState] = useState<AuthState>('landing');
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [activeView, setActiveView] = useState('dashboard');
   const [userRole, setUserRole] = useState<UserRole>(UserRole.ADMIN);
+  const [userProfile, setUserProfile] = useState<any>(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') === 'dark' ||
@@ -62,24 +66,44 @@ const App: React.FC = () => {
     }
   }, [isDarkMode]);
 
+  // Auto-login removed to prevent bypassing verification
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchProfile = async () => {
+        try {
+          const res = await authAPI.getMe();
+          if (res.success) {
+            setUserProfile(res.data);
+          }
+        } catch (err) {
+          console.error('Failed to fetch user profile:', err);
+        }
+      };
+      fetchProfile();
+    } else {
+      setUserProfile(null);
+    }
+  }, [isAuthenticated]);
+
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   // Login ID format rules per role:
-  // Student:   2 digits + 3 letters + 4 digits  (e.g. 24BIT0522)
+  // Student:   2 digits + 3 letters + 4 digits  (e.g. 24BIT0543)
   // Teacher:   exactly 6 digits                  (e.g. 100234)
   // Principal: exactly 6 digits                  (e.g. 900001)
   // Parent:    student first name + DOB (DDMMYYYY) (e.g. Aarav15032010)
   const ID_PATTERNS: Record<string, { regex: RegExp; hint: string; placeholder: string }> = {
-    Student: { regex: /^\d{2}[A-Za-z]{3}\d{4}$/, hint: 'Must be 2 digits + 3 letters + 4 digits (e.g. 24BIT0522)', placeholder: 'e.g. 24BIT0522' },
+    Student: { regex: /^\d{2}[A-Za-z]{3}\d{4}$/, hint: 'Must be 2 digits + 3 letters + 4 digits (e.g. 24BIT0543)', placeholder: 'e.g. 24BIT0543' },
     Teacher: { regex: /^\d{6}$/, hint: 'Must be exactly 6 digits (e.g. 100234)', placeholder: 'e.g. 100234' },
     Principal: { regex: /^\d{6}$/, hint: 'Must be exactly 6 digits (e.g. 900001)', placeholder: 'e.g. 900001' },
-    Parent: { regex: /^[A-Za-z]+(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])\d{4}$/, hint: 'Student first name + DOB as DDMMYYYY (e.g. Aarav15032010)', placeholder: 'e.g. Aarav15032010' },
+    Parent: { regex: /^([A-Za-z]+(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])\d{4}|\d{6})$/, hint: 'Student name + DOB or 6-digit ID (e.g. 800001)', placeholder: 'e.g. 800001 or Aarav15032010' },
   };
 
   const roles = [
-    { id: 'Student', label: 'Student', icon: GraduationCap, color: 'text-indigo-600', darkColor: 'dark:text-indigo-400', bg: 'bg-indigo-50', darkBg: 'dark:bg-indigo-900/20', btn: 'bg-indigo-600', role: UserRole.STUDENT, idLabel: 'Registration Number (e.g. 24BIT0522)' },
+    { id: 'Student', label: 'Student', icon: GraduationCap, color: 'text-indigo-600', darkColor: 'dark:text-indigo-400', bg: 'bg-indigo-50', darkBg: 'dark:bg-indigo-900/20', btn: 'bg-indigo-600', role: UserRole.STUDENT, idLabel: 'Registration Number (e.g. 24BIT0543)' },
     { id: 'Teacher', label: 'Teacher', icon: Briefcase, color: 'text-blue-600', darkColor: 'dark:text-blue-400', bg: 'bg-blue-50', darkBg: 'dark:bg-blue-900/20', btn: 'bg-blue-600', role: UserRole.TEACHER, idLabel: 'Faculty ID' },
-    { id: 'Parent', label: 'Parent', icon: Users, color: 'text-emerald-500', darkColor: 'dark:text-emerald-400', bg: 'bg-emerald-50', darkBg: 'dark:bg-emerald-900/20', btn: 'bg-emerald-600', role: UserRole.PARENT, idLabel: 'Parent Login ID (Name + DOB)' },
+    { id: 'Parent', label: 'Parent', icon: Users, color: 'text-emerald-500', darkColor: 'dark:text-emerald-400', bg: 'bg-emerald-50', darkBg: 'dark:bg-emerald-900/20', btn: 'bg-emerald-600', role: UserRole.PARENT, idLabel: 'Parent Login ID (6-digit ID or Name+DOB)' },
     { id: 'Principal', label: 'Principal', icon: ShieldCheck, color: 'text-amber-600', darkColor: 'dark:text-amber-400', bg: 'bg-amber-50', darkBg: 'dark:bg-amber-900/20', btn: 'bg-amber-600', role: UserRole.PRINCIPAL, idLabel: 'UID' },
   ];
 
@@ -92,31 +116,7 @@ const App: React.FC = () => {
     setAppState('login');
   };
 
-  // Maps custom login IDs to backend emails
-  const ID_TO_EMAIL: Record<string, Record<string, string>> = {
-    Student: {
-      '24BIT0522': 'aarav.sharma@student.charronix.edu',
-      '24BIT0523': 'priya.patel@student.charronix.edu',
-    },
-    Teacher: {
-      '100001': 'meera.iyer@charronix.edu',
-      '100002': 'rajesh.kumar@charronix.edu',
-    },
-    Principal: {
-      '900001': 'admin@charronix.edu',
-    },
-    Parent: {
-      'Aarav15032008': 'aarav.sharma@student.charronix.edu',
-      'Priya22072008': 'priya.patel@student.charronix.edu',
-    },
-  };
-
-  const ROLE_PASSWORDS: Record<string, string> = {
-    Student: 'Student@1234',
-    Teacher: 'Teacher@1234',
-    Principal: 'Admin@1234',
-    Parent: 'Student@1234',
-  };
+  // Removed ROLE_PASSWORDS fallback to ensure manual verification
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,21 +131,10 @@ const App: React.FC = () => {
 
     setIsLoading(true);
     try {
-      // Map custom ID to email for backend
-      const emailMap = ID_TO_EMAIL[selectedRole] || {};
-      const email = emailMap[identifier.trim()];
-      const backendPassword = password || ROLE_PASSWORDS[selectedRole];
-
-      if (!email) {
-        setLoginError('ID not found. Please check your credentials.');
-        setIsLoading(false);
-        return;
-      }
-
       const response = await fetch('http://localhost:5000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password: backendPassword }),
+        body: JSON.stringify({ email: identifier.trim(), password: password }),
       });
 
       const data = await response.json();
@@ -161,6 +150,9 @@ const App: React.FC = () => {
         localStorage.setItem('accessToken', data.data.accessToken);
         localStorage.setItem('refreshToken', data.data.refreshToken || '');
         localStorage.setItem('userRole', selectedRole);
+        if (data.data.user) {
+          setUserProfile(data.data.user);
+        }
       }
 
       setIsAuthenticated(true);
@@ -212,13 +204,25 @@ const App: React.FC = () => {
         setActiveView={setActiveView}
         userRole={userRole}
         // Fixed: onLogout correctly expects a function () => void
-        onLogout={() => setIsAuthenticated(false)}
+        onLogout={() => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('userRole');
+          setIsAuthenticated(false);
+          setAppState('portal');
+        }}
         isDarkMode={isDarkMode}
         toggleTheme={toggleTheme}
+        userData={userProfile}
       >
         {renderView()}
       </Layout>
     );
+  }
+
+
+  if (appState === 'landing') {
+    return <LandingPage onStart={() => setAppState('portal')} />;
   }
 
   // PORTAL SELECTION PAGE
@@ -393,7 +397,6 @@ const App: React.FC = () => {
               />
             </div>
           </div>
-
           <button
             type="submit"
             disabled={isLoading}
@@ -406,5 +409,4 @@ const App: React.FC = () => {
     </div>
   );
 };
-
 export default App;

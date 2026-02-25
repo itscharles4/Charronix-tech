@@ -7,7 +7,9 @@ import { createStudentSchema, updateStudentSchema, listStudentsSchema } from '..
 
 const router = Router();
 router.use(authenticate);
-
+router.get('/me', studentController.getMe);
+router.get('/me/attendance', studentController.getMyAttendance);
+router.get('/me/notifications', studentController.getMyNotifications);
 router.get('/', validate(listStudentsSchema), studentController.list);
 router.get('/stats', studentController.getStats);
 router.get('/defaulters', studentController.getDefaulters);

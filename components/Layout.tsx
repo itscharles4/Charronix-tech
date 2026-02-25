@@ -36,6 +36,7 @@ interface LayoutProps {
   onLogout: () => void;
   isDarkMode: boolean;
   toggleTheme: () => void;
+  userData: any;
 }
 
 const Layout: React.FC<LayoutProps> = ({
@@ -45,7 +46,8 @@ const Layout: React.FC<LayoutProps> = ({
   userRole,
   onLogout,
   isDarkMode,
-  toggleTheme
+  toggleTheme,
+  userData
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -57,7 +59,8 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'dashboard', label: 'My Progress', icon: LayoutDashboard },
           { id: 'reports', label: 'Exam Reports', icon: FileText },
           { id: 'attendance', label: 'My Attendance', icon: ClipboardCheck },
-          { id: 'notices', label: 'Notifications', icon: Bell },
+          { id: 'timetable', label: 'My Timetable', icon: Calendar },
+          { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
       case UserRole.PARENT:
         return [
@@ -88,6 +91,14 @@ const Layout: React.FC<LayoutProps> = ({
   };
 
   const navItems = getNavItems();
+
+  // Calculate identity display
+  const profile = userData?.student || userData?.teacher || userData?.profile;
+  const identity = {
+    name: profile?.firstName ? `${profile.firstName} ${profile.lastName}` : userData?.email || 'Guest',
+    initials: (profile?.firstName?.[0] || userData?.email?.[0] || 'G') + (profile?.lastName?.[0] || ''),
+    role: userData?.role || userRole || 'GUEST'
+  };
 
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 overflow-hidden relative transition-colors">
@@ -123,11 +134,11 @@ const Layout: React.FC<LayoutProps> = ({
         <div className="p-6 border-t border-slate-800">
           <div className="bg-slate-800/50 p-4 rounded-2xl mb-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center font-black">
-              {userRole[0]}
+              {identity.initials}
             </div>
-            <div>
-              <p className="text-sm font-bold truncate">{userRole === UserRole.STUDENT ? `${MOCK_STUDENTS[0].firstName} ${MOCK_STUDENTS[0].lastName}` : userRole === UserRole.TEACHER ? `${MOCK_TEACHERS[0].firstName} ${MOCK_TEACHERS[0].lastName}` : userRole === UserRole.PARENT ? 'Parent' : 'Admin'}</p>
-              <p className="text-[10px] text-slate-500 font-black uppercase tracking-tighter">{userRole}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold truncate">{identity.name}</p>
+              <p className="text-[10px] text-slate-500 font-black uppercase tracking-tighter">{identity.role}</p>
             </div>
           </div>
           <button
@@ -170,11 +181,11 @@ const Layout: React.FC<LayoutProps> = ({
             <div className="h-10 w-[1px] bg-slate-100 dark:bg-slate-800"></div>
             <div className="flex items-center gap-3">
               <div className="text-right">
-                <p className="text-sm font-black text-slate-900 dark:text-slate-100">{userRole === UserRole.STUDENT ? `${MOCK_STUDENTS[0].firstName} ${MOCK_STUDENTS[0].lastName}` : userRole === UserRole.TEACHER ? `${MOCK_TEACHERS[0].firstName} ${MOCK_TEACHERS[0].lastName}` : userRole === UserRole.PARENT ? 'Parent' : 'Admin'}</p>
-                <p className="text-[10px] text-indigo-500 font-black uppercase tracking-widest">{userRole}</p>
+                <p className="text-sm font-black text-slate-900 dark:text-slate-100">{identity.name}</p>
+                <p className="text-[10px] text-indigo-500 font-black uppercase tracking-widest">{identity.role}</p>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-700 dark:text-indigo-400 font-black shadow-sm">
-                {userRole[0]}
+                {identity.initials}
               </div>
             </div>
           </div>

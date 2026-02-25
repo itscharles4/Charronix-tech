@@ -24,6 +24,9 @@ import notificationRoutes from './routes/notification.routes';
 import auditRoutes from './routes/audit.routes';
 import settingsRoutes from './routes/settings.routes';
 import aiRoutes from './routes/ai.routes';
+import timetableRoutes from './routes/timetable.routes';
+import parentRoutes from './routes/parent.routes';
+import complaintRoutes from './routes/complaint.routes';
 
 const app = express();
 
@@ -89,6 +92,9 @@ app.use(`${apiPrefix}/notifications`, notificationRoutes);
 app.use(`${apiPrefix}/audit`, auditRoutes);
 app.use(`${apiPrefix}/settings`, settingsRoutes);
 app.use(`${apiPrefix}/ai`, aiRoutes);
+app.use(`${apiPrefix}/timetable`, timetableRoutes);
+app.use(`${apiPrefix}/parents`, parentRoutes);
+app.use(`${apiPrefix}/complaints`, complaintRoutes);
 
 // ============================================
 // ERROR HANDLING

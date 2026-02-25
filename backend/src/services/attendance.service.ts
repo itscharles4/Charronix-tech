@@ -3,9 +3,20 @@ import { NotFoundError } from '../utils/errors';
 import { parsePaginationParams, getPrismaSkipTake, buildPaginationMeta } from '../utils/pagination';
 
 export class AttendanceService {
-    async markBulk(data: any, markedById?: string) {
+    async markBulk(data: any, markedByUserId?: string) {
         const { date, records } = data;
         const attendanceDate = new Date(date);
+
+        // The FK `markedById` links to Teacher.id (not User.id).
+        // Resolve the Teacher record from the authenticated user's ID.
+        let teacherId: string | undefined = undefined;
+        if (markedByUserId) {
+            const teacher = await prisma.teacher.findUnique({
+                where: { userId: markedByUserId },
+                select: { id: true },
+            });
+            teacherId = teacher?.id ?? undefined;
+        }
 
         const results = await Promise.all(
             records.map(async (record: any) => {
@@ -19,14 +30,14 @@ export class AttendanceService {
                     update: {
                         status: record.status,
                         remarks: record.remarks,
-                        markedById,
+                        markedById: teacherId,
                     },
                     create: {
                         studentId: record.studentId,
                         date: attendanceDate,
                         status: record.status,
                         remarks: record.remarks,
-                        markedById,
+                        markedById: teacherId,
                     },
                 });
             })

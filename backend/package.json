@@ -2,11 +2,11 @@
     "name": "charronix-backend",
     "version": "1.0.0",
     "description": "Charronix School Management System - Backend API",
-    "main": "dist/server.js",
+    "main": "dist/src/server.js",
     "scripts": {
         "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
         "build": "tsc",
-        "start": "node dist/server.js",
+        "start": "node dist/src/server.js",
         "prisma:migrate": "npx prisma migrate dev",
         "prisma:migrate:prod": "npx prisma migrate deploy",
         "prisma:seed": "ts-node prisma/seed.ts",

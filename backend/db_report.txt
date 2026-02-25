@@ -1,0 +1,27 @@
+=== CHARRONIX DATABASE REPORT ===
+Generated at: 2/21/2026, 2:19:19 AM
+
+Total Users: 131
+Admins: 1
+Teachers: 30
+Students: 100
+
+--- USER SAMPLES ---
+Principal: ID=900001, Email=admin@charronix.edu
+
+Teachers (First 5):
+- Meera Iyer: loginId=100001, employeeId=EMP001, email=meera.iyer1@charronix.edu
+- Rajesh Kumar: loginId=100002, employeeId=EMP002, email=rajesh.kumar2@charronix.edu
+- Sunita Iyer: loginId=100003, employeeId=EMP003, email=sunita.iyer3@charronix.edu
+- Karan Kumar: loginId=100004, employeeId=EMP004, email=karan.kumar4@charronix.edu
+- Deepa Singh: loginId=100005, employeeId=EMP005, email=deepa.singh5@charronix.edu
+
+Students (First 5):
+- Imran Kumar: loginId=24BIT0522, admissionNo=ADM2024522, class=1-A, email=imran.kumar522@student.charronix.edu
+- Sanya Gupta: loginId=24BIT0523, admissionNo=ADM2024523, class=1-A, email=sanya.gupta523@student.charronix.edu
+- Ravi Mehta: loginId=24BIT0524, admissionNo=ADM2024524, class=1-A, email=ravi.mehta524@student.charronix.edu
+- Ved Nair: loginId=24BIT0525, admissionNo=ADM2024525, class=1-A, email=ved.nair525@student.charronix.edu
+- Nisha Singh: loginId=24BIT0526, admissionNo=ADM2024526, class=1-A, email=nisha.singh526@student.charronix.edu
+
+Uniqueness Check (loginId): ✅ ALL UNIQUE
+Total loginIds: 131, Unique count: 131

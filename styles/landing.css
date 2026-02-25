@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --purple: #5B3EF5;
+  --purple-light: #7B61FF;
+  --purple-dark: #1E1B4B;
+  --indigo: #3730A3;
+  --white: #ffffff;
+  --gray-light: #F0F0F8;
+  --text-dark: #0F0D2E;
+  --text-muted: #6B7280;
+}
+
+/* Base Styles */
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-dm {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Navbar */
+.nav-backdrop {
+  background: rgba(15, 13, 46, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--purple);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(91, 62, 245, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.group:hover .logo-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(91, 62, 245, 0.5);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--purple) !important;
+  color: white !important;
+  padding: 11px 24px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 15px rgba(91, 62, 245, 0.35) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(91, 62, 245, 0.45) !important;
+}
+
+.btn-secondary {
+  background: white !important;
+  color: var(--text-dark) !important;
+  border: 1.5px solid #E5E7EB !important;
+  padding: 11px 24px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  transition: border-color 0.2s, transform 0.2s !important;
+}
+
+.btn-secondary:hover {
+  border-color: var(--purple) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: rotateY(-8deg) rotateX(4deg) translateY(0);
+  }
+
+  50% {
+    transform: rotateY(-8deg) rotateX(4deg) translateY(-10px);
+  }
+}
+
+@keyframes floatBadge {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes cardFloat {
+
+  0%,
+  100% {
+    transform: perspective(800px) rotateY(5deg) rotateX(-3deg) translateY(0);
+  }
+
+  50% {
+    transform: perspective(800px) rotateY(5deg) rotateX(-3deg) translateY(-12px);
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulse-bg {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-badge {
+  animation: floatBadge 4s ease-in-out infinite;
+}
+
+.animate-card-float {
+  animation: cardFloat 6s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1.5s infinite;
+}
+
+.animate-pulse-bg {
+  animation: pulse-bg 6s ease-in-out infinite;
+}
+
+/* Dashboard 3D */
+.dashboard-3d {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 40px 120px rgba(91, 62, 245, 0.18), 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  transform: rotateY(-8deg) rotateX(4deg);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  border: 1px solid rgba(91, 62, 245, 0.1);
+}
+
+.dashboard-3d:hover {
+  transform: rotateY(-2deg) rotateX(1deg) translateY(-5px);
+}
+
+/* Feature Cards */
+.feature-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 28px;
+  border: 1px solid rgba(91, 62, 245, 0.06);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(91, 62, 245, 0.12);
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

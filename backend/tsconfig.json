@@ -6,7 +6,7 @@
             "ES2022"
         ],
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": ".",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
@@ -30,7 +30,9 @@
         ]
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "prisma/**/*.ts",
+        "*.ts"
     ],
     "exclude": [
         "node_modules",

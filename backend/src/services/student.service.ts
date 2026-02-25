@@ -4,6 +4,113 @@ import { parsePaginationParams, getPrismaSkipTake, buildPaginationMeta } from '.
 import cache from './cache.service';
 
 export class StudentService {
+    async getMe(userId: string) {
+        const student = await prisma.student.findUnique({
+            where: { userId },
+            include: {
+                medicalInfo: true,
+                achievements: { orderBy: { date: 'desc' } },
+                academicGrades: {
+                    where: { term: 'Term 1', academicYear: '2025-26' },
+                    orderBy: { createdAt: 'desc' }
+                },
+            },
+        });
+
+        if (!student) throw new NotFoundError('Student profile');
+
+        // ✅ Fetch attendance records for current month (February 2026) as requested
+        const februaryStart = new Date('2026-02-01');
+        const februaryEnd = new Date('2026-03-01');
+
+        const attendanceRecords = await prisma.attendance.findMany({
+            where: {
+                studentId: student.id,
+                date: {
+                    gte: februaryStart,
+                    lt: februaryEnd,
+                },
+            },
+            orderBy: { date: 'asc' },
+            include: {
+                markedBy: true // This is the Teacher relation
+            }
+        });
+
+        // ✅ Calculate attendance statistics
+        const totalDays = attendanceRecords.length;
+        const presentCount = attendanceRecords.filter(r => r.status === 'PRESENT').length;
+        const absentCount = attendanceRecords.filter(r => r.status === 'ABSENT').length;
+        const lateCount = attendanceRecords.filter(r => r.status === 'LATE').length;
+        const leaveCount = attendanceRecords.filter(r => r.status === 'LEAVE').length;
+
+        const attendancePercentage = totalDays > 0
+            ? Math.round((presentCount / totalDays) * 100)
+            : 0;
+
+        // ✅ Fetch student-specific notifications
+        // The user's review suggested 'studentId' in Notification model, 
+        // but schema.prisma shows 'userId' relation. We use userId.
+        const notifications = await prisma.notification.findMany({
+            where: { userId: userId },
+            orderBy: { createdAt: 'desc' },
+            take: 20,
+        });
+
+        // ✅ Academic Stats
+        const totalMarks = student.academicGrades.reduce((sum, g) => sum + Number(g.score), 0);
+        const maxPossible = student.academicGrades.reduce((sum, g) => sum + Number(g.maxScore), 0);
+        const avgPercentage = maxPossible > 0 ? (totalMarks / maxPossible) * 100 : 0;
+
+        let avgGrade = 'N/A';
+        if (avgPercentage >= 90) avgGrade = 'A+';
+        else if (avgPercentage >= 80) avgGrade = 'A';
+        else if (avgPercentage >= 70) avgGrade = 'B+';
+        else if (avgPercentage >= 60) avgGrade = 'B';
+        else if (avgPercentage >= 50) avgGrade = 'C+';
+        else if (avgPercentage > 0) avgGrade = 'C';
+
+        return {
+            ...student,
+            attendance: {
+                percentage: attendancePercentage,
+                totalDays,
+                present: presentCount,
+                absent: absentCount,
+                late: lateCount,
+                leave: leaveCount,
+                records: attendanceRecords.map(r => ({
+                    id: r.id,
+                    date: r.date,
+                    status: r.status,
+                    remarks: r.remarks,
+                    markedBy: r.markedBy
+                        ? `${r.markedBy.firstName} ${r.markedBy.lastName}`
+                        : 'System',
+                })),
+            },
+            notifications: notifications.map(n => ({
+                id: n.id,
+                title: n.title,
+                message: n.message,
+                type: n.type,
+                isRead: n.isRead,
+                createdAt: n.createdAt,
+            })),
+            avgPercentage: Math.round(avgPercentage),
+            avgGrade,
+            grades: student.academicGrades.map(g => ({
+                subject: g.subject,
+                score: Number(g.score),
+                maxScore: Number(g.maxScore),
+                grade: g.grade,
+                percentage: Math.round((Number(g.score) / Number(g.maxScore)) * 100)
+            })),
+            achievementCount: student.achievements.length,
+            subjectCount: student.academicGrades.length
+        };
+    }
+
     async list(query: any) {
         const { page, limit } = parsePaginationParams(query.page, query.limit);
         const { class: cls, section, status, search, sortBy = 'firstName', sortOrder = 'asc' } = query;

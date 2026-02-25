@@ -8,9 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { Role } from '@prisma/client';
 
 export class AuthService {
-    async login(email: string, password: string, ipAddress: string, userAgent: string) {
-        const user = await prisma.user.findUnique({
-            where: { email },
+    async login(identifier: string, password: string, ipAddress: string, userAgent: string) {
+        const user = await prisma.user.findFirst({
+            where: {
+                OR: [
+                    { email: identifier },
+                    { loginId: identifier }
+                ]
+            },
             include: {
                 student: { select: { id: true, firstName: true, lastName: true } },
                 teacher: { select: { id: true, firstName: true, lastName: true } },
@@ -22,8 +27,11 @@ export class AuthService {
 
         // Check account lock
         if (user.lockedUntil && user.lockedUntil > new Date()) {
-            const minutesLeft = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 60000);
-            throw new UnauthorizedError(`Account locked. Try again in ${minutesLeft} minutes`);
+            const secondsLeft = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 1000);
+            const timeLeft = secondsLeft > 60
+                ? `${Math.ceil(secondsLeft / 60)} minutes`
+                : `${secondsLeft} seconds`;
+            throw new UnauthorizedError(`Account locked. Try again in ${timeLeft}`);
         }
 
         const isValid = await comparePassword(password, user.passwordHash);
@@ -33,7 +41,10 @@ export class AuthService {
             const updates: any = { loginAttempts: newAttempts };
 
             if (newAttempts >= env.MAX_LOGIN_ATTEMPTS) {
-                updates.lockedUntil = new Date(Date.now() + env.ACCOUNT_LOCK_DURATION_MINUTES * 60000);
+                const lockDuration = env.ACCOUNT_LOCK_DURATION_SECONDS > 0
+                    ? env.ACCOUNT_LOCK_DURATION_SECONDS * 1000
+                    : env.ACCOUNT_LOCK_DURATION_MINUTES * 60000;
+                updates.lockedUntil = new Date(Date.now() + lockDuration);
                 updates.loginAttempts = 0;
             }
 
@@ -47,10 +58,13 @@ export class AuthService {
             data: { loginAttempts: 0, lockedUntil: null, lastLoginAt: new Date() },
         });
 
+        // Generate tokens
         const accessToken = generateAccessToken({
             userId: user.id,
-            role: user.role,
             email: user.email,
+            role: user.role,
+            studentId: user.student?.id,
+            teacherId: user.teacher?.id,
         });
 
         const tokenId = uuidv4();
