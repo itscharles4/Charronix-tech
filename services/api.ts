@@ -165,3 +165,76 @@ export const complaintAPI = {
         return response.json();
     },
 };
+
+export const notificationAPI = {
+    getAll: async (filters?: { category?: string; isRead?: boolean; limit?: number; offset?: number }) => {
+        const params = new URLSearchParams();
+        if (filters?.category && filters.category !== 'ALL') params.append('category', filters.category);
+        if (filters?.isRead !== undefined) params.append('isRead', String(filters.isRead));
+        if (filters?.limit) params.append('limit', String(filters.limit));
+        if (filters?.offset) params.append('offset', String(filters.offset));
+        const response = await fetch(`${API_BASE_URL}/notifications?${params.toString()}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    getUnreadCount: async () => {
+        const response = await fetch(`${API_BASE_URL}/notifications/unread-count`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    markRead: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/notifications/${id}/read`, {
+            method: 'PUT',
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    markAllRead: async () => {
+        const response = await fetch(`${API_BASE_URL}/notifications/read-all`, {
+            method: 'PUT',
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    send: async (data: {
+        targetType: 'ALL_STUDENTS' | 'SPECIFIC_STUDENT' | 'ALL_TEACHERS' | 'SPECIFIC_TEACHER';
+        targetStudentId?: string;
+        targetTeacherId?: string;
+        title: string;
+        message: string;
+        category?: string;
+        priority?: string;
+        iconEmoji?: string;
+    }) => {
+        const response = await fetch(`${API_BASE_URL}/notifications/send`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    delete: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/notifications/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    getSent: async (limit?: number, offset?: number) => {
+        const params = new URLSearchParams();
+        if (limit) params.append('limit', String(limit));
+        if (offset) params.append('offset', String(offset));
+        const response = await fetch(`${API_BASE_URL}/notifications/sent?${params.toString()}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    getTeachers: async () => {
+        const response = await fetch(`${API_BASE_URL}/teachers`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+};

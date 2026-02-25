@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   Users,
@@ -19,12 +19,14 @@ import {
   Award,
   Calendar,
   AlertCircle,
-  // Fixed: Added missing icon imports
   FileText,
-  CheckSquare
+  CheckSquare,
+  MessageSquare
 } from 'lucide-react';
 import { UserRole } from '../types';
 import AIAssistant from './AIAssistant';
+import NotificationPanel from './NotificationPanel';
+import { notificationAPI } from '../services/api';
 import { MOCK_STUDENTS, MOCK_TEACHERS } from '../constants';
 
 interface LayoutProps {
@@ -32,7 +34,6 @@ interface LayoutProps {
   activeView: string;
   setActiveView: (view: string) => void;
   userRole: UserRole;
-  // Fixed: Changed onLogout from void to () => void to fix event handler assignment error
   onLogout: () => void;
   isDarkMode: boolean;
   toggleTheme: () => void;
@@ -50,6 +51,21 @@ const Layout: React.FC<LayoutProps> = ({
   userData
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [notifPanelOpen, setNotifPanelOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Fetch unread count on mount and poll every 30 s
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const result = await notificationAPI.getUnreadCount();
+        if (result?.success) setUnreadCount(result.data.count);
+      } catch { }
+    };
+    fetchCount();
+    const interval = setInterval(fetchCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Strictly filter navigation items per role
   const getNavItems = () => {
@@ -75,6 +91,7 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'attendance', label: 'Take Attendance', icon: CheckSquare },
           { id: 'marks', label: 'Upload Marks', icon: BookOpen },
           { id: 'students', label: 'My Students', icon: Users },
+          { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
       case UserRole.ADMIN:
       case UserRole.PRINCIPAL:
@@ -86,6 +103,7 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'teachers', label: 'Teachers', icon: UserSquare2 },
           { id: 'timetable', label: 'AI Timetable', icon: Calendar },
           { id: 'reports', label: 'Analytics', icon: BarChart3 },
+          { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
     }
   };
@@ -118,7 +136,15 @@ const Layout: React.FC<LayoutProps> = ({
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveView(item.id)}
+              onClick={() => {
+                // Student/Teacher 'notifications' opens the slide-over panel
+                // Principal/Admin 'notifications' navigates to the full page
+                if (item.id === 'notifications' && (userRole === UserRole.STUDENT || userRole === UserRole.TEACHER)) {
+                  setNotifPanelOpen(true);
+                } else {
+                  setActiveView(item.id);
+                }
+              }}
               className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 ${activeView === item.id
                 ? 'bg-indigo-600 text-white font-black shadow-lg shadow-indigo-900/50 translate-x-1'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -126,7 +152,12 @@ const Layout: React.FC<LayoutProps> = ({
             >
               <item.icon size={22} className={activeView === item.id ? 'text-white' : 'text-slate-500'} />
               <span className="text-sm font-bold">{item.label}</span>
-              {activeView === item.id && <ChevronRight size={16} className="ml-auto opacity-50" />}
+              {item.id === 'notifications' && unreadCount > 0 && (
+                <span className="ml-auto bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+              {item.id !== 'notifications' && activeView === item.id && <ChevronRight size={16} className="ml-auto opacity-50" />}
             </button>
           ))}
         </nav>
@@ -142,7 +173,6 @@ const Layout: React.FC<LayoutProps> = ({
             </div>
           </div>
           <button
-            // Fixed: onLogout is now correctly typed as a function to satisfy onClick expectation
             onClick={onLogout}
             className="flex items-center gap-3 text-slate-400 hover:text-red-400 transition-colors w-full px-4 py-2 font-bold text-sm"
           >
@@ -174,10 +204,20 @@ const Layout: React.FC<LayoutProps> = ({
             <button onClick={toggleTheme} className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all border border-slate-100 dark:border-slate-700">
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <div className="relative">
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
-              <Bell className="text-slate-400 cursor-pointer hover:text-indigo-600 transition-colors" size={22} />
-            </div>
+
+            {/* Bell with unread badge */}
+            <button
+              onClick={() => setNotifPanelOpen(true)}
+              className="relative p-2.5 bg-slate-50 dark:bg-slate-800 rounded-2xl text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all border border-slate-100 dark:border-slate-700"
+            >
+              <Bell size={20} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-black flex items-center justify-center border-2 border-white dark:border-slate-900">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </button>
+
             <div className="h-10 w-[1px] bg-slate-100 dark:bg-slate-800"></div>
             <div className="flex items-center gap-3">
               <div className="text-right">
@@ -196,6 +236,15 @@ const Layout: React.FC<LayoutProps> = ({
       </main>
 
       <AIAssistant userRole={userRole} />
+
+      {/* Notification Panel */}
+      <NotificationPanel
+        isOpen={notifPanelOpen}
+        onClose={() => setNotifPanelOpen(false)}
+        userRole={userRole}
+        isDarkMode={isDarkMode}
+        onUnreadCountChange={setUnreadCount}
+      />
     </div>
   );
 };

@@ -19,9 +19,10 @@ import { parentAPI } from '../services/api';
 interface ParentPortalProps {
    isDarkMode: boolean;
    activeView: string;
+   setActiveView: (view: string) => void;
 }
 
-const ParentPortal: React.FC<ParentPortalProps> = ({ isDarkMode, activeView }) => {
+const ParentPortal: React.FC<ParentPortalProps> = ({ isDarkMode, activeView, setActiveView }) => {
    const [parentData, setParentData] = useState<any>(null);
    const [loading, setLoading] = useState(true);
    const [selectedChildIndex, setSelectedChildIndex] = useState(0);
@@ -168,8 +169,8 @@ const ParentPortal: React.FC<ParentPortalProps> = ({ isDarkMode, activeView }) =
 
                         <div className="flex justify-between items-start mb-4">
                            <span className={`px-4 py-1.5 text-[9px] font-black rounded-full uppercase tracking-widest shadow-sm ${c.severity === 'HIGH' ? 'bg-red-500 text-white' :
-                                 c.severity === 'MEDIUM' ? 'bg-amber-500 text-white' :
-                                    'bg-indigo-600 text-white'
+                              c.severity === 'MEDIUM' ? 'bg-amber-500 text-white' :
+                                 'bg-indigo-600 text-white'
                               }`}>
                               {c.severity} RISK
                            </span>

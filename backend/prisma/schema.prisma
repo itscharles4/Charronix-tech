@@ -467,18 +467,27 @@ model FileUpload {
 }
 
 model Notification {
-  id        String           @id @default(uuid())
-  userId    String           @map("user_id")
-  title     String
-  message   String
-  type      NotificationType
-  isRead    Boolean          @default(false) @map("is_read")
-  actionUrl String?          @map("action_url")
-  createdAt DateTime         @default(now()) @map("created_at")
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String               @id @default(uuid())
+  userId       String               @map("user_id")
+  title        String
+  message      String
+  type         NotificationType     @default(INFO)
+  category     NotificationCategory @default(GENERAL)
+  priority     NotificationPriority @default(NORMAL)
+  isRead       Boolean              @default(false) @map("is_read")
+  readAt       DateTime?            @map("read_at")
+  actionUrl    String?              @map("action_url")
+  iconEmoji    String?              @map("icon_emoji")
+  senderUserId String?              @map("sender_user_id")
+  senderName   String?              @map("sender_name")
+  senderRole   String?              @map("sender_role")
+  createdAt    DateTime             @default(now()) @map("created_at")
+  updatedAt    DateTime             @updatedAt @map("updated_at")
+  user         User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isRead])
-  @@index([createdAt])
+  @@index([userId, createdAt])
+  @@index([category])
   @@map("notifications")
 }
 
@@ -576,6 +585,25 @@ enum NotificationType {
   WARNING
   SUCCESS
   ERROR
+  SYSTEM
+}
+
+enum NotificationCategory {
+  ACADEMIC
+  EVENT
+  ANNOUNCEMENT
+  ATTENDANCE
+  EXAM
+  FEE
+  COMPLAINT
+  GENERAL
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
 }
 
 enum SettingCategory {

@@ -7,7 +7,6 @@ import {
     PlusCircle,
     BookOpen,
     ClipboardList,
-    MessageSquare,
     Bell,
     Calendar,
     Target,
@@ -28,7 +27,8 @@ import {
 import { MOCK_STUDENTS, MOCK_TEACHERS, MOCK_NOTICES } from '../constants';
 import AttendanceMarker from './AttendanceMarker';
 import MarksUploader from './MarksUploader';
-import { teacherAPI, complaintAPI } from '../services/api';
+import StudentList from './StudentList';
+import { teacherAPI, complaintAPI, notificationAPI } from '../services/api';
 import {
     BarChart,
     Bar,
@@ -41,10 +41,12 @@ import {
     PieChart,
     Pie,
 } from 'recharts';
+import { MessageSquare } from 'lucide-react';
 
 interface TeacherPortalProps {
     isDarkMode: boolean;
     activeView: string;
+    setActiveView: (view: string) => void;
 }
 
 const SUBJECT_COLORS = ['#6366f1', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981', '#ef4444', '#ec4899'];
@@ -236,10 +238,11 @@ const ComplaintFormInner: React.FC<ComplaintFormInnerProps> = ({ card, initials,
     );
 };
 
-const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView }) => {
+const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView, setActiveView }) => {
     const [teacherData, setTeacherData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedAction, setSelectedAction] = useState<'ATTENDANCE' | 'COMPLAINT' | 'MARKS' | 'DASHBOARD'>('DASHBOARD');
+    const [selectedAction, setSelectedAction] = useState<'ATTENDANCE' | 'COMPLAINT' | 'MARKS' | 'DASHBOARD' | 'STUDENTS'>('DASHBOARD');
+    const [dashNotifs, setDashNotifs] = useState<any[]>([]);
 
     // Sync sidebar navigation (activeView from Layout) → internal selectedAction
     useEffect(() => {
@@ -247,6 +250,8 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
             attendance: 'ATTENDANCE',
             marks: 'MARKS',
             dashboard: 'DASHBOARD',
+            students: 'STUDENTS',
+            complaint: 'COMPLAINT',
         };
         if (activeView && viewMap[activeView]) {
             setSelectedAction(viewMap[activeView]);
@@ -269,6 +274,12 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
         fetchTeacher();
     }, []);
 
+    useEffect(() => {
+        notificationAPI.getAll({ limit: 4 })
+            .then(r => { if (r.success) setDashNotifs(r.data); })
+            .catch(() => { });
+    }, []);
+
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-500 gap-4">
@@ -280,7 +291,6 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
 
     const teacher = teacherData || MOCK_TEACHERS[0];
     const students = MOCK_STUDENTS;
-    const notifications = MOCK_NOTICES;
     const fullName = `${teacher.firstName} ${teacher.lastName}`;
     const initials = `${teacher.firstName[0]}${teacher.lastName[0]}`;
 
@@ -372,14 +382,14 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
             {/* ═══════ QUICK ACTIONS ═══════ */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                    { label: 'Take Attendance', icon: CheckSquare, color: 'bg-blue-600', shadow: 'shadow-blue-200 dark:shadow-none', action: 'ATTENDANCE' as const, active: true },
-                    { label: 'Upload Marks', icon: BookOpen, color: 'bg-purple-600', shadow: 'shadow-purple-200 dark:shadow-none', action: 'MARKS' as const, active: false },
-                    { label: 'Raise Complaint', icon: ShieldAlert, color: 'bg-red-500', shadow: 'shadow-red-200 dark:shadow-none', action: 'COMPLAINT' as const, active: false },
-                    { label: 'Notice Board', icon: MessageSquare, color: 'bg-emerald-500', shadow: 'shadow-emerald-200 dark:shadow-none', action: 'DASHBOARD' as const, active: false },
+                    { label: 'Take Attendance', icon: CheckSquare, color: 'bg-blue-600', shadow: 'shadow-blue-200 dark:shadow-none', action: 'attendance', active: true },
+                    { label: 'Upload Marks', icon: BookOpen, color: 'bg-purple-600', shadow: 'shadow-purple-200 dark:shadow-none', action: 'marks', active: false },
+                    { label: 'My Students', icon: Users, color: 'bg-indigo-600', shadow: 'shadow-indigo-200 dark:shadow-none', action: 'students', active: false },
+                    { label: 'Raise Complaint', icon: ShieldAlert, color: 'bg-red-500', shadow: 'shadow-red-200 dark:shadow-none', action: 'complaint', active: false },
                 ].map(item => (
                     <button
                         key={item.label}
-                        onClick={() => setSelectedAction(item.action)}
+                        onClick={() => setActiveView(item.action)}
                         className={`${card} p-5 flex items-center gap-4 hover:shadow-md active:scale-[0.98] transition-all group`}
                     >
                         <div className={`${item.color} p-3 rounded-xl text-white shadow-lg ${item.shadow} group-hover:scale-110 transition-transform`}>
@@ -523,31 +533,41 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
                             <Bell size={18} className="text-indigo-500" /> Notifications & Updates
                         </h3>
                         <span className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-xs font-black">
-                            {notifications.length} new
+                            {dashNotifs.filter(n => !n.isRead).length} unread
                         </span>
                     </div>
                     <div className="space-y-3">
-                        {notifications.map((n, i) => (
-                            <div key={i} className="flex gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 hover:shadow-sm transition-all">
-                                <div className={`mt-0.5 w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${n.type === 'EVENT'
-                                    ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
-                                    : 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                        {dashNotifs.length === 0 ? (
+                            <div className="text-center py-6 text-slate-400">
+                                <Bell size={28} className="mx-auto mb-2 opacity-40" />
+                                <p className="text-sm font-bold">No notifications yet</p>
+                            </div>
+                        ) : dashNotifs.map((n, i) => (
+                            <div key={n.id || i} className={`flex gap-3 p-3 rounded-2xl border transition-all ${!n.isRead
+                                    ? 'bg-indigo-50/60 dark:bg-indigo-900/10 border-indigo-100 dark:border-indigo-900/30'
+                                    : 'bg-slate-50/80 dark:bg-slate-800/30 border-slate-100 dark:border-slate-800'
+                                }`}>
+                                <div className={`mt-0.5 w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${n.category === 'EVENT' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
+                                        : n.category === 'ACADEMIC' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                                            : 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
                                     }`}>
-                                    {n.type === 'EVENT' ? <Calendar size={18} /> : <Bell size={18} />}
+                                    {n.category === 'EVENT' ? <Calendar size={16} /> : <Bell size={16} />}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100">{n.title}</p>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{n.message}</p>
-                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1.5">{n.date} • {n.author}</p>
+                                    <p className="text-sm font-black text-slate-800 dark:text-slate-100 line-clamp-1">{n.title}</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">{n.message}</p>
+                                    <div className="flex items-center gap-1.5 mt-1">
+                                        {n.senderRole && (
+                                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-black text-white ${n.senderRole === 'PRINCIPAL' ? 'bg-purple-600' : n.senderRole === 'TEACHER' ? 'bg-blue-600' : 'bg-slate-500'
+                                                }`}>
+                                                {n.senderName || n.senderRole}
+                                            </span>
+                                        )}
+                                        {!n.isRead && <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 ml-auto" />}
+                                    </div>
                                 </div>
                             </div>
                         ))}
-                        {notifications.length === 0 && (
-                            <div className="text-center py-8 text-slate-400">
-                                <Bell size={32} className="mx-auto mb-2 opacity-40" />
-                                <p className="text-sm font-bold">No notifications</p>
-                            </div>
-                        )}
                     </div>
 
                     {/* Assigned Subjects */}
@@ -581,7 +601,7 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
                     <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{fullName}</h3>
                     <p className="text-xs text-slate-400 font-bold">{teacher.employeeId} • Taking Attendance</p>
                 </div>
-                <button onClick={() => setSelectedAction('DASHBOARD')} className="ml-auto text-sm text-blue-600 dark:text-blue-400 font-black hover:underline">← Dashboard</button>
+                <button onClick={() => setActiveView('dashboard')} className="ml-auto text-sm text-blue-600 dark:text-blue-400 font-black hover:underline">← Dashboard</button>
             </div>
             <AttendanceMarker />
         </div>
@@ -597,9 +617,26 @@ const TeacherPortal: React.FC<TeacherPortalProps> = ({ isDarkMode, activeView })
                     <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{fullName}</h3>
                     <p className="text-xs text-slate-400 font-bold">{teacher.employeeId} • Uploading Marks</p>
                 </div>
-                <button onClick={() => setSelectedAction('DASHBOARD')} className="ml-auto text-sm text-purple-600 dark:text-purple-400 font-black hover:underline">← Dashboard</button>
+                <button onClick={() => setActiveView('dashboard')} className="ml-auto text-sm text-purple-600 dark:text-purple-400 font-black hover:underline">← Dashboard</button>
             </div>
             <MarksUploader />
+        </div>
+    );
+    if (selectedAction === 'STUDENTS') return (
+        <div className="space-y-6 animate-fadeIn">
+            <div className={`${card} p-5 flex items-center gap-4`}>
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-500/20">
+                    <Users size={20} />
+                </div>
+                <div>
+                    <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{fullName}</h3>
+                    <p className="text-xs text-slate-400 font-bold">{teacher.employeeId} • My Students</p>
+                </div>
+                <button onClick={() => setActiveView('dashboard')} className="ml-auto text-sm text-indigo-600 dark:text-indigo-400 font-black hover:underline">← Dashboard</button>
+            </div>
+            <div className={card}>
+                <StudentList />
+            </div>
         </div>
     );
 

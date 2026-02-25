@@ -29,7 +29,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { MOCK_STUDENTS, MOCK_NOTICES } from '../constants';
-import { studentAPI } from '../services/api';
+import { studentAPI, notificationAPI } from '../services/api';
 import Timetable from './Timetable';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -49,6 +49,7 @@ import {
 interface StudentPortalProps {
   isDarkMode: boolean;
   activeView: string;
+  setActiveView: (view: string) => void;
 }
 
 const SUBJECT_COLORS = ['#6366f1', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981', '#ef4444', '#ec4899'];
@@ -56,7 +57,7 @@ const SUBJECT_COLORS = ['#6366f1', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981', '
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView }) => {
+const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView, setActiveView }) => {
   const [student, setStudent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -68,11 +69,15 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
   const [attendanceData, setAttendanceData] = useState<any[]>([]);
   const [attLoading, setAttLoading] = useState(false);
 
-  // ── Notifications state ──
+  // ── Notifications state (dedicated view) ──
   const [liveNotices, setLiveNotices] = useState<any[]>([]);
   const [notifFilter, setNotifFilter] = useState<'ALL' | 'ACADEMIC' | 'EVENT' | 'GENERAL'>('ALL');
   const [notifLoading, setNotifLoading] = useState(false);
   const [readIds, setReadIds] = useState<Set<string>>(new Set());
+
+  // ── Dashboard notification preview state ──
+  const [dashNotifs, setDashNotifs] = useState<any[]>([]);
+  const [dashNotifsLoaded, setDashNotifsLoaded] = useState(false);
 
   // ── Grades state ──
   const [liveGrades, setLiveGrades] = useState<any[]>([]);
@@ -104,6 +109,14 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
     fetchProfile();
   }, []);
 
+  // Fetch dashboard notification preview (3 most recent)
+  useEffect(() => {
+    if (dashNotifsLoaded) return;
+    notificationAPI.getAll({ limit: 3 }).then(r => {
+      if (r.success) setDashNotifs(r.data);
+    }).catch(() => { }).finally(() => setDashNotifsLoaded(true));
+  }, []);
+
   // Fetch attendance when month changes
   useEffect(() => {
     if (activeView !== 'attendance') return;
@@ -127,25 +140,16 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
     const fetchNotices = async () => {
       setNotifLoading(true);
       try {
-        const res = await studentAPI.getNotifications(100);
-        setLiveNotices(res.success ? (res.data || []) : []);
+        const result = await notificationAPI.getAll({ category: notifFilter === 'ALL' ? undefined : notifFilter, limit: 100 });
+        setLiveNotices(result.success ? (result.data || []) : []);
       } catch {
-        // Fallback to mock notices
-        setLiveNotices(notifications.map((n: any, i: number) => ({
-          id: `mock-${i}`,
-          title: n.title,
-          message: n.message || n.title,
-          type: n.type || 'GENERAL',
-          date: n.date,
-          author: n.author || 'School',
-          priority: n.priority || 'NORMAL',
-        })));
+        setLiveNotices([]);
       } finally {
         setNotifLoading(false);
       }
     };
     fetchNotices();
-  }, [activeView]);
+  }, [activeView, notifFilter]);
 
   // Fetch grades when reports view is active or term changes
   useEffect(() => {
@@ -494,30 +498,49 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
               <Bell size={18} className="text-indigo-500" /> Notifications
             </h3>
             <span className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-xs font-black">
-              {notifications.length} new
+              {dashNotifs.filter(n => !n.isRead).length} unread
             </span>
           </div>
           <div className="space-y-3">
-            {notifications.map((n, i) => (
-              <div key={i} className="flex gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 hover:shadow-sm transition-all">
-                <div className={`mt-0.5 w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${n.type === 'EVENT'
-                  ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'
-                  : 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                  }`}>
-                  {n.type === 'EVENT' ? <Calendar size={18} /> : <Bell size={18} />}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-black text-slate-800 dark:text-slate-100">{n.title}</p>
-                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{n.date}</p>
-                </div>
-              </div>
-            ))}
-            {notifications.length === 0 && (
+            {dashNotifs.length === 0 ? (
               <div className="text-center py-8 text-slate-400">
                 <Bell size={32} className="mx-auto mb-2 opacity-40" />
                 <p className="text-sm font-bold">No notifications</p>
               </div>
-            )}
+            ) : dashNotifs.map((n, i) => (
+              <div key={n.id || i} className={`flex gap-3 p-3 rounded-2xl border transition-all ${!n.isRead
+                ? 'bg-indigo-50/60 dark:bg-indigo-900/10 border-indigo-100 dark:border-indigo-900/30'
+                : 'bg-slate-50/80 dark:bg-slate-800/30 border-slate-100 dark:border-slate-800'
+                }`}>
+                <div className={`mt-0.5 w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${n.category === 'EVENT' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
+                  : n.category === 'ACADEMIC' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
+                    : 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                  }`}>
+                  {n.category === 'EVENT' ? <Calendar size={16} /> : <Bell size={16} />}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-black text-slate-800 dark:text-slate-100 line-clamp-1">{n.title}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">{n.message}</p>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    {n.senderRole && (
+                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-black ${n.senderRole === 'PRINCIPAL' ? 'bg-purple-600 text-white'
+                        : n.senderRole === 'TEACHER' ? 'bg-blue-600 text-white'
+                          : 'bg-slate-500 text-white'
+                        }`}>
+                        {n.senderName || n.senderRole}
+                      </span>
+                    )}
+                    {!n.isRead && <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 ml-auto" />}
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button
+              onClick={() => setActiveView('notifications')}
+              className="w-full py-2.5 rounded-xl text-xs font-black text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition text-center flex items-center justify-center gap-1"
+            >
+              View All Notifications <ChevronRight size={14} />
+            </button>
           </div>
         </div>
       </div>
@@ -563,8 +586,8 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
               key={t}
               onClick={() => setSelectedTerm(t)}
               className={`px-5 py-2 rounded-xl font-bold text-sm transition ${selectedTerm === t
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
             >
               {t}
@@ -872,7 +895,7 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
     ];
 
     filteredNotices.forEach((n: any) => {
-      const d = new Date(n.date);
+      const d = new Date(n.createdAt || n.date || Date.now());
       d.setHours(0, 0, 0, 0);
       if (d >= today) groups[0].items.push(n);
       else if (d >= yesterday) groups[1].items.push(n);
@@ -880,22 +903,29 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
       else groups[3].items.push(n);
     });
 
-    const getNotifIcon = (type: string) => {
-      switch ((type || '').toUpperCase()) {
+    const getNotifIcon = (cat: string) => {
+      switch ((cat || '').toUpperCase()) {
         case 'EVENT': return <PartyPopper size={18} />;
         case 'ACADEMIC': return <BookOpen size={18} />;
-        case 'ALERT': return <AlertCircle size={18} />;
+        case 'ATTENDANCE': return <CheckCheck size={18} />;
+        case 'EXAM': return <AlertCircle size={18} />;
         default: return <Info size={18} />;
       }
     };
 
-    const getNotifColors = (type: string) => {
-      switch ((type || '').toUpperCase()) {
+    const getNotifColors = (cat: string) => {
+      switch ((cat || '').toUpperCase()) {
         case 'EVENT': return 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400';
         case 'ACADEMIC': return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400';
-        case 'ALERT': return 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400';
+        case 'ATTENDANCE': return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+        case 'EXAM': return 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400';
         default: return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
       }
+    };
+
+    const getRoleBadge = (role: string, name: string) => {
+      const color = role === 'PRINCIPAL' ? 'bg-purple-600' : role === 'TEACHER' ? 'bg-blue-600' : 'bg-slate-500';
+      return <span className={`px-2 py-0.5 rounded text-[9px] font-black text-white ${color}`}>{name || role}</span>;
     };
 
     const getPriorityBadge = (priority: string) => {
@@ -906,9 +936,9 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
       }
     };
 
-    const markAllRead = () => {
-      const ids = new Set(filteredNotices.map((n: any) => n.id));
-      setReadIds(prev => new Set([...prev, ...ids]));
+    const markAllRead = async () => {
+      try { await notificationAPI.markAllRead(); } catch { }
+      setLiveNotices(prev => prev.map(n => ({ ...n, isRead: true })));
     };
 
     return (
@@ -968,18 +998,24 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
               </div>
               <div className="space-y-3">
                 {group.items.map((n: any, i: number) => {
-                  const isRead = readIds.has(n.id);
-                  const dateStr = new Date(n.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+                  const isRead = n.isRead || readIds.has(n.id);
+                  const dateStr = new Date(n.createdAt || n.date || Date.now()).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+                  const category = n.category || n.type || 'GENERAL';
                   return (
                     <div
                       key={n.id || i}
-                      onClick={() => setReadIds(prev => new Set([...prev, n.id]))}
+                      onClick={async () => {
+                        if (!isRead) {
+                          try { await notificationAPI.markRead(n.id); } catch { }
+                          setLiveNotices(prev => prev.map(x => x.id === n.id ? { ...x, isRead: true } : x));
+                        }
+                      }}
                       className={`${card} p-5 flex gap-4 cursor-pointer hover:shadow-md transition-all
-                        ${!isRead ? 'border-l-4 border-l-indigo-500' : 'opacity-75'}
-                      `}
+                          ${!isRead ? 'border-l-4 border-l-indigo-500' : 'opacity-75'}
+                        `}
                     >
-                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${getNotifColors(n.type)}`}>
-                        {getNotifIcon(n.type)}
+                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${getNotifColors(category)}`}>
+                        {getNotifIcon(category)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -992,18 +1028,12 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView })
                         {n.message && n.message !== n.title && (
                           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{n.message}</p>
                         )}
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{dateStr}</span>
-                          {n.author && (
-                            <>
-                              <span className="text-slate-300 dark:text-slate-700">•</span>
-                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{n.author}</span>
-                            </>
-                          )}
-                          <span className="text-slate-300 dark:text-slate-700">•</span>
-                          <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${getNotifColors(n.type)}`}>
-                            {n.type || 'General'}
+                        <div className="flex items-center gap-2 mt-2 flex-wrap">
+                          {n.senderRole && getRoleBadge(n.senderRole, n.senderName)}
+                          <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${getNotifColors(category)}`}>
+                            {category}
                           </span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{dateStr}</span>
                         </div>
                       </div>
                     </div>

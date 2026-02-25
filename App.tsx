@@ -13,6 +13,8 @@ import TimetableGenerator from '@/components/TimetableGenerator';
 import TeacherManagement from '@/components/TeacherManagement';
 import LandingPage from '@/components/LandingPage';
 import { authAPI } from './services/api';
+import PrincipalNotificationsPage from './components/PrincipalNotificationsPage';
+
 
 import {
   LogIn,
@@ -177,13 +179,13 @@ const App: React.FC = () => {
   const renderView = () => {
     // Role-specific rendering
     if (userRole === UserRole.STUDENT) {
-      return <StudentPortal isDarkMode={isDarkMode} activeView={activeView} />;
+      return <StudentPortal isDarkMode={isDarkMode} activeView={activeView} setActiveView={setActiveView} />;
     }
     if (userRole === UserRole.PARENT) {
-      return <ParentPortal isDarkMode={isDarkMode} activeView={activeView} />;
+      return <ParentPortal isDarkMode={isDarkMode} activeView={activeView} setActiveView={setActiveView} />;
     }
     if (userRole === UserRole.TEACHER) {
-      return <TeacherPortal isDarkMode={isDarkMode} activeView={activeView} />;
+      return <TeacherPortal isDarkMode={isDarkMode} activeView={activeView} setActiveView={setActiveView} />;
     }
 
     // Admin/Principal generic views
@@ -193,6 +195,7 @@ const App: React.FC = () => {
       case 'students': return <StudentList />;
       case 'teachers': return <TeacherManagement isDarkMode={isDarkMode} />;
       case 'timetable': return <TimetableGenerator isDarkMode={isDarkMode} />;
+      case 'notifications': return <PrincipalNotificationsPage isDarkMode={isDarkMode} />;
       default: return <Dashboard isDarkMode={isDarkMode} />;
     }
   };
