@@ -1,6 +1,33 @@
 import prisma from '../config/database';
+import twilio from 'twilio';
+
+const twilioClient = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN
+    ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+    : null;
 
 export class NotificationService {
+    /**
+     * Send SMS via Twilio
+     */
+    static async sendSMS(to: string, message: string) {
+        if (!twilioClient || !process.env.TWILIO_PHONE_NUMBER) {
+            console.warn('Twilio not configured. SMS not sent:', message);
+            return { success: false, message: 'Twilio not configured' };
+        }
+
+        try {
+            await twilioClient.messages.create({
+                body: message,
+                from: process.env.TWILIO_PHONE_NUMBER,
+                to: to
+            });
+            console.log(`SMS sent to ${to}: ${message}`);
+            return { success: true };
+        } catch (error) {
+            console.error('Error sending SMS:', error);
+            return { success: false, error };
+        }
+    }
 
     static async getUserNotifications(
         userId: string,
@@ -116,6 +143,37 @@ export class NotificationService {
     static async deleteNotification(notificationId: string, userId: string) {
         await (prisma.notification as any).deleteMany({ where: { id: notificationId, userId } });
         return { success: true, message: 'Notification deleted' };
+    }
+
+    /**
+     * Generic send notification by userId
+     */
+    static async send(data: {
+        userId: string;
+        title: string;
+        message: string;
+        category: string;
+        senderUserId: string;
+        senderName: string;
+        senderRole: string;
+        iconEmoji?: string;
+    }) {
+        await (prisma.notification as any).create({
+            data: {
+                userId: data.userId,
+                title: data.title,
+                message: data.message,
+                type: 'INFO',
+                category: data.category || 'GENERAL',
+                priority: 'NORMAL',
+                senderUserId: data.senderUserId,
+                senderName: data.senderName,
+                senderRole: data.senderRole,
+                iconEmoji: data.iconEmoji || null,
+            },
+        });
+
+        return { success: true };
     }
 
     // ── Sent History — returns notifications authored by this user ──

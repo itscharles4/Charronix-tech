@@ -34,6 +34,7 @@
         "morgan": "^1.10.0",
         "multer": "^1.4.5-lts.1",
         "nodemailer": "^6.9.12",
+        "razorpay": "^2.9.6",
         "twilio": "^5.0.4",
         "uuid": "^9.0.1",
         "winston": "^3.12.0",

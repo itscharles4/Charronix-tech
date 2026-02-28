@@ -33,6 +33,7 @@ import { studentAPI, notificationAPI } from '../services/api';
 import Timetable from './Timetable';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import Assignments from './StudentPortal/Assignments.tsx';
 import {
   AreaChart,
   Area,
@@ -1064,6 +1065,21 @@ const StudentPortal: React.FC<StudentPortalProps> = ({ isDarkMode, activeView, s
     case 'attendance': return renderAttendance();
     case 'notifications': return renderNotifications();
     case 'timetable': return renderTimetable();
+    case 'assignments': return (
+      <div className="space-y-6 animate-fadeIn">
+        <div className={`${card} p-5 flex items-center gap-4`}>
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-500/20">
+            <BookOpen size={20} />
+          </div>
+          <div>
+            <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{fullName}</h3>
+            <p className="text-xs text-slate-400 font-bold">Class {student.class}-{student.section} • My Homework</p>
+          </div>
+          <button onClick={() => setActiveView('dashboard')} className="ml-auto text-sm text-indigo-600 dark:text-indigo-400 font-black hover:underline">← Dashboard</button>
+        </div>
+        <Assignments />
+      </div>
+    );
     default: return renderDashboard();
   }
 };

@@ -6,6 +6,7 @@ export const globalRateLimiter = rateLimit({
     max: env.RATE_LIMIT_MAX_REQUESTS,
     standardHeaders: true,
     legacyHeaders: false,
+    skip: () => env.NODE_ENV === 'development',
     message: {
         success: false,
         message: 'Too many requests, please try again later',

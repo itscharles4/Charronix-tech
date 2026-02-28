@@ -24,11 +24,15 @@ export class ParentService {
             include: {
                 academicGrades: {
                     orderBy: { createdAt: 'desc' },
-                    take: 10,
                 },
                 attendance: {
                     orderBy: { date: 'desc' },
-                    take: 30, // Last month's records
+                    take: 60,
+                    include: {
+                        markedBy: {
+                            select: { firstName: true, lastName: true },
+                        },
+                    },
                 },
                 complaints: {
                     orderBy: { date: 'desc' },

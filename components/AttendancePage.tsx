@@ -334,7 +334,7 @@ const AttendancePage: React.FC<AttendancePageProps> = ({ isDarkMode }) => {
               {attendanceRecords.slice().reverse().map((record, idx) => (
                 <tr key={idx} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
                   <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-100">
-                    {new Date(record.date).toLocaleDateString()}
+                    {new Date(record.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <span
@@ -345,11 +345,19 @@ const AttendancePage: React.FC<AttendancePageProps> = ({ isDarkMode }) => {
                       {getStatusIcon(record.status)} {record.status.toUpperCase()}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400">
-                    {record.markedBy}
+                  <td className="px-6 py-4 text-sm">
+                    {record.markedBy && record.markedBy !== 'System' ? (
+                      <span className="inline-flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700/50 px-3 py-1 rounded-lg text-xs font-black">
+                        👨‍🏫 {record.markedBy}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 px-3 py-1 rounded-lg text-xs font-bold">
+                        — Not recorded
+                      </span>
+                    )}
                   </td>
                   <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
-                    {record.remarks}
+                    {record.remarks || <span className="text-slate-300 dark:text-slate-600">—</span>}
                   </td>
                 </tr>
               ))}

@@ -134,9 +134,9 @@ router.post('/send', async (req: AuthRequest, res: Response, next: NextFunction)
             return res.status(400).json({ success: false, message: 'Invalid targetType' });
         }
 
-        res.status(201).json(result);
+        return res.status(201).json(result);
     } catch (err: any) {
-        res.status(500).json({ success: false, message: err.message || 'Failed to send notification' });
+        return res.status(500).json({ success: false, message: err.message || 'Failed to send notification' });
     }
 });
 

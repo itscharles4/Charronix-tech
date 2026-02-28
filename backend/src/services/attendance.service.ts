@@ -95,6 +95,9 @@ export class AttendanceService {
                     student: {
                         select: { id: true, firstName: true, lastName: true, class: true, section: true, rollNo: true },
                     },
+                    markedBy: {
+                        select: { firstName: true, lastName: true },
+                    },
                 },
             }),
             prisma.attendance.count({ where }),
@@ -126,6 +129,11 @@ export class AttendanceService {
         return prisma.attendance.findMany({
             where: { studentId, date: { gte: start, lte: end } },
             orderBy: { date: 'asc' },
+            include: {
+                markedBy: {
+                    select: { firstName: true, lastName: true },
+                },
+            },
         });
     }
 

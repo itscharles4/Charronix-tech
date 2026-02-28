@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -70,6 +71,9 @@ model Student {
   complaints           Complaint[]
   medicalInfo          MedicalInfo?
   user                 User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feeRecords           FeeRecord[]
+  payments             Payment[]
+  submissions          Submission[]
 
   @@index([class, section])
   @@index([status])
@@ -99,6 +103,7 @@ model Teacher {
   subjects         TeacherSubject[]
   user             User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
   timetableTeacher TimetableTeacher?
+  assignments      Assignment[]
 
   @@map("teachers")
 }
@@ -611,4 +616,209 @@ enum SettingCategory {
   EMAIL
   SMS
   AI
+}
+
+// ============================================
+// FEE PAYMENT SYSTEM
+// ============================================
+
+enum FeeType {
+  ACADEMIC
+  TRANSPORT
+  HOSTEL
+  REGISTRATION
+  LIBRARY
+  EXAM
+  MISCELLANEOUS
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  RAZORPAY
+  STRIPE
+  PAYPAL
+  CASH
+  BANK_TRANSFER
+}
+
+model FeeStructure {
+  id           String   @id @default(uuid())
+  schoolId     String   @map("school_id")
+  feeType      FeeType  @map("fee_type")
+  class        String
+  academicYear String   @map("academic_year")
+
+  amount      Float
+  dueDate     DateTime @map("due_date")
+  lateFee     Float    @default(0) @map("late_fee")
+  discount    Float    @default(0)
+
+  description String?
+  isActive    Boolean  @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  feeRecords FeeRecord[]
+
+  @@unique([schoolId, feeType, class, academicYear])
+  @@index([schoolId, class])
+  @@map("fee_structures")
+}
+
+model FeeRecord {
+  id             String   @id @default(uuid())
+  studentId      String   @map("student_id")
+  feeStructureId String   @map("fee_structure_id")
+
+  feeType         FeeType       @map("fee_type")
+  academicYear    String        @map("academic_year")
+  totalAmount     Float         @map("total_amount")
+  paidAmount      Float         @default(0) @map("paid_amount")
+  remainingAmount Float         @map("remaining_amount")
+  dueDate         DateTime      @map("due_date")
+
+  status  PaymentStatus @default(PENDING)
+  isPaid  Boolean       @default(false) @map("is_paid")
+
+  isOverdue      Boolean @default(false) @map("is_overdue")
+  lateFeeApplied Float   @default(0) @map("late_fee_applied")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  student      Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  feeStructure FeeStructure @relation(fields: [feeStructureId], references: [id])
+  payments     Payment[]
+
+  @@index([studentId])
+  @@index([status])
+  @@map("fee_records")
+}
+
+model Payment {
+  id           String  @id @default(uuid())
+  feeRecordId  String  @map("fee_record_id")
+  studentId    String  @map("student_id")
+  parentUserId String? @map("parent_user_id")
+
+  amount        Float
+  paymentMethod PaymentMethod @map("payment_method")
+  transactionId String        @unique @map("transaction_id")
+  receiptNumber String        @unique @map("receipt_number")
+
+  gatewayOrderId   String? @map("gateway_order_id")
+  gatewayPaymentId String? @map("gateway_payment_id")
+  gatewaySignature String? @map("gateway_signature")
+  gatewayResponse  Json?   @map("gateway_response")
+
+  status  PaymentStatus @default(PENDING)
+  paidAt  DateTime?     @map("paid_at")
+
+  remarks    String?
+  receiptUrl String? @map("receipt_url")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  feeRecord FeeRecord @relation(fields: [feeRecordId], references: [id])
+  student   Student   @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
+  @@index([status])
+  @@index([transactionId])
+  @@index([gatewayOrderId])
+  @@map("payments")
+}
+
+enum AssignmentStatus {
+  ACTIVE
+  EXPIRED
+  DRAFT
+}
+
+enum SubmissionStatus {
+  PENDING
+  SUBMITTED
+  GRADED
+  LATE
+}
+
+model Assignment {
+  id              String   @id @default(uuid())
+  teacherId       String   @map("teacher_id")
+  
+  // Assignment details
+  title           String
+  description     String   @db.Text
+  subject         String
+  class           String
+  section         String?  // Optional: null means all sections
+  
+  // Files
+  attachmentUrl   String?  @map("attachment_url") // URL to assignment file
+  attachmentName  String?  @map("attachment_name")
+  attachmentSize  Int?     @map("attachment_size") // in bytes
+  
+  // Deadline
+  dueDate         DateTime @map("due_date")
+  allowLateSubmission Boolean @default(true) @map("allow_late_submission")
+  
+  // Grading
+  maxMarks        Int?     @map("max_marks")
+  
+  // Metadata
+  status          AssignmentStatus @default(ACTIVE)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  teacher         Teacher  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  submissions     Submission[]
+  
+  @@index([teacherId])
+  @@index([class, section])
+  @@index([status])
+  @@map("assignments")
+}
+
+model Submission {
+  id              String   @id @default(uuid())
+  assignmentId    String   @map("assignment_id")
+  studentId       String   @map("student_id")
+  
+  // Submission files
+  attachmentUrl   String?  @map("attachment_url")
+  attachmentName  String?  @map("attachment_name")
+  attachmentSize  Int?     @map("attachment_size")
+  
+  // Status
+  status          SubmissionStatus @default(PENDING)
+  isLate          Boolean  @default(false) @map("is_late")
+  submittedAt     DateTime? @map("submitted_at")
+  
+  // Grading
+  marksObtained   Int?     @map("marks_obtained")
+  feedback        String?  @db.Text
+  gradedAt        DateTime? @map("graded_at")
+  gradedBy        String?  @map("graded_by")
+  
+  // Metadata
+  remarks         String?
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  assignment      Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student         Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  @@unique([assignmentId, studentId])
+  @@index([studentId])
+  @@index([status])
+  @@map("submissions")
 }

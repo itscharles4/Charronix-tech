@@ -1,5 +1,5 @@
-
-const API_BASE_URL = 'http://localhost:5000/api/v1';
+export const BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = `${BASE_URL}/api/v1`;
 
 const getHeaders = () => {
     const token = localStorage.getItem('accessToken');
@@ -238,3 +238,165 @@ export const notificationAPI = {
         return response.json();
     },
 };
+
+// ============================================
+// FEE PAYMENT API
+// ============================================
+export const feeAPI = {
+    /** Get student's fee records and summary */
+    getStudentFees: async (studentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/fees/student/${studentId}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Initiate payment — creates gateway order */
+    initiatePayment: async (data: {
+        studentId: string;
+        feeRecordIds: string[];
+        paymentMethod: string;
+    }) => {
+        const response = await fetch(`${API_BASE_URL}/fees/initiate-payment`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Verify Razorpay payment signature and mark as complete */
+    verifyPayment: async (data: {
+        orderId: string;
+        paymentId: string;
+        signature: string;
+    }) => {
+        const response = await fetch(`${API_BASE_URL}/fees/verify-payment`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Get payment history for a student */
+    getPaymentHistory: async (studentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/fees/payment-history/${studentId}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Admin: Create a fee structure */
+    createFeeStructure: async (data: {
+        feeType: string;
+        class: string;
+        academicYear: string;
+        amount: number;
+        dueDate: string;
+        lateFee?: number;
+        discount?: number;
+        description?: string;
+    }) => {
+        const response = await fetch(`${API_BASE_URL}/fees/structure`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Admin: List all fee structures */
+    listFeeStructures: async () => {
+        const response = await fetch(`${API_BASE_URL}/fees/structures`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Admin: Get fee collection summary */
+    getFeeSummary: async (academicYear = '2025-26') => {
+        const response = await fetch(`${API_BASE_URL}/fees/summary?academicYear=${academicYear}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+};
+
+// ============================================
+// ASSIGNMENT MANAGEMENT API
+// ============================================
+export const assignmentAPI = {
+    /** Teacher: Create assignment */
+    createAssignment: async (formData: FormData) => {
+        const token = localStorage.getItem('accessToken');
+        const response = await fetch(`${API_BASE_URL}/assignments`, {
+            method: 'POST',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+            },
+            body: formData,
+        });
+        return response.json();
+    },
+
+    /** Teacher: Get my assignments */
+    getTeacherAssignments: async () => {
+        const response = await fetch(`${API_BASE_URL}/assignments/teacher`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Student: Get my assignments */
+    getStudentAssignments: async () => {
+        const response = await fetch(`${API_BASE_URL}/assignments/student`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Student: Submit assignment */
+    submitAssignment: async (submissionId: string, formData: FormData) => {
+        const token = localStorage.getItem('accessToken');
+        const response = await fetch(`${API_BASE_URL}/assignments/submit/${submissionId}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+            },
+            body: formData,
+        });
+        return response.json();
+    },
+
+    /** Teacher: Get assignment submissions */
+    getAssignmentSubmissions: async (assignmentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/assignments/${assignmentId}/submissions`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Teacher: Grade submission */
+    gradeSubmission: async (
+        submissionId: string,
+        data: { marksObtained: number; feedback?: string }
+    ) => {
+        const response = await fetch(`${API_BASE_URL}/assignments/grade/${submissionId}`, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Teacher: Delete assignment */
+    deleteAssignment: async (assignmentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/assignments/${assignmentId}`, {
+            method: 'DELETE',
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+};
+

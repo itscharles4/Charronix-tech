@@ -27,6 +27,9 @@ import aiRoutes from './routes/ai.routes';
 import timetableRoutes from './routes/timetable.routes';
 import parentRoutes from './routes/parent.routes';
 import complaintRoutes from './routes/complaint.routes';
+import feeRoutes from './routes/fee.routes';
+import assignmentRoutes from './routes/assignment.routes';
+import { WebhookController } from './controllers/webhook.controller';
 
 const app = express();
 
@@ -95,6 +98,9 @@ app.use(`${apiPrefix}/ai`, aiRoutes);
 app.use(`${apiPrefix}/timetable`, timetableRoutes);
 app.use(`${apiPrefix}/parents`, parentRoutes);
 app.use(`${apiPrefix}/complaints`, complaintRoutes);
+app.use(`${apiPrefix}/fees`, feeRoutes);
+app.use(`${apiPrefix}/assignments`, assignmentRoutes);
+app.post(`${apiPrefix}/webhooks/razorpay`, WebhookController.handleRazorpay);
 
 // ============================================
 // ERROR HANDLING

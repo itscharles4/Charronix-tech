@@ -50,9 +50,14 @@ export class StudentController {
                         lte: endDate,
                     },
                 },
+                include: {
+                    markedBy: {
+                        select: { firstName: true, lastName: true },
+                    },
+                },
                 orderBy: { date: 'asc' },
             });
-            
+
             // Calculate statistics
             const totalDays = attendanceRecords.length;
             const presentCount = attendanceRecords.filter(r => r.status === 'PRESENT').length;
@@ -79,7 +84,7 @@ export class StudentController {
                         date: r.date,
                         status: r.status,
                         remarks: r.remarks,
-                        markedById: r.markedById,
+                        markedBy: r.markedBy ? `${r.markedBy.firstName} ${r.markedBy.lastName}` : 'System',
                     })),
                     statistics: {
                         totalDays,

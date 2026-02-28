@@ -75,14 +75,15 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'dashboard', label: 'My Progress', icon: LayoutDashboard },
           { id: 'reports', label: 'Exam Reports', icon: FileText },
           { id: 'attendance', label: 'My Attendance', icon: ClipboardCheck },
+          { id: 'assignments', label: 'Homework', icon: CheckSquare },
           { id: 'timetable', label: 'My Timetable', icon: Calendar },
           { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
       case UserRole.PARENT:
         return [
-          { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
+          { id: 'overview', label: 'Overview', icon: LayoutDashboard },
           { id: 'reports', label: 'Reports', icon: BarChart3 },
-          { id: 'messages', label: 'Complaints', icon: AlertCircle },
+          { id: 'complaints', label: 'Complaints', icon: AlertCircle },
           { id: 'attendance', label: 'Attendance', icon: ClipboardCheck },
         ];
       case UserRole.TEACHER:
@@ -91,6 +92,7 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'attendance', label: 'Take Attendance', icon: CheckSquare },
           { id: 'marks', label: 'Upload Marks', icon: BookOpen },
           { id: 'students', label: 'My Students', icon: Users },
+          { id: 'assignments-manage', label: 'Assignments', icon: ClipboardCheck },
           { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
       case UserRole.ADMIN:
