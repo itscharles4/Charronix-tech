@@ -400,3 +400,36 @@ export const assignmentAPI = {
     },
 };
 
+// ============================================
+// ADMIN MANAGEMENT API
+// ============================================
+export const adminAPI = {
+    /** Admin: Get all students */
+    getAllStudents: async (filters?: { class?: string; section?: string; status?: string; search?: string; limit?: string }) => {
+        const params = new URLSearchParams();
+        if (filters) {
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value) params.append(key, value);
+            });
+        }
+        // Force high limit to fetch all students at once for the Admin dashboard view
+        if (!params.has('limit')) {
+            params.append('limit', '1000');
+        }
+
+        const response = await fetch(`${API_BASE_URL}/students?${params.toString()}`, {
+            headers: getHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to fetch students');
+        return response.json();
+    },
+
+    /** Admin: Get detailed student profile */
+    getStudentById: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/students/${id}`, {
+            headers: getHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to fetch student details');
+        return response.json();
+    }
+};

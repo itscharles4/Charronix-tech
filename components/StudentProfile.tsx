@@ -1,25 +1,27 @@
 
-import React, { useState } from 'react';
-import { 
-  ArrowLeft, 
-  Award, 
-  HeartPulse, 
-  MessageSquare, 
-  TrendingUp, 
-  User, 
+import React, { useState, useEffect } from 'react';
+import {
+  ArrowLeft,
+  Award,
+  HeartPulse,
+  MessageSquare,
+  TrendingUp,
+  User,
   FileText,
   MapPin,
   Stethoscope,
   ChevronRight,
   ClipboardCheck,
-  GraduationCap
+  GraduationCap,
+  Loader2
 } from 'lucide-react';
+import { adminAPI } from '../services/api';
 import { Student } from '../types';
-import { 
-  Radar, 
-  RadarChart, 
-  PolarGrid, 
-  PolarAngleAxis, 
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -34,14 +36,48 @@ interface StudentProfileProps {
   onBack: () => void;
 }
 
-const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
+const StudentProfile: React.FC<StudentProfileProps> = ({ student: initialStudent, onBack }) => {
   const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'ACADEMICS' | 'HEALTH' | 'COMMUNICATION'>('OVERVIEW');
+  const [student, setStudent] = useState<any>(initialStudent);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const academicData = student.academicGrades?.map(g => ({
+  useEffect(() => {
+    const fetchDetailedProfile = async () => {
+      try {
+        setIsLoading(true);
+        const res = await adminAPI.getStudentById(initialStudent.id);
+        if (res.success && res.data) {
+          setStudent(res.data);
+        }
+      } catch (err) {
+        console.error('Failed to load detailed profile: ', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDetailedProfile();
+  }, [initialStudent.id]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] animate-fadeIn text-slate-500">
+        <Loader2 className="animate-spin text-indigo-500 mb-4" size={48} />
+        <h3 className="text-xl font-black uppercase tracking-widest text-slate-400">Loading Profile...</h3>
+      </div>
+    );
+  }
+
+  const academicData = student.academicGrades?.length > 0 ? student.academicGrades.map((g: any) => ({
     subject: g.subject,
     score: g.score,
     fullMark: g.maxScore
-  })) || [];
+  })) : [
+    { subject: 'Math', score: 0, fullMark: 100 },
+    { subject: 'Science', score: 0, fullMark: 100 },
+    { subject: 'English', score: 0, fullMark: 100 },
+    { subject: 'History', score: 0, fullMark: 100 },
+    { subject: 'Art', score: 0, fullMark: 100 },
+  ];
 
   const getStatusColor = (attendance: number) => {
     if (attendance >= 90) return 'text-green-500';
@@ -54,14 +90,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
       {/* Header & Back Button */}
       <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
         <div className="flex items-center gap-6">
-          <button 
+          <button
             onClick={onBack}
             className="group flex items-center gap-2 p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm"
           >
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
             <span className="text-sm font-black uppercase tracking-widest hidden sm:inline">Back to List</span>
           </button>
-          
+
           <div className="flex items-center gap-5">
             <div className="w-20 h-20 rounded-[2.2rem] bg-indigo-600 text-white flex items-center justify-center font-black text-3xl shadow-xl shadow-indigo-100 dark:shadow-none">
               {student.firstName[0]}{student.lastName[0]}
@@ -84,7 +120,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="flex gap-3 w-full md:w-auto">
           <button className="flex-1 md:flex-none px-6 py-3 bg-indigo-600 text-white font-black rounded-2xl shadow-xl hover:bg-indigo-700 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
             <FileText size={18} /> Report Card
@@ -103,11 +139,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-widest transition-all border-b-2 whitespace-nowrap ${
-              activeTab === tab.id 
-                ? 'border-indigo-600 text-indigo-600' 
+            className={`flex items-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-widest transition-all border-b-2 whitespace-nowrap ${activeTab === tab.id
+                ? 'border-indigo-600 text-indigo-600'
                 : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
-            }`}
+              }`}
           >
             <tab.icon size={16} />
             {tab.label}
@@ -117,7 +152,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
 
       {/* Tab Content */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        
+
         {/* Left Stats Column (Sticky on Desktop) */}
         <div className="space-y-6">
           <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
@@ -188,7 +223,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={academicData}>
                       <PolarGrid stroke="#e2e8f0" />
-                      <PolarAngleAxis dataKey="subject" tick={{fill: '#94a3b8', fontSize: 10, fontWeight: 'bold'}} />
+                      <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 'bold' }} />
                       <Radar
                         name="Student"
                         dataKey="score"
@@ -237,27 +272,34 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {student.academicGrades?.map((g, i) => (
-                      <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                        <td className="px-8 py-6 text-sm font-black text-slate-800 dark:text-white">{g.subject}</td>
-                        <td className="px-8 py-6 text-sm text-slate-500 font-bold text-center">{g.maxScore}</td>
-                        <td className="px-8 py-6 text-sm font-black text-indigo-600 dark:text-indigo-400 text-center">
-                          <div className="flex flex-col items-center">
-                            <span>{g.score}</span>
-                            <div className="w-12 h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-1 overflow-hidden">
-                              <div className="h-full bg-indigo-500" style={{ width: `${(g.score/g.maxScore)*100}%` }}></div>
+                    {student.academicGrades?.length > 0 ? (
+                      student.academicGrades.map((g: any, i: number) => (
+                        <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="px-8 py-6 text-sm font-black text-slate-800 dark:text-white">{g.subject}</td>
+                          <td className="px-8 py-6 text-sm text-slate-500 font-bold text-center">{g.maxScore}</td>
+                          <td className="px-8 py-6 text-sm font-black text-indigo-600 dark:text-indigo-400 text-center">
+                            <div className="flex flex-col items-center">
+                              <span>{g.score}</span>
+                              <div className="w-12 h-1 bg-slate-100 dark:bg-slate-800 rounded-full mt-1 overflow-hidden">
+                                <div className="h-full bg-indigo-500" style={{ width: `${(g.score / g.maxScore) * 100}%` }}></div>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-8 py-6 text-right">
-                          <span className={`px-3 py-1 rounded-lg text-xs font-black shadow-sm ${
-                            g.grade.includes('A') ? 'bg-green-100 text-green-700' : 'bg-indigo-50 text-indigo-700'
-                          }`}>
-                            {g.grade}
-                          </span>
+                          </td>
+                          <td className="px-8 py-6 text-right">
+                            <span className={`px-3 py-1 rounded-lg text-xs font-black shadow-sm ${g.grade.includes('A') ? 'bg-green-100 text-green-700' : 'bg-indigo-50 text-indigo-700'
+                              }`}>
+                              {g.grade}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={4} className="px-8 py-12 text-center">
+                          <p className="text-sm font-bold text-slate-400 italic">No academic grades recorded for this student.</p>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -277,7 +319,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Blood Group</p>
                   <p className="text-4xl font-black text-slate-800 dark:text-white">{student.medicalInfo?.bloodGroup || 'N/A'}</p>
                 </div>
-                
+
                 <div className="space-y-6">
                   <div>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Allergies & Sensitivities</p>
@@ -312,9 +354,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
               <div className="space-y-8 relative before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100 dark:before:bg-slate-800">
                 {student.communicationLogs?.map((log) => (
                   <div key={log.id} className="relative pl-12">
-                    <div className={`absolute left-0 top-1 w-10 h-10 rounded-xl flex items-center justify-center z-10 shadow-sm border ${
-                      log.type === 'Call' ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-white dark:bg-slate-800 text-indigo-600 border-slate-200 dark:border-slate-700'
-                    }`}>
+                    <div className={`absolute left-0 top-1 w-10 h-10 rounded-xl flex items-center justify-center z-10 shadow-sm border ${log.type === 'Call' ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-white dark:bg-slate-800 text-indigo-600 border-slate-200 dark:border-slate-700'
+                      }`}>
                       <MessageSquare size={18} />
                     </div>
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all">
@@ -330,7 +371,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
                     </div>
                   </div>
                 )) || <p className="text-sm text-slate-400 text-center py-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl italic">No interactions logged yet.</p>}
-                
+
                 <button className="ml-12 w-[calc(100%-3rem)] flex items-center justify-center gap-2 py-4 border-2 border-dashed border-slate-200 dark:border-slate-800 text-slate-400 hover:text-indigo-600 hover:border-indigo-600 dark:hover:text-indigo-400 dark:hover:border-indigo-400 rounded-3xl text-xs font-black uppercase tracking-widest transition-all">
                   New Communication Entry <ChevronRight size={14} />
                 </button>
