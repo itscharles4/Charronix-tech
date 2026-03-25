@@ -21,7 +21,8 @@ import {
   AlertCircle,
   FileText,
   CheckSquare,
-  MessageSquare
+  MessageSquare,
+  Bus
 } from 'lucide-react';
 import { UserRole } from '../types';
 import AIAssistant from './AIAssistant';
@@ -85,6 +86,7 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'reports', label: 'Reports', icon: BarChart3 },
           { id: 'complaints', label: 'Complaints', icon: AlertCircle },
           { id: 'attendance', label: 'Attendance', icon: ClipboardCheck },
+          { id: 'transport', label: 'Transport', icon: Bus },
         ];
       case UserRole.TEACHER:
         return [
@@ -105,6 +107,7 @@ const Layout: React.FC<LayoutProps> = ({
           { id: 'teachers', label: 'Teachers', icon: UserSquare2 },
           { id: 'timetable', label: 'AI Timetable', icon: Calendar },
           { id: 'reports', label: 'Analytics', icon: BarChart3 },
+          { id: 'transport', label: 'Transport', icon: Bus },
           { id: 'notifications', label: 'Notifications', icon: Bell },
         ];
     }

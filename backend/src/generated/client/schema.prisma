@@ -74,6 +74,8 @@ model Student {
   feeRecords           FeeRecord[]
   payments             Payment[]
   submissions          Submission[]
+  transportAssignment  StudentTransport?
+  boardingLogs         BoardingLog[]
 
   @@index([class, section])
   @@index([status])
@@ -821,4 +823,154 @@ model Submission {
   @@index([studentId])
   @@index([status])
   @@map("submissions")
+}
+
+// ============================================
+// TRANSPORT MANAGEMENT SYSTEM
+// ============================================
+
+enum VehicleType {
+  BUS
+  VAN
+  CAR
+}
+
+enum VehicleStatus {
+  ACTIVE
+  MAINTENANCE
+  INACTIVE
+}
+
+enum FuelType {
+  DIESEL
+  CNG
+  ELECTRIC
+  PETROL
+}
+
+enum PickupType {
+  BOTH
+  MORNING_ONLY
+  EVENING_ONLY
+}
+
+enum BoardingType {
+  BOARDING
+  DEBOARDING
+}
+
+enum ScanMethod {
+  QR_CODE
+  MANUAL
+}
+
+model Driver {
+  id             String    @id @default(uuid())
+  name           String
+  phone          String
+  licenseNo      String    @unique @map("license_no")
+  licenseExpiry  DateTime  @map("license_expiry")
+  medicalExpiry  DateTime  @map("medical_expiry")
+  policeVerified Boolean   @default(false) @map("police_verified")
+  photoUrl       String?   @map("photo_url")
+  status         String    @default("ACTIVE")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  vehicles       Vehicle[]
+
+  @@map("drivers")
+}
+
+model Vehicle {
+  id              String        @id @default(uuid())
+  registrationNo  String        @unique @map("registration_no")
+  type            VehicleType
+  capacity        Int
+  manufacturer    String?
+  model           String?
+  year            Int?
+  insuranceNo     String?       @map("insurance_no")
+  insuranceExpiry DateTime?     @map("insurance_expiry")
+  permitExpiry    DateTime?     @map("permit_expiry")
+  fitnessExpiry   DateTime?     @map("fitness_expiry")
+  gpsDeviceId     String?       @map("gps_device_id")
+  fuelType        FuelType      @default(DIESEL)
+  odometerReading Int           @default(0) @map("odometer_reading")
+  lastServiceDate DateTime?     @map("last_service_date")
+  status          VehicleStatus @default(ACTIVE)
+  driverId        String?       @map("driver_id")
+  driver          Driver?       @relation(fields: [driverId], references: [id])
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  routes          Route[]
+  boardingLogs    BoardingLog[]
+
+  @@map("vehicles")
+}
+
+model Route {
+  id                String             @id @default(uuid())
+  name              String
+  vehicleId         String?            @map("vehicle_id")
+  vehicle           Vehicle?           @relation(fields: [vehicleId], references: [id])
+  isActive          Boolean            @default(true) @map("is_active")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  stops             RouteStop[]
+  studentTransports StudentTransport[]
+
+  @@map("routes")
+}
+
+model RouteStop {
+  id                String             @id @default(uuid())
+  routeId           String             @map("route_id")
+  stopName          String             @map("stop_name")
+  landmark          String?
+  latitude          Float?
+  longitude         Float?
+  sequence          Int
+  morningArrival    String?            @map("morning_arrival")
+  eveningArrival    String?            @map("evening_arrival")
+  route             Route              @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  studentTransports StudentTransport[]
+  boardingLogs      BoardingLog[]
+
+  @@index([routeId])
+  @@map("route_stops")
+}
+
+model StudentTransport {
+  id         String     @id @default(uuid())
+  studentId  String     @unique @map("student_id")
+  routeId    String     @map("route_id")
+  stopId     String     @map("stop_id")
+  qrCode     String?    @unique @map("qr_code")
+  feeAmount  Float      @default(0) @map("fee_amount")
+  pickupType PickupType @default(BOTH) @map("pickup_type")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+  student    Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  route      Route      @relation(fields: [routeId], references: [id])
+  stop       RouteStop  @relation(fields: [stopId], references: [id])
+
+  @@index([routeId])
+  @@map("student_transports")
+}
+
+model BoardingLog {
+  id         String       @id @default(uuid())
+  studentId  String       @map("student_id")
+  vehicleId  String       @map("vehicle_id")
+  stopId     String?      @map("stop_id")
+  timestamp  DateTime     @default(now())
+  type       BoardingType
+  scanMethod ScanMethod   @default(MANUAL) @map("scan_method")
+  student    Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  vehicle    Vehicle      @relation(fields: [vehicleId], references: [id])
+  stop       RouteStop?   @relation(fields: [stopId], references: [id])
+
+  @@index([studentId, timestamp])
+  @@index([vehicleId, timestamp])
+  @@map("boarding_logs")
 }

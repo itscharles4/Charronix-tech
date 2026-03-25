@@ -567,6 +567,85 @@ exports.Prisma.SubmissionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DriverScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  licenseNo: 'licenseNo',
+  licenseExpiry: 'licenseExpiry',
+  medicalExpiry: 'medicalExpiry',
+  policeVerified: 'policeVerified',
+  photoUrl: 'photoUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VehicleScalarFieldEnum = {
+  id: 'id',
+  registrationNo: 'registrationNo',
+  type: 'type',
+  capacity: 'capacity',
+  manufacturer: 'manufacturer',
+  model: 'model',
+  year: 'year',
+  insuranceNo: 'insuranceNo',
+  insuranceExpiry: 'insuranceExpiry',
+  permitExpiry: 'permitExpiry',
+  fitnessExpiry: 'fitnessExpiry',
+  gpsDeviceId: 'gpsDeviceId',
+  fuelType: 'fuelType',
+  odometerReading: 'odometerReading',
+  lastServiceDate: 'lastServiceDate',
+  status: 'status',
+  driverId: 'driverId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RouteScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  vehicleId: 'vehicleId',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RouteStopScalarFieldEnum = {
+  id: 'id',
+  routeId: 'routeId',
+  stopName: 'stopName',
+  landmark: 'landmark',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  sequence: 'sequence',
+  morningArrival: 'morningArrival',
+  eveningArrival: 'eveningArrival'
+};
+
+exports.Prisma.StudentTransportScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  routeId: 'routeId',
+  stopId: 'stopId',
+  qrCode: 'qrCode',
+  feeAmount: 'feeAmount',
+  pickupType: 'pickupType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BoardingLogScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  vehicleId: 'vehicleId',
+  stopId: 'stopId',
+  timestamp: 'timestamp',
+  type: 'type',
+  scanMethod: 'scanMethod'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -723,6 +802,41 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
   LATE: 'LATE'
 };
 
+exports.VehicleType = exports.$Enums.VehicleType = {
+  BUS: 'BUS',
+  VAN: 'VAN',
+  CAR: 'CAR'
+};
+
+exports.FuelType = exports.$Enums.FuelType = {
+  DIESEL: 'DIESEL',
+  CNG: 'CNG',
+  ELECTRIC: 'ELECTRIC',
+  PETROL: 'PETROL'
+};
+
+exports.VehicleStatus = exports.$Enums.VehicleStatus = {
+  ACTIVE: 'ACTIVE',
+  MAINTENANCE: 'MAINTENANCE',
+  INACTIVE: 'INACTIVE'
+};
+
+exports.PickupType = exports.$Enums.PickupType = {
+  BOTH: 'BOTH',
+  MORNING_ONLY: 'MORNING_ONLY',
+  EVENING_ONLY: 'EVENING_ONLY'
+};
+
+exports.BoardingType = exports.$Enums.BoardingType = {
+  BOARDING: 'BOARDING',
+  DEBOARDING: 'DEBOARDING'
+};
+
+exports.ScanMethod = exports.$Enums.ScanMethod = {
+  QR_CODE: 'QR_CODE',
+  MANUAL: 'MANUAL'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Student: 'Student',
@@ -760,7 +874,13 @@ exports.Prisma.ModelName = {
   FeeRecord: 'FeeRecord',
   Payment: 'Payment',
   Assignment: 'Assignment',
-  Submission: 'Submission'
+  Submission: 'Submission',
+  Driver: 'Driver',
+  Vehicle: 'Vehicle',
+  Route: 'Route',
+  RouteStop: 'RouteStop',
+  StudentTransport: 'StudentTransport',
+  BoardingLog: 'BoardingLog'
 };
 
 /**

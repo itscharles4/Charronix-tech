@@ -433,3 +433,120 @@ export const adminAPI = {
         return response.json();
     }
 };
+
+// ============================================
+// TRANSPORT MANAGEMENT API
+// ============================================
+export const transportAPI = {
+    /** Live Tracking */
+    getPositions: async () => {
+        const response = await fetch(`${API_BASE_URL}/transport/positions`, { headers: getHeaders() });
+        return response.json();
+    },
+
+    /** Dashboard stats */
+    getDashboard: async () => {
+        const response = await fetch(`${API_BASE_URL}/transport/dashboard`, { headers: getHeaders() });
+        return response.json();
+    },
+
+    /** Vehicles */
+    getVehicles: async () => {
+        const response = await fetch(`${API_BASE_URL}/transport/vehicles`, { headers: getHeaders() });
+        return response.json();
+    },
+    createVehicle: async (data: any) => {
+        const response = await fetch(`${API_BASE_URL}/transport/vehicles`, {
+            method: 'POST', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    updateVehicle: async (id: string, data: any) => {
+        const response = await fetch(`${API_BASE_URL}/transport/vehicles/${id}`, {
+            method: 'PUT', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    deleteVehicle: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/transport/vehicles/${id}`, {
+            method: 'DELETE', headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Drivers */
+    getDrivers: async () => {
+        const response = await fetch(`${API_BASE_URL}/transport/drivers`, { headers: getHeaders() });
+        return response.json();
+    },
+    createDriver: async (data: any) => {
+        const response = await fetch(`${API_BASE_URL}/transport/drivers`, {
+            method: 'POST', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Routes */
+    getRoutes: async () => {
+        const response = await fetch(`${API_BASE_URL}/transport/routes`, { headers: getHeaders() });
+        return response.json();
+    },
+    createRoute: async (data: any) => {
+        const response = await fetch(`${API_BASE_URL}/transport/routes`, {
+            method: 'POST', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    updateRoute: async (id: string, data: any) => {
+        const response = await fetch(`${API_BASE_URL}/transport/routes/${id}`, {
+            method: 'PUT', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    deleteRoute: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/transport/routes/${id}`, {
+            method: 'DELETE', headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Student assignment */
+    assignStudent: async (data: { studentId: string; routeId: string; stopId: string; feeAmount?: number }) => {
+        const response = await fetch(`${API_BASE_URL}/transport/assign-student`, {
+            method: 'POST', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+    unassignStudent: async (studentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/transport/unassign-student/${studentId}`, {
+            method: 'DELETE', headers: getHeaders(),
+        });
+        return response.json();
+    },
+
+    /** Boarding logs */
+    getBoardingLogs: async (filters?: { date?: string; vehicleId?: string; limit?: number }) => {
+        const params = new URLSearchParams();
+        if (filters?.date) params.append('date', filters.date);
+        if (filters?.vehicleId) params.append('vehicleId', filters.vehicleId);
+        if (filters?.limit) params.append('limit', String(filters.limit));
+        const response = await fetch(`${API_BASE_URL}/transport/boarding-logs?${params.toString()}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+    logBoarding: async (data: { studentId: string; vehicleId: string; stopId?: string; type: string; scanMethod?: string }) => {
+        const response = await fetch(`${API_BASE_URL}/transport/boarding-log`, {
+            method: 'POST', headers: getHeaders(), body: JSON.stringify(data),
+        });
+        return response.json();
+    },
+
+    /** Student transport (parent view) */
+    getStudentTransport: async (studentId: string) => {
+        const response = await fetch(`${API_BASE_URL}/transport/student/${studentId}`, {
+            headers: getHeaders(),
+        });
+        return response.json();
+    },
+};

@@ -12,6 +12,7 @@
     "@google/genai": "^1.40.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/three": "^0.183.1",
+    "@vis.gl/react-google-maps": "^1.7.1",
     "framer-motion": "^12.34.3",
     "gsap": "^3.14.2",
     "html2canvas": "^1.4.1",
@@ -24,6 +25,7 @@
     "three": "^0.183.1"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "@types/node": "^22.19.11",
     "@types/uuid": "^10.0.0",
     "@vitejs/plugin-react": "^5.0.0",

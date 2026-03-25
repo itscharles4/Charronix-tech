@@ -198,6 +198,36 @@ export type Assignment = $Result.DefaultSelection<Prisma.$AssignmentPayload>
  * 
  */
 export type Submission = $Result.DefaultSelection<Prisma.$SubmissionPayload>
+/**
+ * Model Driver
+ * 
+ */
+export type Driver = $Result.DefaultSelection<Prisma.$DriverPayload>
+/**
+ * Model Vehicle
+ * 
+ */
+export type Vehicle = $Result.DefaultSelection<Prisma.$VehiclePayload>
+/**
+ * Model Route
+ * 
+ */
+export type Route = $Result.DefaultSelection<Prisma.$RoutePayload>
+/**
+ * Model RouteStop
+ * 
+ */
+export type RouteStop = $Result.DefaultSelection<Prisma.$RouteStopPayload>
+/**
+ * Model StudentTransport
+ * 
+ */
+export type StudentTransport = $Result.DefaultSelection<Prisma.$StudentTransportPayload>
+/**
+ * Model BoardingLog
+ * 
+ */
+export type BoardingLog = $Result.DefaultSelection<Prisma.$BoardingLogPayload>
 
 /**
  * Enums
@@ -387,6 +417,59 @@ export const SubmissionStatus: {
 
 export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof SubmissionStatus]
 
+
+export const VehicleType: {
+  BUS: 'BUS',
+  VAN: 'VAN',
+  CAR: 'CAR'
+};
+
+export type VehicleType = (typeof VehicleType)[keyof typeof VehicleType]
+
+
+export const FuelType: {
+  DIESEL: 'DIESEL',
+  CNG: 'CNG',
+  ELECTRIC: 'ELECTRIC',
+  PETROL: 'PETROL'
+};
+
+export type FuelType = (typeof FuelType)[keyof typeof FuelType]
+
+
+export const VehicleStatus: {
+  ACTIVE: 'ACTIVE',
+  MAINTENANCE: 'MAINTENANCE',
+  INACTIVE: 'INACTIVE'
+};
+
+export type VehicleStatus = (typeof VehicleStatus)[keyof typeof VehicleStatus]
+
+
+export const PickupType: {
+  BOTH: 'BOTH',
+  MORNING_ONLY: 'MORNING_ONLY',
+  EVENING_ONLY: 'EVENING_ONLY'
+};
+
+export type PickupType = (typeof PickupType)[keyof typeof PickupType]
+
+
+export const BoardingType: {
+  BOARDING: 'BOARDING',
+  DEBOARDING: 'DEBOARDING'
+};
+
+export type BoardingType = (typeof BoardingType)[keyof typeof BoardingType]
+
+
+export const ScanMethod: {
+  QR_CODE: 'QR_CODE',
+  MANUAL: 'MANUAL'
+};
+
+export type ScanMethod = (typeof ScanMethod)[keyof typeof ScanMethod]
+
 }
 
 export type Role = $Enums.Role
@@ -460,6 +543,30 @@ export const AssignmentStatus: typeof $Enums.AssignmentStatus
 export type SubmissionStatus = $Enums.SubmissionStatus
 
 export const SubmissionStatus: typeof $Enums.SubmissionStatus
+
+export type VehicleType = $Enums.VehicleType
+
+export const VehicleType: typeof $Enums.VehicleType
+
+export type FuelType = $Enums.FuelType
+
+export const FuelType: typeof $Enums.FuelType
+
+export type VehicleStatus = $Enums.VehicleStatus
+
+export const VehicleStatus: typeof $Enums.VehicleStatus
+
+export type PickupType = $Enums.PickupType
+
+export const PickupType: typeof $Enums.PickupType
+
+export type BoardingType = $Enums.BoardingType
+
+export const BoardingType: typeof $Enums.BoardingType
+
+export type ScanMethod = $Enums.ScanMethod
+
+export const ScanMethod: typeof $Enums.ScanMethod
 
 /**
  * ##  Prisma Client ʲˢ
@@ -953,6 +1060,66 @@ export class PrismaClient<
     * ```
     */
   get submission(): Prisma.SubmissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.driver`: Exposes CRUD operations for the **Driver** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Drivers
+    * const drivers = await prisma.driver.findMany()
+    * ```
+    */
+  get driver(): Prisma.DriverDelegate<ExtArgs>;
+
+  /**
+   * `prisma.vehicle`: Exposes CRUD operations for the **Vehicle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Vehicles
+    * const vehicles = await prisma.vehicle.findMany()
+    * ```
+    */
+  get vehicle(): Prisma.VehicleDelegate<ExtArgs>;
+
+  /**
+   * `prisma.route`: Exposes CRUD operations for the **Route** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Routes
+    * const routes = await prisma.route.findMany()
+    * ```
+    */
+  get route(): Prisma.RouteDelegate<ExtArgs>;
+
+  /**
+   * `prisma.routeStop`: Exposes CRUD operations for the **RouteStop** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RouteStops
+    * const routeStops = await prisma.routeStop.findMany()
+    * ```
+    */
+  get routeStop(): Prisma.RouteStopDelegate<ExtArgs>;
+
+  /**
+   * `prisma.studentTransport`: Exposes CRUD operations for the **StudentTransport** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StudentTransports
+    * const studentTransports = await prisma.studentTransport.findMany()
+    * ```
+    */
+  get studentTransport(): Prisma.StudentTransportDelegate<ExtArgs>;
+
+  /**
+   * `prisma.boardingLog`: Exposes CRUD operations for the **BoardingLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BoardingLogs
+    * const boardingLogs = await prisma.boardingLog.findMany()
+    * ```
+    */
+  get boardingLog(): Prisma.BoardingLogDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1430,7 +1597,13 @@ export namespace Prisma {
     FeeRecord: 'FeeRecord',
     Payment: 'Payment',
     Assignment: 'Assignment',
-    Submission: 'Submission'
+    Submission: 'Submission',
+    Driver: 'Driver',
+    Vehicle: 'Vehicle',
+    Route: 'Route',
+    RouteStop: 'RouteStop',
+    StudentTransport: 'StudentTransport',
+    BoardingLog: 'BoardingLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1446,7 +1619,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "student" | "teacher" | "teacherSubject" | "teacherClass" | "attendance" | "academicGrade" | "achievement" | "complaint" | "medicalInfo" | "communicationLog" | "notice" | "timetableClass" | "timetableSection" | "timetableSubject" | "timetableTeacher" | "timetableTeacherSubject" | "timetableUnavailableSlot" | "schoolTiming" | "schoolWorkingDay" | "schoolBreak" | "generatedTimetable" | "timetableEntry" | "aiChatHistory" | "passwordResetToken" | "refreshToken" | "auditLog" | "session" | "fileUpload" | "notification" | "systemSetting" | "timetable" | "feeStructure" | "feeRecord" | "payment" | "assignment" | "submission"
+      modelProps: "user" | "student" | "teacher" | "teacherSubject" | "teacherClass" | "attendance" | "academicGrade" | "achievement" | "complaint" | "medicalInfo" | "communicationLog" | "notice" | "timetableClass" | "timetableSection" | "timetableSubject" | "timetableTeacher" | "timetableTeacherSubject" | "timetableUnavailableSlot" | "schoolTiming" | "schoolWorkingDay" | "schoolBreak" | "generatedTimetable" | "timetableEntry" | "aiChatHistory" | "passwordResetToken" | "refreshToken" | "auditLog" | "session" | "fileUpload" | "notification" | "systemSetting" | "timetable" | "feeStructure" | "feeRecord" | "payment" | "assignment" | "submission" | "driver" | "vehicle" | "route" | "routeStop" | "studentTransport" | "boardingLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4040,6 +4213,426 @@ export namespace Prisma {
           }
         }
       }
+      Driver: {
+        payload: Prisma.$DriverPayload<ExtArgs>
+        fields: Prisma.DriverFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DriverFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DriverFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          findFirst: {
+            args: Prisma.DriverFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DriverFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          findMany: {
+            args: Prisma.DriverFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>[]
+          }
+          create: {
+            args: Prisma.DriverCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          createMany: {
+            args: Prisma.DriverCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DriverCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>[]
+          }
+          delete: {
+            args: Prisma.DriverDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          update: {
+            args: Prisma.DriverUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          deleteMany: {
+            args: Prisma.DriverDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DriverUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DriverUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DriverPayload>
+          }
+          aggregate: {
+            args: Prisma.DriverAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDriver>
+          }
+          groupBy: {
+            args: Prisma.DriverGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DriverGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DriverCountArgs<ExtArgs>
+            result: $Utils.Optional<DriverCountAggregateOutputType> | number
+          }
+        }
+      }
+      Vehicle: {
+        payload: Prisma.$VehiclePayload<ExtArgs>
+        fields: Prisma.VehicleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VehicleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VehicleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          findFirst: {
+            args: Prisma.VehicleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VehicleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          findMany: {
+            args: Prisma.VehicleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>[]
+          }
+          create: {
+            args: Prisma.VehicleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          createMany: {
+            args: Prisma.VehicleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VehicleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>[]
+          }
+          delete: {
+            args: Prisma.VehicleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          update: {
+            args: Prisma.VehicleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          deleteMany: {
+            args: Prisma.VehicleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VehicleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.VehicleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
+          }
+          aggregate: {
+            args: Prisma.VehicleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVehicle>
+          }
+          groupBy: {
+            args: Prisma.VehicleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VehicleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VehicleCountArgs<ExtArgs>
+            result: $Utils.Optional<VehicleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Route: {
+        payload: Prisma.$RoutePayload<ExtArgs>
+        fields: Prisma.RouteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RouteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RouteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          findFirst: {
+            args: Prisma.RouteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RouteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          findMany: {
+            args: Prisma.RouteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>[]
+          }
+          create: {
+            args: Prisma.RouteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          createMany: {
+            args: Prisma.RouteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RouteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>[]
+          }
+          delete: {
+            args: Prisma.RouteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          update: {
+            args: Prisma.RouteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          deleteMany: {
+            args: Prisma.RouteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RouteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RouteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoutePayload>
+          }
+          aggregate: {
+            args: Prisma.RouteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRoute>
+          }
+          groupBy: {
+            args: Prisma.RouteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RouteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RouteCountArgs<ExtArgs>
+            result: $Utils.Optional<RouteCountAggregateOutputType> | number
+          }
+        }
+      }
+      RouteStop: {
+        payload: Prisma.$RouteStopPayload<ExtArgs>
+        fields: Prisma.RouteStopFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RouteStopFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RouteStopFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          findFirst: {
+            args: Prisma.RouteStopFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RouteStopFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          findMany: {
+            args: Prisma.RouteStopFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>[]
+          }
+          create: {
+            args: Prisma.RouteStopCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          createMany: {
+            args: Prisma.RouteStopCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RouteStopCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>[]
+          }
+          delete: {
+            args: Prisma.RouteStopDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          update: {
+            args: Prisma.RouteStopUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          deleteMany: {
+            args: Prisma.RouteStopDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RouteStopUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RouteStopUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RouteStopPayload>
+          }
+          aggregate: {
+            args: Prisma.RouteStopAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRouteStop>
+          }
+          groupBy: {
+            args: Prisma.RouteStopGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RouteStopGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RouteStopCountArgs<ExtArgs>
+            result: $Utils.Optional<RouteStopCountAggregateOutputType> | number
+          }
+        }
+      }
+      StudentTransport: {
+        payload: Prisma.$StudentTransportPayload<ExtArgs>
+        fields: Prisma.StudentTransportFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StudentTransportFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StudentTransportFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          findFirst: {
+            args: Prisma.StudentTransportFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StudentTransportFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          findMany: {
+            args: Prisma.StudentTransportFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>[]
+          }
+          create: {
+            args: Prisma.StudentTransportCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          createMany: {
+            args: Prisma.StudentTransportCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StudentTransportCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>[]
+          }
+          delete: {
+            args: Prisma.StudentTransportDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          update: {
+            args: Prisma.StudentTransportUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          deleteMany: {
+            args: Prisma.StudentTransportDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StudentTransportUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StudentTransportUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StudentTransportPayload>
+          }
+          aggregate: {
+            args: Prisma.StudentTransportAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStudentTransport>
+          }
+          groupBy: {
+            args: Prisma.StudentTransportGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StudentTransportGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StudentTransportCountArgs<ExtArgs>
+            result: $Utils.Optional<StudentTransportCountAggregateOutputType> | number
+          }
+        }
+      }
+      BoardingLog: {
+        payload: Prisma.$BoardingLogPayload<ExtArgs>
+        fields: Prisma.BoardingLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BoardingLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BoardingLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          findFirst: {
+            args: Prisma.BoardingLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BoardingLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          findMany: {
+            args: Prisma.BoardingLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>[]
+          }
+          create: {
+            args: Prisma.BoardingLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          createMany: {
+            args: Prisma.BoardingLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BoardingLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>[]
+          }
+          delete: {
+            args: Prisma.BoardingLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          update: {
+            args: Prisma.BoardingLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.BoardingLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BoardingLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BoardingLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardingLogPayload>
+          }
+          aggregate: {
+            args: Prisma.BoardingLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBoardingLog>
+          }
+          groupBy: {
+            args: Prisma.BoardingLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BoardingLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BoardingLogCountArgs<ExtArgs>
+            result: $Utils.Optional<BoardingLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4312,6 +4905,7 @@ export namespace Prisma {
     feeRecords: number
     payments: number
     submissions: number
+    boardingLogs: number
   }
 
   export type StudentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4323,6 +4917,7 @@ export namespace Prisma {
     feeRecords?: boolean | StudentCountOutputTypeCountFeeRecordsArgs
     payments?: boolean | StudentCountOutputTypeCountPaymentsArgs
     submissions?: boolean | StudentCountOutputTypeCountSubmissionsArgs
+    boardingLogs?: boolean | StudentCountOutputTypeCountBoardingLogsArgs
   }
 
   // Custom InputTypes
@@ -4390,6 +4985,13 @@ export namespace Prisma {
    */
   export type StudentCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SubmissionWhereInput
+  }
+
+  /**
+   * StudentCountOutputType without action
+   */
+  export type StudentCountOutputTypeCountBoardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardingLogWhereInput
   }
 
 
@@ -4790,6 +5392,157 @@ export namespace Prisma {
    */
   export type AssignmentCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SubmissionWhereInput
+  }
+
+
+  /**
+   * Count Type DriverCountOutputType
+   */
+
+  export type DriverCountOutputType = {
+    vehicles: number
+  }
+
+  export type DriverCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicles?: boolean | DriverCountOutputTypeCountVehiclesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DriverCountOutputType without action
+   */
+  export type DriverCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DriverCountOutputType
+     */
+    select?: DriverCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DriverCountOutputType without action
+   */
+  export type DriverCountOutputTypeCountVehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleWhereInput
+  }
+
+
+  /**
+   * Count Type VehicleCountOutputType
+   */
+
+  export type VehicleCountOutputType = {
+    routes: number
+    boardingLogs: number
+  }
+
+  export type VehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    routes?: boolean | VehicleCountOutputTypeCountRoutesArgs
+    boardingLogs?: boolean | VehicleCountOutputTypeCountBoardingLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleCountOutputType
+     */
+    select?: VehicleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
+  }
+
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountBoardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardingLogWhereInput
+  }
+
+
+  /**
+   * Count Type RouteCountOutputType
+   */
+
+  export type RouteCountOutputType = {
+    stops: number
+    studentTransports: number
+  }
+
+  export type RouteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stops?: boolean | RouteCountOutputTypeCountStopsArgs
+    studentTransports?: boolean | RouteCountOutputTypeCountStudentTransportsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RouteCountOutputType without action
+   */
+  export type RouteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteCountOutputType
+     */
+    select?: RouteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RouteCountOutputType without action
+   */
+  export type RouteCountOutputTypeCountStopsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteStopWhereInput
+  }
+
+  /**
+   * RouteCountOutputType without action
+   */
+  export type RouteCountOutputTypeCountStudentTransportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentTransportWhereInput
+  }
+
+
+  /**
+   * Count Type RouteStopCountOutputType
+   */
+
+  export type RouteStopCountOutputType = {
+    studentTransports: number
+    boardingLogs: number
+  }
+
+  export type RouteStopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    studentTransports?: boolean | RouteStopCountOutputTypeCountStudentTransportsArgs
+    boardingLogs?: boolean | RouteStopCountOutputTypeCountBoardingLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RouteStopCountOutputType without action
+   */
+  export type RouteStopCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStopCountOutputType
+     */
+    select?: RouteStopCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RouteStopCountOutputType without action
+   */
+  export type RouteStopCountOutputTypeCountStudentTransportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentTransportWhereInput
+  }
+
+  /**
+   * RouteStopCountOutputType without action
+   */
+  export type RouteStopCountOutputTypeCountBoardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardingLogWhereInput
   }
 
 
@@ -6489,6 +7242,8 @@ export namespace Prisma {
     feeRecords?: boolean | Student$feeRecordsArgs<ExtArgs>
     payments?: boolean | Student$paymentsArgs<ExtArgs>
     submissions?: boolean | Student$submissionsArgs<ExtArgs>
+    transportAssignment?: boolean | Student$transportAssignmentArgs<ExtArgs>
+    boardingLogs?: boolean | Student$boardingLogsArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
@@ -6556,6 +7311,8 @@ export namespace Prisma {
     feeRecords?: boolean | Student$feeRecordsArgs<ExtArgs>
     payments?: boolean | Student$paymentsArgs<ExtArgs>
     submissions?: boolean | Student$submissionsArgs<ExtArgs>
+    transportAssignment?: boolean | Student$transportAssignmentArgs<ExtArgs>
+    boardingLogs?: boolean | Student$boardingLogsArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StudentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6575,6 +7332,8 @@ export namespace Prisma {
       feeRecords: Prisma.$FeeRecordPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       submissions: Prisma.$SubmissionPayload<ExtArgs>[]
+      transportAssignment: Prisma.$StudentTransportPayload<ExtArgs> | null
+      boardingLogs: Prisma.$BoardingLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6974,6 +7733,8 @@ export namespace Prisma {
     feeRecords<T extends Student$feeRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Student$feeRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeeRecordPayload<ExtArgs>, T, "findMany"> | Null>
     payments<T extends Student$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Student$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
     submissions<T extends Student$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, Student$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany"> | Null>
+    transportAssignment<T extends Student$transportAssignmentArgs<ExtArgs> = {}>(args?: Subset<T, Student$transportAssignmentArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    boardingLogs<T extends Student$boardingLogsArgs<ExtArgs> = {}>(args?: Subset<T, Student$boardingLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7531,6 +8292,41 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * Student.transportAssignment
+   */
+  export type Student$transportAssignmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    where?: StudentTransportWhereInput
+  }
+
+  /**
+   * Student.boardingLogs
+   */
+  export type Student$boardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    where?: BoardingLogWhereInput
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    cursor?: BoardingLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
   }
 
   /**
@@ -42879,6 +43675,6328 @@ export namespace Prisma {
 
 
   /**
+   * Model Driver
+   */
+
+  export type AggregateDriver = {
+    _count: DriverCountAggregateOutputType | null
+    _min: DriverMinAggregateOutputType | null
+    _max: DriverMaxAggregateOutputType | null
+  }
+
+  export type DriverMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    phone: string | null
+    licenseNo: string | null
+    licenseExpiry: Date | null
+    medicalExpiry: Date | null
+    policeVerified: boolean | null
+    photoUrl: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DriverMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    phone: string | null
+    licenseNo: string | null
+    licenseExpiry: Date | null
+    medicalExpiry: Date | null
+    policeVerified: boolean | null
+    photoUrl: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DriverCountAggregateOutputType = {
+    id: number
+    name: number
+    phone: number
+    licenseNo: number
+    licenseExpiry: number
+    medicalExpiry: number
+    policeVerified: number
+    photoUrl: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DriverMinAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    licenseNo?: true
+    licenseExpiry?: true
+    medicalExpiry?: true
+    policeVerified?: true
+    photoUrl?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DriverMaxAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    licenseNo?: true
+    licenseExpiry?: true
+    medicalExpiry?: true
+    policeVerified?: true
+    photoUrl?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DriverCountAggregateInputType = {
+    id?: true
+    name?: true
+    phone?: true
+    licenseNo?: true
+    licenseExpiry?: true
+    medicalExpiry?: true
+    policeVerified?: true
+    photoUrl?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DriverAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Driver to aggregate.
+     */
+    where?: DriverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drivers to fetch.
+     */
+    orderBy?: DriverOrderByWithRelationInput | DriverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DriverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drivers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drivers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Drivers
+    **/
+    _count?: true | DriverCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DriverMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DriverMaxAggregateInputType
+  }
+
+  export type GetDriverAggregateType<T extends DriverAggregateArgs> = {
+        [P in keyof T & keyof AggregateDriver]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDriver[P]>
+      : GetScalarType<T[P], AggregateDriver[P]>
+  }
+
+
+
+
+  export type DriverGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DriverWhereInput
+    orderBy?: DriverOrderByWithAggregationInput | DriverOrderByWithAggregationInput[]
+    by: DriverScalarFieldEnum[] | DriverScalarFieldEnum
+    having?: DriverScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DriverCountAggregateInputType | true
+    _min?: DriverMinAggregateInputType
+    _max?: DriverMaxAggregateInputType
+  }
+
+  export type DriverGroupByOutputType = {
+    id: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date
+    medicalExpiry: Date
+    policeVerified: boolean
+    photoUrl: string | null
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DriverCountAggregateOutputType | null
+    _min: DriverMinAggregateOutputType | null
+    _max: DriverMaxAggregateOutputType | null
+  }
+
+  type GetDriverGroupByPayload<T extends DriverGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DriverGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DriverGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DriverGroupByOutputType[P]>
+            : GetScalarType<T[P], DriverGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DriverSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    licenseNo?: boolean
+    licenseExpiry?: boolean
+    medicalExpiry?: boolean
+    policeVerified?: boolean
+    photoUrl?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vehicles?: boolean | Driver$vehiclesArgs<ExtArgs>
+    _count?: boolean | DriverCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["driver"]>
+
+  export type DriverSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    licenseNo?: boolean
+    licenseExpiry?: boolean
+    medicalExpiry?: boolean
+    policeVerified?: boolean
+    photoUrl?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["driver"]>
+
+  export type DriverSelectScalar = {
+    id?: boolean
+    name?: boolean
+    phone?: boolean
+    licenseNo?: boolean
+    licenseExpiry?: boolean
+    medicalExpiry?: boolean
+    policeVerified?: boolean
+    photoUrl?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DriverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicles?: boolean | Driver$vehiclesArgs<ExtArgs>
+    _count?: boolean | DriverCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DriverIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DriverPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Driver"
+    objects: {
+      vehicles: Prisma.$VehiclePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      phone: string
+      licenseNo: string
+      licenseExpiry: Date
+      medicalExpiry: Date
+      policeVerified: boolean
+      photoUrl: string | null
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["driver"]>
+    composites: {}
+  }
+
+  type DriverGetPayload<S extends boolean | null | undefined | DriverDefaultArgs> = $Result.GetResult<Prisma.$DriverPayload, S>
+
+  type DriverCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DriverFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DriverCountAggregateInputType | true
+    }
+
+  export interface DriverDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Driver'], meta: { name: 'Driver' } }
+    /**
+     * Find zero or one Driver that matches the filter.
+     * @param {DriverFindUniqueArgs} args - Arguments to find a Driver
+     * @example
+     * // Get one Driver
+     * const driver = await prisma.driver.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DriverFindUniqueArgs>(args: SelectSubset<T, DriverFindUniqueArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Driver that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DriverFindUniqueOrThrowArgs} args - Arguments to find a Driver
+     * @example
+     * // Get one Driver
+     * const driver = await prisma.driver.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DriverFindUniqueOrThrowArgs>(args: SelectSubset<T, DriverFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Driver that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverFindFirstArgs} args - Arguments to find a Driver
+     * @example
+     * // Get one Driver
+     * const driver = await prisma.driver.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DriverFindFirstArgs>(args?: SelectSubset<T, DriverFindFirstArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Driver that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverFindFirstOrThrowArgs} args - Arguments to find a Driver
+     * @example
+     * // Get one Driver
+     * const driver = await prisma.driver.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DriverFindFirstOrThrowArgs>(args?: SelectSubset<T, DriverFindFirstOrThrowArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Drivers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Drivers
+     * const drivers = await prisma.driver.findMany()
+     * 
+     * // Get first 10 Drivers
+     * const drivers = await prisma.driver.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const driverWithIdOnly = await prisma.driver.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DriverFindManyArgs>(args?: SelectSubset<T, DriverFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Driver.
+     * @param {DriverCreateArgs} args - Arguments to create a Driver.
+     * @example
+     * // Create one Driver
+     * const Driver = await prisma.driver.create({
+     *   data: {
+     *     // ... data to create a Driver
+     *   }
+     * })
+     * 
+     */
+    create<T extends DriverCreateArgs>(args: SelectSubset<T, DriverCreateArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Drivers.
+     * @param {DriverCreateManyArgs} args - Arguments to create many Drivers.
+     * @example
+     * // Create many Drivers
+     * const driver = await prisma.driver.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DriverCreateManyArgs>(args?: SelectSubset<T, DriverCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Drivers and returns the data saved in the database.
+     * @param {DriverCreateManyAndReturnArgs} args - Arguments to create many Drivers.
+     * @example
+     * // Create many Drivers
+     * const driver = await prisma.driver.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Drivers and only return the `id`
+     * const driverWithIdOnly = await prisma.driver.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DriverCreateManyAndReturnArgs>(args?: SelectSubset<T, DriverCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Driver.
+     * @param {DriverDeleteArgs} args - Arguments to delete one Driver.
+     * @example
+     * // Delete one Driver
+     * const Driver = await prisma.driver.delete({
+     *   where: {
+     *     // ... filter to delete one Driver
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DriverDeleteArgs>(args: SelectSubset<T, DriverDeleteArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Driver.
+     * @param {DriverUpdateArgs} args - Arguments to update one Driver.
+     * @example
+     * // Update one Driver
+     * const driver = await prisma.driver.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DriverUpdateArgs>(args: SelectSubset<T, DriverUpdateArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Drivers.
+     * @param {DriverDeleteManyArgs} args - Arguments to filter Drivers to delete.
+     * @example
+     * // Delete a few Drivers
+     * const { count } = await prisma.driver.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DriverDeleteManyArgs>(args?: SelectSubset<T, DriverDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Drivers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Drivers
+     * const driver = await prisma.driver.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DriverUpdateManyArgs>(args: SelectSubset<T, DriverUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Driver.
+     * @param {DriverUpsertArgs} args - Arguments to update or create a Driver.
+     * @example
+     * // Update or create a Driver
+     * const driver = await prisma.driver.upsert({
+     *   create: {
+     *     // ... data to create a Driver
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Driver we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DriverUpsertArgs>(args: SelectSubset<T, DriverUpsertArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Drivers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverCountArgs} args - Arguments to filter Drivers to count.
+     * @example
+     * // Count the number of Drivers
+     * const count = await prisma.driver.count({
+     *   where: {
+     *     // ... the filter for the Drivers we want to count
+     *   }
+     * })
+    **/
+    count<T extends DriverCountArgs>(
+      args?: Subset<T, DriverCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DriverCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Driver.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DriverAggregateArgs>(args: Subset<T, DriverAggregateArgs>): Prisma.PrismaPromise<GetDriverAggregateType<T>>
+
+    /**
+     * Group by Driver.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DriverGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DriverGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DriverGroupByArgs['orderBy'] }
+        : { orderBy?: DriverGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DriverGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDriverGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Driver model
+   */
+  readonly fields: DriverFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Driver.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DriverClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vehicles<T extends Driver$vehiclesArgs<ExtArgs> = {}>(args?: Subset<T, Driver$vehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Driver model
+   */ 
+  interface DriverFieldRefs {
+    readonly id: FieldRef<"Driver", 'String'>
+    readonly name: FieldRef<"Driver", 'String'>
+    readonly phone: FieldRef<"Driver", 'String'>
+    readonly licenseNo: FieldRef<"Driver", 'String'>
+    readonly licenseExpiry: FieldRef<"Driver", 'DateTime'>
+    readonly medicalExpiry: FieldRef<"Driver", 'DateTime'>
+    readonly policeVerified: FieldRef<"Driver", 'Boolean'>
+    readonly photoUrl: FieldRef<"Driver", 'String'>
+    readonly status: FieldRef<"Driver", 'String'>
+    readonly createdAt: FieldRef<"Driver", 'DateTime'>
+    readonly updatedAt: FieldRef<"Driver", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Driver findUnique
+   */
+  export type DriverFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter, which Driver to fetch.
+     */
+    where: DriverWhereUniqueInput
+  }
+
+  /**
+   * Driver findUniqueOrThrow
+   */
+  export type DriverFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter, which Driver to fetch.
+     */
+    where: DriverWhereUniqueInput
+  }
+
+  /**
+   * Driver findFirst
+   */
+  export type DriverFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter, which Driver to fetch.
+     */
+    where?: DriverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drivers to fetch.
+     */
+    orderBy?: DriverOrderByWithRelationInput | DriverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drivers.
+     */
+    cursor?: DriverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drivers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drivers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drivers.
+     */
+    distinct?: DriverScalarFieldEnum | DriverScalarFieldEnum[]
+  }
+
+  /**
+   * Driver findFirstOrThrow
+   */
+  export type DriverFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter, which Driver to fetch.
+     */
+    where?: DriverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drivers to fetch.
+     */
+    orderBy?: DriverOrderByWithRelationInput | DriverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Drivers.
+     */
+    cursor?: DriverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drivers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drivers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Drivers.
+     */
+    distinct?: DriverScalarFieldEnum | DriverScalarFieldEnum[]
+  }
+
+  /**
+   * Driver findMany
+   */
+  export type DriverFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter, which Drivers to fetch.
+     */
+    where?: DriverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Drivers to fetch.
+     */
+    orderBy?: DriverOrderByWithRelationInput | DriverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Drivers.
+     */
+    cursor?: DriverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Drivers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Drivers.
+     */
+    skip?: number
+    distinct?: DriverScalarFieldEnum | DriverScalarFieldEnum[]
+  }
+
+  /**
+   * Driver create
+   */
+  export type DriverCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Driver.
+     */
+    data: XOR<DriverCreateInput, DriverUncheckedCreateInput>
+  }
+
+  /**
+   * Driver createMany
+   */
+  export type DriverCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Drivers.
+     */
+    data: DriverCreateManyInput | DriverCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Driver createManyAndReturn
+   */
+  export type DriverCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Drivers.
+     */
+    data: DriverCreateManyInput | DriverCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Driver update
+   */
+  export type DriverUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Driver.
+     */
+    data: XOR<DriverUpdateInput, DriverUncheckedUpdateInput>
+    /**
+     * Choose, which Driver to update.
+     */
+    where: DriverWhereUniqueInput
+  }
+
+  /**
+   * Driver updateMany
+   */
+  export type DriverUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Drivers.
+     */
+    data: XOR<DriverUpdateManyMutationInput, DriverUncheckedUpdateManyInput>
+    /**
+     * Filter which Drivers to update
+     */
+    where?: DriverWhereInput
+  }
+
+  /**
+   * Driver upsert
+   */
+  export type DriverUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Driver to update in case it exists.
+     */
+    where: DriverWhereUniqueInput
+    /**
+     * In case the Driver found by the `where` argument doesn't exist, create a new Driver with this data.
+     */
+    create: XOR<DriverCreateInput, DriverUncheckedCreateInput>
+    /**
+     * In case the Driver was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DriverUpdateInput, DriverUncheckedUpdateInput>
+  }
+
+  /**
+   * Driver delete
+   */
+  export type DriverDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    /**
+     * Filter which Driver to delete.
+     */
+    where: DriverWhereUniqueInput
+  }
+
+  /**
+   * Driver deleteMany
+   */
+  export type DriverDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Drivers to delete
+     */
+    where?: DriverWhereInput
+  }
+
+  /**
+   * Driver.vehicles
+   */
+  export type Driver$vehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    where?: VehicleWhereInput
+    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
+    cursor?: VehicleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
+  }
+
+  /**
+   * Driver without action
+   */
+  export type DriverDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Vehicle
+   */
+
+  export type AggregateVehicle = {
+    _count: VehicleCountAggregateOutputType | null
+    _avg: VehicleAvgAggregateOutputType | null
+    _sum: VehicleSumAggregateOutputType | null
+    _min: VehicleMinAggregateOutputType | null
+    _max: VehicleMaxAggregateOutputType | null
+  }
+
+  export type VehicleAvgAggregateOutputType = {
+    capacity: number | null
+    year: number | null
+    odometerReading: number | null
+  }
+
+  export type VehicleSumAggregateOutputType = {
+    capacity: number | null
+    year: number | null
+    odometerReading: number | null
+  }
+
+  export type VehicleMinAggregateOutputType = {
+    id: string | null
+    registrationNo: string | null
+    type: $Enums.VehicleType | null
+    capacity: number | null
+    manufacturer: string | null
+    model: string | null
+    year: number | null
+    insuranceNo: string | null
+    insuranceExpiry: Date | null
+    permitExpiry: Date | null
+    fitnessExpiry: Date | null
+    gpsDeviceId: string | null
+    fuelType: $Enums.FuelType | null
+    odometerReading: number | null
+    lastServiceDate: Date | null
+    status: $Enums.VehicleStatus | null
+    driverId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VehicleMaxAggregateOutputType = {
+    id: string | null
+    registrationNo: string | null
+    type: $Enums.VehicleType | null
+    capacity: number | null
+    manufacturer: string | null
+    model: string | null
+    year: number | null
+    insuranceNo: string | null
+    insuranceExpiry: Date | null
+    permitExpiry: Date | null
+    fitnessExpiry: Date | null
+    gpsDeviceId: string | null
+    fuelType: $Enums.FuelType | null
+    odometerReading: number | null
+    lastServiceDate: Date | null
+    status: $Enums.VehicleStatus | null
+    driverId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VehicleCountAggregateOutputType = {
+    id: number
+    registrationNo: number
+    type: number
+    capacity: number
+    manufacturer: number
+    model: number
+    year: number
+    insuranceNo: number
+    insuranceExpiry: number
+    permitExpiry: number
+    fitnessExpiry: number
+    gpsDeviceId: number
+    fuelType: number
+    odometerReading: number
+    lastServiceDate: number
+    status: number
+    driverId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VehicleAvgAggregateInputType = {
+    capacity?: true
+    year?: true
+    odometerReading?: true
+  }
+
+  export type VehicleSumAggregateInputType = {
+    capacity?: true
+    year?: true
+    odometerReading?: true
+  }
+
+  export type VehicleMinAggregateInputType = {
+    id?: true
+    registrationNo?: true
+    type?: true
+    capacity?: true
+    manufacturer?: true
+    model?: true
+    year?: true
+    insuranceNo?: true
+    insuranceExpiry?: true
+    permitExpiry?: true
+    fitnessExpiry?: true
+    gpsDeviceId?: true
+    fuelType?: true
+    odometerReading?: true
+    lastServiceDate?: true
+    status?: true
+    driverId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VehicleMaxAggregateInputType = {
+    id?: true
+    registrationNo?: true
+    type?: true
+    capacity?: true
+    manufacturer?: true
+    model?: true
+    year?: true
+    insuranceNo?: true
+    insuranceExpiry?: true
+    permitExpiry?: true
+    fitnessExpiry?: true
+    gpsDeviceId?: true
+    fuelType?: true
+    odometerReading?: true
+    lastServiceDate?: true
+    status?: true
+    driverId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VehicleCountAggregateInputType = {
+    id?: true
+    registrationNo?: true
+    type?: true
+    capacity?: true
+    manufacturer?: true
+    model?: true
+    year?: true
+    insuranceNo?: true
+    insuranceExpiry?: true
+    permitExpiry?: true
+    fitnessExpiry?: true
+    gpsDeviceId?: true
+    fuelType?: true
+    odometerReading?: true
+    lastServiceDate?: true
+    status?: true
+    driverId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VehicleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Vehicle to aggregate.
+     */
+    where?: VehicleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Vehicles to fetch.
+     */
+    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VehicleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Vehicles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Vehicles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Vehicles
+    **/
+    _count?: true | VehicleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VehicleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VehicleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VehicleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VehicleMaxAggregateInputType
+  }
+
+  export type GetVehicleAggregateType<T extends VehicleAggregateArgs> = {
+        [P in keyof T & keyof AggregateVehicle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVehicle[P]>
+      : GetScalarType<T[P], AggregateVehicle[P]>
+  }
+
+
+
+
+  export type VehicleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleWhereInput
+    orderBy?: VehicleOrderByWithAggregationInput | VehicleOrderByWithAggregationInput[]
+    by: VehicleScalarFieldEnum[] | VehicleScalarFieldEnum
+    having?: VehicleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VehicleCountAggregateInputType | true
+    _avg?: VehicleAvgAggregateInputType
+    _sum?: VehicleSumAggregateInputType
+    _min?: VehicleMinAggregateInputType
+    _max?: VehicleMaxAggregateInputType
+  }
+
+  export type VehicleGroupByOutputType = {
+    id: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer: string | null
+    model: string | null
+    year: number | null
+    insuranceNo: string | null
+    insuranceExpiry: Date | null
+    permitExpiry: Date | null
+    fitnessExpiry: Date | null
+    gpsDeviceId: string | null
+    fuelType: $Enums.FuelType
+    odometerReading: number
+    lastServiceDate: Date | null
+    status: $Enums.VehicleStatus
+    driverId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: VehicleCountAggregateOutputType | null
+    _avg: VehicleAvgAggregateOutputType | null
+    _sum: VehicleSumAggregateOutputType | null
+    _min: VehicleMinAggregateOutputType | null
+    _max: VehicleMaxAggregateOutputType | null
+  }
+
+  type GetVehicleGroupByPayload<T extends VehicleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VehicleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VehicleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VehicleGroupByOutputType[P]>
+            : GetScalarType<T[P], VehicleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VehicleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    registrationNo?: boolean
+    type?: boolean
+    capacity?: boolean
+    manufacturer?: boolean
+    model?: boolean
+    year?: boolean
+    insuranceNo?: boolean
+    insuranceExpiry?: boolean
+    permitExpiry?: boolean
+    fitnessExpiry?: boolean
+    gpsDeviceId?: boolean
+    fuelType?: boolean
+    odometerReading?: boolean
+    lastServiceDate?: boolean
+    status?: boolean
+    driverId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    driver?: boolean | Vehicle$driverArgs<ExtArgs>
+    routes?: boolean | Vehicle$routesArgs<ExtArgs>
+    boardingLogs?: boolean | Vehicle$boardingLogsArgs<ExtArgs>
+    _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicle"]>
+
+  export type VehicleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    registrationNo?: boolean
+    type?: boolean
+    capacity?: boolean
+    manufacturer?: boolean
+    model?: boolean
+    year?: boolean
+    insuranceNo?: boolean
+    insuranceExpiry?: boolean
+    permitExpiry?: boolean
+    fitnessExpiry?: boolean
+    gpsDeviceId?: boolean
+    fuelType?: boolean
+    odometerReading?: boolean
+    lastServiceDate?: boolean
+    status?: boolean
+    driverId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    driver?: boolean | Vehicle$driverArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicle"]>
+
+  export type VehicleSelectScalar = {
+    id?: boolean
+    registrationNo?: boolean
+    type?: boolean
+    capacity?: boolean
+    manufacturer?: boolean
+    model?: boolean
+    year?: boolean
+    insuranceNo?: boolean
+    insuranceExpiry?: boolean
+    permitExpiry?: boolean
+    fitnessExpiry?: boolean
+    gpsDeviceId?: boolean
+    fuelType?: boolean
+    odometerReading?: boolean
+    lastServiceDate?: boolean
+    status?: boolean
+    driverId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    driver?: boolean | Vehicle$driverArgs<ExtArgs>
+    routes?: boolean | Vehicle$routesArgs<ExtArgs>
+    boardingLogs?: boolean | Vehicle$boardingLogsArgs<ExtArgs>
+    _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type VehicleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    driver?: boolean | Vehicle$driverArgs<ExtArgs>
+  }
+
+  export type $VehiclePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Vehicle"
+    objects: {
+      driver: Prisma.$DriverPayload<ExtArgs> | null
+      routes: Prisma.$RoutePayload<ExtArgs>[]
+      boardingLogs: Prisma.$BoardingLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      registrationNo: string
+      type: $Enums.VehicleType
+      capacity: number
+      manufacturer: string | null
+      model: string | null
+      year: number | null
+      insuranceNo: string | null
+      insuranceExpiry: Date | null
+      permitExpiry: Date | null
+      fitnessExpiry: Date | null
+      gpsDeviceId: string | null
+      fuelType: $Enums.FuelType
+      odometerReading: number
+      lastServiceDate: Date | null
+      status: $Enums.VehicleStatus
+      driverId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["vehicle"]>
+    composites: {}
+  }
+
+  type VehicleGetPayload<S extends boolean | null | undefined | VehicleDefaultArgs> = $Result.GetResult<Prisma.$VehiclePayload, S>
+
+  type VehicleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VehicleFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VehicleCountAggregateInputType | true
+    }
+
+  export interface VehicleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Vehicle'], meta: { name: 'Vehicle' } }
+    /**
+     * Find zero or one Vehicle that matches the filter.
+     * @param {VehicleFindUniqueArgs} args - Arguments to find a Vehicle
+     * @example
+     * // Get one Vehicle
+     * const vehicle = await prisma.vehicle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VehicleFindUniqueArgs>(args: SelectSubset<T, VehicleFindUniqueArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Vehicle that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {VehicleFindUniqueOrThrowArgs} args - Arguments to find a Vehicle
+     * @example
+     * // Get one Vehicle
+     * const vehicle = await prisma.vehicle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VehicleFindUniqueOrThrowArgs>(args: SelectSubset<T, VehicleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Vehicle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleFindFirstArgs} args - Arguments to find a Vehicle
+     * @example
+     * // Get one Vehicle
+     * const vehicle = await prisma.vehicle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VehicleFindFirstArgs>(args?: SelectSubset<T, VehicleFindFirstArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Vehicle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleFindFirstOrThrowArgs} args - Arguments to find a Vehicle
+     * @example
+     * // Get one Vehicle
+     * const vehicle = await prisma.vehicle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VehicleFindFirstOrThrowArgs>(args?: SelectSubset<T, VehicleFindFirstOrThrowArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Vehicles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Vehicles
+     * const vehicles = await prisma.vehicle.findMany()
+     * 
+     * // Get first 10 Vehicles
+     * const vehicles = await prisma.vehicle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vehicleWithIdOnly = await prisma.vehicle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VehicleFindManyArgs>(args?: SelectSubset<T, VehicleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Vehicle.
+     * @param {VehicleCreateArgs} args - Arguments to create a Vehicle.
+     * @example
+     * // Create one Vehicle
+     * const Vehicle = await prisma.vehicle.create({
+     *   data: {
+     *     // ... data to create a Vehicle
+     *   }
+     * })
+     * 
+     */
+    create<T extends VehicleCreateArgs>(args: SelectSubset<T, VehicleCreateArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Vehicles.
+     * @param {VehicleCreateManyArgs} args - Arguments to create many Vehicles.
+     * @example
+     * // Create many Vehicles
+     * const vehicle = await prisma.vehicle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VehicleCreateManyArgs>(args?: SelectSubset<T, VehicleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Vehicles and returns the data saved in the database.
+     * @param {VehicleCreateManyAndReturnArgs} args - Arguments to create many Vehicles.
+     * @example
+     * // Create many Vehicles
+     * const vehicle = await prisma.vehicle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Vehicles and only return the `id`
+     * const vehicleWithIdOnly = await prisma.vehicle.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VehicleCreateManyAndReturnArgs>(args?: SelectSubset<T, VehicleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Vehicle.
+     * @param {VehicleDeleteArgs} args - Arguments to delete one Vehicle.
+     * @example
+     * // Delete one Vehicle
+     * const Vehicle = await prisma.vehicle.delete({
+     *   where: {
+     *     // ... filter to delete one Vehicle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VehicleDeleteArgs>(args: SelectSubset<T, VehicleDeleteArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Vehicle.
+     * @param {VehicleUpdateArgs} args - Arguments to update one Vehicle.
+     * @example
+     * // Update one Vehicle
+     * const vehicle = await prisma.vehicle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VehicleUpdateArgs>(args: SelectSubset<T, VehicleUpdateArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Vehicles.
+     * @param {VehicleDeleteManyArgs} args - Arguments to filter Vehicles to delete.
+     * @example
+     * // Delete a few Vehicles
+     * const { count } = await prisma.vehicle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VehicleDeleteManyArgs>(args?: SelectSubset<T, VehicleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Vehicles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Vehicles
+     * const vehicle = await prisma.vehicle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VehicleUpdateManyArgs>(args: SelectSubset<T, VehicleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Vehicle.
+     * @param {VehicleUpsertArgs} args - Arguments to update or create a Vehicle.
+     * @example
+     * // Update or create a Vehicle
+     * const vehicle = await prisma.vehicle.upsert({
+     *   create: {
+     *     // ... data to create a Vehicle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Vehicle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VehicleUpsertArgs>(args: SelectSubset<T, VehicleUpsertArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Vehicles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleCountArgs} args - Arguments to filter Vehicles to count.
+     * @example
+     * // Count the number of Vehicles
+     * const count = await prisma.vehicle.count({
+     *   where: {
+     *     // ... the filter for the Vehicles we want to count
+     *   }
+     * })
+    **/
+    count<T extends VehicleCountArgs>(
+      args?: Subset<T, VehicleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VehicleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Vehicle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VehicleAggregateArgs>(args: Subset<T, VehicleAggregateArgs>): Prisma.PrismaPromise<GetVehicleAggregateType<T>>
+
+    /**
+     * Group by Vehicle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VehicleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VehicleGroupByArgs['orderBy'] }
+        : { orderBy?: VehicleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VehicleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Vehicle model
+   */
+  readonly fields: VehicleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Vehicle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VehicleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    driver<T extends Vehicle$driverArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$driverArgs<ExtArgs>>): Prisma__DriverClient<$Result.GetResult<Prisma.$DriverPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    routes<T extends Vehicle$routesArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany"> | Null>
+    boardingLogs<T extends Vehicle$boardingLogsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$boardingLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Vehicle model
+   */ 
+  interface VehicleFieldRefs {
+    readonly id: FieldRef<"Vehicle", 'String'>
+    readonly registrationNo: FieldRef<"Vehicle", 'String'>
+    readonly type: FieldRef<"Vehicle", 'VehicleType'>
+    readonly capacity: FieldRef<"Vehicle", 'Int'>
+    readonly manufacturer: FieldRef<"Vehicle", 'String'>
+    readonly model: FieldRef<"Vehicle", 'String'>
+    readonly year: FieldRef<"Vehicle", 'Int'>
+    readonly insuranceNo: FieldRef<"Vehicle", 'String'>
+    readonly insuranceExpiry: FieldRef<"Vehicle", 'DateTime'>
+    readonly permitExpiry: FieldRef<"Vehicle", 'DateTime'>
+    readonly fitnessExpiry: FieldRef<"Vehicle", 'DateTime'>
+    readonly gpsDeviceId: FieldRef<"Vehicle", 'String'>
+    readonly fuelType: FieldRef<"Vehicle", 'FuelType'>
+    readonly odometerReading: FieldRef<"Vehicle", 'Int'>
+    readonly lastServiceDate: FieldRef<"Vehicle", 'DateTime'>
+    readonly status: FieldRef<"Vehicle", 'VehicleStatus'>
+    readonly driverId: FieldRef<"Vehicle", 'String'>
+    readonly createdAt: FieldRef<"Vehicle", 'DateTime'>
+    readonly updatedAt: FieldRef<"Vehicle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Vehicle findUnique
+   */
+  export type VehicleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter, which Vehicle to fetch.
+     */
+    where: VehicleWhereUniqueInput
+  }
+
+  /**
+   * Vehicle findUniqueOrThrow
+   */
+  export type VehicleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter, which Vehicle to fetch.
+     */
+    where: VehicleWhereUniqueInput
+  }
+
+  /**
+   * Vehicle findFirst
+   */
+  export type VehicleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter, which Vehicle to fetch.
+     */
+    where?: VehicleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Vehicles to fetch.
+     */
+    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Vehicles.
+     */
+    cursor?: VehicleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Vehicles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Vehicles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Vehicles.
+     */
+    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
+  }
+
+  /**
+   * Vehicle findFirstOrThrow
+   */
+  export type VehicleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter, which Vehicle to fetch.
+     */
+    where?: VehicleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Vehicles to fetch.
+     */
+    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Vehicles.
+     */
+    cursor?: VehicleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Vehicles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Vehicles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Vehicles.
+     */
+    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
+  }
+
+  /**
+   * Vehicle findMany
+   */
+  export type VehicleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter, which Vehicles to fetch.
+     */
+    where?: VehicleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Vehicles to fetch.
+     */
+    orderBy?: VehicleOrderByWithRelationInput | VehicleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Vehicles.
+     */
+    cursor?: VehicleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Vehicles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Vehicles.
+     */
+    skip?: number
+    distinct?: VehicleScalarFieldEnum | VehicleScalarFieldEnum[]
+  }
+
+  /**
+   * Vehicle create
+   */
+  export type VehicleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Vehicle.
+     */
+    data: XOR<VehicleCreateInput, VehicleUncheckedCreateInput>
+  }
+
+  /**
+   * Vehicle createMany
+   */
+  export type VehicleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Vehicles.
+     */
+    data: VehicleCreateManyInput | VehicleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Vehicle createManyAndReturn
+   */
+  export type VehicleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Vehicles.
+     */
+    data: VehicleCreateManyInput | VehicleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Vehicle update
+   */
+  export type VehicleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Vehicle.
+     */
+    data: XOR<VehicleUpdateInput, VehicleUncheckedUpdateInput>
+    /**
+     * Choose, which Vehicle to update.
+     */
+    where: VehicleWhereUniqueInput
+  }
+
+  /**
+   * Vehicle updateMany
+   */
+  export type VehicleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Vehicles.
+     */
+    data: XOR<VehicleUpdateManyMutationInput, VehicleUncheckedUpdateManyInput>
+    /**
+     * Filter which Vehicles to update
+     */
+    where?: VehicleWhereInput
+  }
+
+  /**
+   * Vehicle upsert
+   */
+  export type VehicleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Vehicle to update in case it exists.
+     */
+    where: VehicleWhereUniqueInput
+    /**
+     * In case the Vehicle found by the `where` argument doesn't exist, create a new Vehicle with this data.
+     */
+    create: XOR<VehicleCreateInput, VehicleUncheckedCreateInput>
+    /**
+     * In case the Vehicle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VehicleUpdateInput, VehicleUncheckedUpdateInput>
+  }
+
+  /**
+   * Vehicle delete
+   */
+  export type VehicleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    /**
+     * Filter which Vehicle to delete.
+     */
+    where: VehicleWhereUniqueInput
+  }
+
+  /**
+   * Vehicle deleteMany
+   */
+  export type VehicleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Vehicles to delete
+     */
+    where?: VehicleWhereInput
+  }
+
+  /**
+   * Vehicle.driver
+   */
+  export type Vehicle$driverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Driver
+     */
+    select?: DriverSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DriverInclude<ExtArgs> | null
+    where?: DriverWhereInput
+  }
+
+  /**
+   * Vehicle.routes
+   */
+  export type Vehicle$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    cursor?: RouteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Vehicle.boardingLogs
+   */
+  export type Vehicle$boardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    where?: BoardingLogWhereInput
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    cursor?: BoardingLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
+  }
+
+  /**
+   * Vehicle without action
+   */
+  export type VehicleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Route
+   */
+
+  export type AggregateRoute = {
+    _count: RouteCountAggregateOutputType | null
+    _min: RouteMinAggregateOutputType | null
+    _max: RouteMaxAggregateOutputType | null
+  }
+
+  export type RouteMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    vehicleId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RouteMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    vehicleId: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RouteCountAggregateOutputType = {
+    id: number
+    name: number
+    vehicleId: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RouteMinAggregateInputType = {
+    id?: true
+    name?: true
+    vehicleId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RouteMaxAggregateInputType = {
+    id?: true
+    name?: true
+    vehicleId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RouteCountAggregateInputType = {
+    id?: true
+    name?: true
+    vehicleId?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RouteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Route to aggregate.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Routes
+    **/
+    _count?: true | RouteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RouteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RouteMaxAggregateInputType
+  }
+
+  export type GetRouteAggregateType<T extends RouteAggregateArgs> = {
+        [P in keyof T & keyof AggregateRoute]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRoute[P]>
+      : GetScalarType<T[P], AggregateRoute[P]>
+  }
+
+
+
+
+  export type RouteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteWhereInput
+    orderBy?: RouteOrderByWithAggregationInput | RouteOrderByWithAggregationInput[]
+    by: RouteScalarFieldEnum[] | RouteScalarFieldEnum
+    having?: RouteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RouteCountAggregateInputType | true
+    _min?: RouteMinAggregateInputType
+    _max?: RouteMaxAggregateInputType
+  }
+
+  export type RouteGroupByOutputType = {
+    id: string
+    name: string
+    vehicleId: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RouteCountAggregateOutputType | null
+    _min: RouteMinAggregateOutputType | null
+    _max: RouteMaxAggregateOutputType | null
+  }
+
+  type GetRouteGroupByPayload<T extends RouteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RouteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RouteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RouteGroupByOutputType[P]>
+            : GetScalarType<T[P], RouteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RouteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    vehicleId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vehicle?: boolean | Route$vehicleArgs<ExtArgs>
+    stops?: boolean | Route$stopsArgs<ExtArgs>
+    studentTransports?: boolean | Route$studentTransportsArgs<ExtArgs>
+    _count?: boolean | RouteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["route"]>
+
+  export type RouteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    vehicleId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    vehicle?: boolean | Route$vehicleArgs<ExtArgs>
+  }, ExtArgs["result"]["route"]>
+
+  export type RouteSelectScalar = {
+    id?: boolean
+    name?: boolean
+    vehicleId?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RouteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicle?: boolean | Route$vehicleArgs<ExtArgs>
+    stops?: boolean | Route$stopsArgs<ExtArgs>
+    studentTransports?: boolean | Route$studentTransportsArgs<ExtArgs>
+    _count?: boolean | RouteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RouteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    vehicle?: boolean | Route$vehicleArgs<ExtArgs>
+  }
+
+  export type $RoutePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Route"
+    objects: {
+      vehicle: Prisma.$VehiclePayload<ExtArgs> | null
+      stops: Prisma.$RouteStopPayload<ExtArgs>[]
+      studentTransports: Prisma.$StudentTransportPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      vehicleId: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["route"]>
+    composites: {}
+  }
+
+  type RouteGetPayload<S extends boolean | null | undefined | RouteDefaultArgs> = $Result.GetResult<Prisma.$RoutePayload, S>
+
+  type RouteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RouteFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RouteCountAggregateInputType | true
+    }
+
+  export interface RouteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Route'], meta: { name: 'Route' } }
+    /**
+     * Find zero or one Route that matches the filter.
+     * @param {RouteFindUniqueArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RouteFindUniqueArgs>(args: SelectSubset<T, RouteFindUniqueArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Route that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RouteFindUniqueOrThrowArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RouteFindUniqueOrThrowArgs>(args: SelectSubset<T, RouteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Route that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindFirstArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RouteFindFirstArgs>(args?: SelectSubset<T, RouteFindFirstArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Route that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindFirstOrThrowArgs} args - Arguments to find a Route
+     * @example
+     * // Get one Route
+     * const route = await prisma.route.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RouteFindFirstOrThrowArgs>(args?: SelectSubset<T, RouteFindFirstOrThrowArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Routes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Routes
+     * const routes = await prisma.route.findMany()
+     * 
+     * // Get first 10 Routes
+     * const routes = await prisma.route.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const routeWithIdOnly = await prisma.route.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RouteFindManyArgs>(args?: SelectSubset<T, RouteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Route.
+     * @param {RouteCreateArgs} args - Arguments to create a Route.
+     * @example
+     * // Create one Route
+     * const Route = await prisma.route.create({
+     *   data: {
+     *     // ... data to create a Route
+     *   }
+     * })
+     * 
+     */
+    create<T extends RouteCreateArgs>(args: SelectSubset<T, RouteCreateArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Routes.
+     * @param {RouteCreateManyArgs} args - Arguments to create many Routes.
+     * @example
+     * // Create many Routes
+     * const route = await prisma.route.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RouteCreateManyArgs>(args?: SelectSubset<T, RouteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Routes and returns the data saved in the database.
+     * @param {RouteCreateManyAndReturnArgs} args - Arguments to create many Routes.
+     * @example
+     * // Create many Routes
+     * const route = await prisma.route.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Routes and only return the `id`
+     * const routeWithIdOnly = await prisma.route.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RouteCreateManyAndReturnArgs>(args?: SelectSubset<T, RouteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Route.
+     * @param {RouteDeleteArgs} args - Arguments to delete one Route.
+     * @example
+     * // Delete one Route
+     * const Route = await prisma.route.delete({
+     *   where: {
+     *     // ... filter to delete one Route
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RouteDeleteArgs>(args: SelectSubset<T, RouteDeleteArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Route.
+     * @param {RouteUpdateArgs} args - Arguments to update one Route.
+     * @example
+     * // Update one Route
+     * const route = await prisma.route.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RouteUpdateArgs>(args: SelectSubset<T, RouteUpdateArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Routes.
+     * @param {RouteDeleteManyArgs} args - Arguments to filter Routes to delete.
+     * @example
+     * // Delete a few Routes
+     * const { count } = await prisma.route.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RouteDeleteManyArgs>(args?: SelectSubset<T, RouteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Routes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Routes
+     * const route = await prisma.route.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RouteUpdateManyArgs>(args: SelectSubset<T, RouteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Route.
+     * @param {RouteUpsertArgs} args - Arguments to update or create a Route.
+     * @example
+     * // Update or create a Route
+     * const route = await prisma.route.upsert({
+     *   create: {
+     *     // ... data to create a Route
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Route we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RouteUpsertArgs>(args: SelectSubset<T, RouteUpsertArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Routes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteCountArgs} args - Arguments to filter Routes to count.
+     * @example
+     * // Count the number of Routes
+     * const count = await prisma.route.count({
+     *   where: {
+     *     // ... the filter for the Routes we want to count
+     *   }
+     * })
+    **/
+    count<T extends RouteCountArgs>(
+      args?: Subset<T, RouteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RouteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Route.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RouteAggregateArgs>(args: Subset<T, RouteAggregateArgs>): Prisma.PrismaPromise<GetRouteAggregateType<T>>
+
+    /**
+     * Group by Route.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RouteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RouteGroupByArgs['orderBy'] }
+        : { orderBy?: RouteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RouteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRouteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Route model
+   */
+  readonly fields: RouteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Route.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RouteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    vehicle<T extends Route$vehicleArgs<ExtArgs> = {}>(args?: Subset<T, Route$vehicleArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    stops<T extends Route$stopsArgs<ExtArgs> = {}>(args?: Subset<T, Route$stopsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findMany"> | Null>
+    studentTransports<T extends Route$studentTransportsArgs<ExtArgs> = {}>(args?: Subset<T, Route$studentTransportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Route model
+   */ 
+  interface RouteFieldRefs {
+    readonly id: FieldRef<"Route", 'String'>
+    readonly name: FieldRef<"Route", 'String'>
+    readonly vehicleId: FieldRef<"Route", 'String'>
+    readonly isActive: FieldRef<"Route", 'Boolean'>
+    readonly createdAt: FieldRef<"Route", 'DateTime'>
+    readonly updatedAt: FieldRef<"Route", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Route findUnique
+   */
+  export type RouteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route findUniqueOrThrow
+   */
+  export type RouteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route findFirst
+   */
+  export type RouteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Routes.
+     */
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route findFirstOrThrow
+   */
+  export type RouteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Route to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Routes.
+     */
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route findMany
+   */
+  export type RouteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter, which Routes to fetch.
+     */
+    where?: RouteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Routes to fetch.
+     */
+    orderBy?: RouteOrderByWithRelationInput | RouteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Routes.
+     */
+    cursor?: RouteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Routes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Routes.
+     */
+    skip?: number
+    distinct?: RouteScalarFieldEnum | RouteScalarFieldEnum[]
+  }
+
+  /**
+   * Route create
+   */
+  export type RouteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Route.
+     */
+    data: XOR<RouteCreateInput, RouteUncheckedCreateInput>
+  }
+
+  /**
+   * Route createMany
+   */
+  export type RouteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Routes.
+     */
+    data: RouteCreateManyInput | RouteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Route createManyAndReturn
+   */
+  export type RouteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Routes.
+     */
+    data: RouteCreateManyInput | RouteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Route update
+   */
+  export type RouteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Route.
+     */
+    data: XOR<RouteUpdateInput, RouteUncheckedUpdateInput>
+    /**
+     * Choose, which Route to update.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route updateMany
+   */
+  export type RouteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Routes.
+     */
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyInput>
+    /**
+     * Filter which Routes to update
+     */
+    where?: RouteWhereInput
+  }
+
+  /**
+   * Route upsert
+   */
+  export type RouteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Route to update in case it exists.
+     */
+    where: RouteWhereUniqueInput
+    /**
+     * In case the Route found by the `where` argument doesn't exist, create a new Route with this data.
+     */
+    create: XOR<RouteCreateInput, RouteUncheckedCreateInput>
+    /**
+     * In case the Route was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RouteUpdateInput, RouteUncheckedUpdateInput>
+  }
+
+  /**
+   * Route delete
+   */
+  export type RouteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+    /**
+     * Filter which Route to delete.
+     */
+    where: RouteWhereUniqueInput
+  }
+
+  /**
+   * Route deleteMany
+   */
+  export type RouteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Routes to delete
+     */
+    where?: RouteWhereInput
+  }
+
+  /**
+   * Route.vehicle
+   */
+  export type Route$vehicleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vehicle
+     */
+    select?: VehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleInclude<ExtArgs> | null
+    where?: VehicleWhereInput
+  }
+
+  /**
+   * Route.stops
+   */
+  export type Route$stopsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    where?: RouteStopWhereInput
+    orderBy?: RouteStopOrderByWithRelationInput | RouteStopOrderByWithRelationInput[]
+    cursor?: RouteStopWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RouteStopScalarFieldEnum | RouteStopScalarFieldEnum[]
+  }
+
+  /**
+   * Route.studentTransports
+   */
+  export type Route$studentTransportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    where?: StudentTransportWhereInput
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    cursor?: StudentTransportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentTransportScalarFieldEnum | StudentTransportScalarFieldEnum[]
+  }
+
+  /**
+   * Route without action
+   */
+  export type RouteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Route
+     */
+    select?: RouteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RouteStop
+   */
+
+  export type AggregateRouteStop = {
+    _count: RouteStopCountAggregateOutputType | null
+    _avg: RouteStopAvgAggregateOutputType | null
+    _sum: RouteStopSumAggregateOutputType | null
+    _min: RouteStopMinAggregateOutputType | null
+    _max: RouteStopMaxAggregateOutputType | null
+  }
+
+  export type RouteStopAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    sequence: number | null
+  }
+
+  export type RouteStopSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+    sequence: number | null
+  }
+
+  export type RouteStopMinAggregateOutputType = {
+    id: string | null
+    routeId: string | null
+    stopName: string | null
+    landmark: string | null
+    latitude: number | null
+    longitude: number | null
+    sequence: number | null
+    morningArrival: string | null
+    eveningArrival: string | null
+  }
+
+  export type RouteStopMaxAggregateOutputType = {
+    id: string | null
+    routeId: string | null
+    stopName: string | null
+    landmark: string | null
+    latitude: number | null
+    longitude: number | null
+    sequence: number | null
+    morningArrival: string | null
+    eveningArrival: string | null
+  }
+
+  export type RouteStopCountAggregateOutputType = {
+    id: number
+    routeId: number
+    stopName: number
+    landmark: number
+    latitude: number
+    longitude: number
+    sequence: number
+    morningArrival: number
+    eveningArrival: number
+    _all: number
+  }
+
+
+  export type RouteStopAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    sequence?: true
+  }
+
+  export type RouteStopSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+    sequence?: true
+  }
+
+  export type RouteStopMinAggregateInputType = {
+    id?: true
+    routeId?: true
+    stopName?: true
+    landmark?: true
+    latitude?: true
+    longitude?: true
+    sequence?: true
+    morningArrival?: true
+    eveningArrival?: true
+  }
+
+  export type RouteStopMaxAggregateInputType = {
+    id?: true
+    routeId?: true
+    stopName?: true
+    landmark?: true
+    latitude?: true
+    longitude?: true
+    sequence?: true
+    morningArrival?: true
+    eveningArrival?: true
+  }
+
+  export type RouteStopCountAggregateInputType = {
+    id?: true
+    routeId?: true
+    stopName?: true
+    landmark?: true
+    latitude?: true
+    longitude?: true
+    sequence?: true
+    morningArrival?: true
+    eveningArrival?: true
+    _all?: true
+  }
+
+  export type RouteStopAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RouteStop to aggregate.
+     */
+    where?: RouteStopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouteStops to fetch.
+     */
+    orderBy?: RouteStopOrderByWithRelationInput | RouteStopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RouteStopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouteStops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouteStops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RouteStops
+    **/
+    _count?: true | RouteStopCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RouteStopAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RouteStopSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RouteStopMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RouteStopMaxAggregateInputType
+  }
+
+  export type GetRouteStopAggregateType<T extends RouteStopAggregateArgs> = {
+        [P in keyof T & keyof AggregateRouteStop]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRouteStop[P]>
+      : GetScalarType<T[P], AggregateRouteStop[P]>
+  }
+
+
+
+
+  export type RouteStopGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RouteStopWhereInput
+    orderBy?: RouteStopOrderByWithAggregationInput | RouteStopOrderByWithAggregationInput[]
+    by: RouteStopScalarFieldEnum[] | RouteStopScalarFieldEnum
+    having?: RouteStopScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RouteStopCountAggregateInputType | true
+    _avg?: RouteStopAvgAggregateInputType
+    _sum?: RouteStopSumAggregateInputType
+    _min?: RouteStopMinAggregateInputType
+    _max?: RouteStopMaxAggregateInputType
+  }
+
+  export type RouteStopGroupByOutputType = {
+    id: string
+    routeId: string
+    stopName: string
+    landmark: string | null
+    latitude: number | null
+    longitude: number | null
+    sequence: number
+    morningArrival: string | null
+    eveningArrival: string | null
+    _count: RouteStopCountAggregateOutputType | null
+    _avg: RouteStopAvgAggregateOutputType | null
+    _sum: RouteStopSumAggregateOutputType | null
+    _min: RouteStopMinAggregateOutputType | null
+    _max: RouteStopMaxAggregateOutputType | null
+  }
+
+  type GetRouteStopGroupByPayload<T extends RouteStopGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RouteStopGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RouteStopGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RouteStopGroupByOutputType[P]>
+            : GetScalarType<T[P], RouteStopGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RouteStopSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    routeId?: boolean
+    stopName?: boolean
+    landmark?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    sequence?: boolean
+    morningArrival?: boolean
+    eveningArrival?: boolean
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    studentTransports?: boolean | RouteStop$studentTransportsArgs<ExtArgs>
+    boardingLogs?: boolean | RouteStop$boardingLogsArgs<ExtArgs>
+    _count?: boolean | RouteStopCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["routeStop"]>
+
+  export type RouteStopSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    routeId?: boolean
+    stopName?: boolean
+    landmark?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    sequence?: boolean
+    morningArrival?: boolean
+    eveningArrival?: boolean
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["routeStop"]>
+
+  export type RouteStopSelectScalar = {
+    id?: boolean
+    routeId?: boolean
+    stopName?: boolean
+    landmark?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    sequence?: boolean
+    morningArrival?: boolean
+    eveningArrival?: boolean
+  }
+
+  export type RouteStopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    studentTransports?: boolean | RouteStop$studentTransportsArgs<ExtArgs>
+    boardingLogs?: boolean | RouteStop$boardingLogsArgs<ExtArgs>
+    _count?: boolean | RouteStopCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RouteStopIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+  }
+
+  export type $RouteStopPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RouteStop"
+    objects: {
+      route: Prisma.$RoutePayload<ExtArgs>
+      studentTransports: Prisma.$StudentTransportPayload<ExtArgs>[]
+      boardingLogs: Prisma.$BoardingLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      routeId: string
+      stopName: string
+      landmark: string | null
+      latitude: number | null
+      longitude: number | null
+      sequence: number
+      morningArrival: string | null
+      eveningArrival: string | null
+    }, ExtArgs["result"]["routeStop"]>
+    composites: {}
+  }
+
+  type RouteStopGetPayload<S extends boolean | null | undefined | RouteStopDefaultArgs> = $Result.GetResult<Prisma.$RouteStopPayload, S>
+
+  type RouteStopCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RouteStopFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RouteStopCountAggregateInputType | true
+    }
+
+  export interface RouteStopDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RouteStop'], meta: { name: 'RouteStop' } }
+    /**
+     * Find zero or one RouteStop that matches the filter.
+     * @param {RouteStopFindUniqueArgs} args - Arguments to find a RouteStop
+     * @example
+     * // Get one RouteStop
+     * const routeStop = await prisma.routeStop.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RouteStopFindUniqueArgs>(args: SelectSubset<T, RouteStopFindUniqueArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RouteStop that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RouteStopFindUniqueOrThrowArgs} args - Arguments to find a RouteStop
+     * @example
+     * // Get one RouteStop
+     * const routeStop = await prisma.routeStop.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RouteStopFindUniqueOrThrowArgs>(args: SelectSubset<T, RouteStopFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RouteStop that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopFindFirstArgs} args - Arguments to find a RouteStop
+     * @example
+     * // Get one RouteStop
+     * const routeStop = await prisma.routeStop.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RouteStopFindFirstArgs>(args?: SelectSubset<T, RouteStopFindFirstArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RouteStop that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopFindFirstOrThrowArgs} args - Arguments to find a RouteStop
+     * @example
+     * // Get one RouteStop
+     * const routeStop = await prisma.routeStop.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RouteStopFindFirstOrThrowArgs>(args?: SelectSubset<T, RouteStopFindFirstOrThrowArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RouteStops that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RouteStops
+     * const routeStops = await prisma.routeStop.findMany()
+     * 
+     * // Get first 10 RouteStops
+     * const routeStops = await prisma.routeStop.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const routeStopWithIdOnly = await prisma.routeStop.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RouteStopFindManyArgs>(args?: SelectSubset<T, RouteStopFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RouteStop.
+     * @param {RouteStopCreateArgs} args - Arguments to create a RouteStop.
+     * @example
+     * // Create one RouteStop
+     * const RouteStop = await prisma.routeStop.create({
+     *   data: {
+     *     // ... data to create a RouteStop
+     *   }
+     * })
+     * 
+     */
+    create<T extends RouteStopCreateArgs>(args: SelectSubset<T, RouteStopCreateArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RouteStops.
+     * @param {RouteStopCreateManyArgs} args - Arguments to create many RouteStops.
+     * @example
+     * // Create many RouteStops
+     * const routeStop = await prisma.routeStop.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RouteStopCreateManyArgs>(args?: SelectSubset<T, RouteStopCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RouteStops and returns the data saved in the database.
+     * @param {RouteStopCreateManyAndReturnArgs} args - Arguments to create many RouteStops.
+     * @example
+     * // Create many RouteStops
+     * const routeStop = await prisma.routeStop.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RouteStops and only return the `id`
+     * const routeStopWithIdOnly = await prisma.routeStop.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RouteStopCreateManyAndReturnArgs>(args?: SelectSubset<T, RouteStopCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RouteStop.
+     * @param {RouteStopDeleteArgs} args - Arguments to delete one RouteStop.
+     * @example
+     * // Delete one RouteStop
+     * const RouteStop = await prisma.routeStop.delete({
+     *   where: {
+     *     // ... filter to delete one RouteStop
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RouteStopDeleteArgs>(args: SelectSubset<T, RouteStopDeleteArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RouteStop.
+     * @param {RouteStopUpdateArgs} args - Arguments to update one RouteStop.
+     * @example
+     * // Update one RouteStop
+     * const routeStop = await prisma.routeStop.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RouteStopUpdateArgs>(args: SelectSubset<T, RouteStopUpdateArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RouteStops.
+     * @param {RouteStopDeleteManyArgs} args - Arguments to filter RouteStops to delete.
+     * @example
+     * // Delete a few RouteStops
+     * const { count } = await prisma.routeStop.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RouteStopDeleteManyArgs>(args?: SelectSubset<T, RouteStopDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RouteStops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RouteStops
+     * const routeStop = await prisma.routeStop.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RouteStopUpdateManyArgs>(args: SelectSubset<T, RouteStopUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RouteStop.
+     * @param {RouteStopUpsertArgs} args - Arguments to update or create a RouteStop.
+     * @example
+     * // Update or create a RouteStop
+     * const routeStop = await prisma.routeStop.upsert({
+     *   create: {
+     *     // ... data to create a RouteStop
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RouteStop we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RouteStopUpsertArgs>(args: SelectSubset<T, RouteStopUpsertArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RouteStops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopCountArgs} args - Arguments to filter RouteStops to count.
+     * @example
+     * // Count the number of RouteStops
+     * const count = await prisma.routeStop.count({
+     *   where: {
+     *     // ... the filter for the RouteStops we want to count
+     *   }
+     * })
+    **/
+    count<T extends RouteStopCountArgs>(
+      args?: Subset<T, RouteStopCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RouteStopCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RouteStop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RouteStopAggregateArgs>(args: Subset<T, RouteStopAggregateArgs>): Prisma.PrismaPromise<GetRouteStopAggregateType<T>>
+
+    /**
+     * Group by RouteStop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RouteStopGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RouteStopGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RouteStopGroupByArgs['orderBy'] }
+        : { orderBy?: RouteStopGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RouteStopGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRouteStopGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RouteStop model
+   */
+  readonly fields: RouteStopFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RouteStop.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RouteStopClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    route<T extends RouteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RouteDefaultArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    studentTransports<T extends RouteStop$studentTransportsArgs<ExtArgs> = {}>(args?: Subset<T, RouteStop$studentTransportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findMany"> | Null>
+    boardingLogs<T extends RouteStop$boardingLogsArgs<ExtArgs> = {}>(args?: Subset<T, RouteStop$boardingLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RouteStop model
+   */ 
+  interface RouteStopFieldRefs {
+    readonly id: FieldRef<"RouteStop", 'String'>
+    readonly routeId: FieldRef<"RouteStop", 'String'>
+    readonly stopName: FieldRef<"RouteStop", 'String'>
+    readonly landmark: FieldRef<"RouteStop", 'String'>
+    readonly latitude: FieldRef<"RouteStop", 'Float'>
+    readonly longitude: FieldRef<"RouteStop", 'Float'>
+    readonly sequence: FieldRef<"RouteStop", 'Int'>
+    readonly morningArrival: FieldRef<"RouteStop", 'String'>
+    readonly eveningArrival: FieldRef<"RouteStop", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RouteStop findUnique
+   */
+  export type RouteStopFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter, which RouteStop to fetch.
+     */
+    where: RouteStopWhereUniqueInput
+  }
+
+  /**
+   * RouteStop findUniqueOrThrow
+   */
+  export type RouteStopFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter, which RouteStop to fetch.
+     */
+    where: RouteStopWhereUniqueInput
+  }
+
+  /**
+   * RouteStop findFirst
+   */
+  export type RouteStopFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter, which RouteStop to fetch.
+     */
+    where?: RouteStopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouteStops to fetch.
+     */
+    orderBy?: RouteStopOrderByWithRelationInput | RouteStopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RouteStops.
+     */
+    cursor?: RouteStopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouteStops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouteStops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RouteStops.
+     */
+    distinct?: RouteStopScalarFieldEnum | RouteStopScalarFieldEnum[]
+  }
+
+  /**
+   * RouteStop findFirstOrThrow
+   */
+  export type RouteStopFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter, which RouteStop to fetch.
+     */
+    where?: RouteStopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouteStops to fetch.
+     */
+    orderBy?: RouteStopOrderByWithRelationInput | RouteStopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RouteStops.
+     */
+    cursor?: RouteStopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouteStops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouteStops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RouteStops.
+     */
+    distinct?: RouteStopScalarFieldEnum | RouteStopScalarFieldEnum[]
+  }
+
+  /**
+   * RouteStop findMany
+   */
+  export type RouteStopFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter, which RouteStops to fetch.
+     */
+    where?: RouteStopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RouteStops to fetch.
+     */
+    orderBy?: RouteStopOrderByWithRelationInput | RouteStopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RouteStops.
+     */
+    cursor?: RouteStopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RouteStops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RouteStops.
+     */
+    skip?: number
+    distinct?: RouteStopScalarFieldEnum | RouteStopScalarFieldEnum[]
+  }
+
+  /**
+   * RouteStop create
+   */
+  export type RouteStopCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RouteStop.
+     */
+    data: XOR<RouteStopCreateInput, RouteStopUncheckedCreateInput>
+  }
+
+  /**
+   * RouteStop createMany
+   */
+  export type RouteStopCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RouteStops.
+     */
+    data: RouteStopCreateManyInput | RouteStopCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RouteStop createManyAndReturn
+   */
+  export type RouteStopCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RouteStops.
+     */
+    data: RouteStopCreateManyInput | RouteStopCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RouteStop update
+   */
+  export type RouteStopUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RouteStop.
+     */
+    data: XOR<RouteStopUpdateInput, RouteStopUncheckedUpdateInput>
+    /**
+     * Choose, which RouteStop to update.
+     */
+    where: RouteStopWhereUniqueInput
+  }
+
+  /**
+   * RouteStop updateMany
+   */
+  export type RouteStopUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RouteStops.
+     */
+    data: XOR<RouteStopUpdateManyMutationInput, RouteStopUncheckedUpdateManyInput>
+    /**
+     * Filter which RouteStops to update
+     */
+    where?: RouteStopWhereInput
+  }
+
+  /**
+   * RouteStop upsert
+   */
+  export type RouteStopUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RouteStop to update in case it exists.
+     */
+    where: RouteStopWhereUniqueInput
+    /**
+     * In case the RouteStop found by the `where` argument doesn't exist, create a new RouteStop with this data.
+     */
+    create: XOR<RouteStopCreateInput, RouteStopUncheckedCreateInput>
+    /**
+     * In case the RouteStop was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RouteStopUpdateInput, RouteStopUncheckedUpdateInput>
+  }
+
+  /**
+   * RouteStop delete
+   */
+  export type RouteStopDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    /**
+     * Filter which RouteStop to delete.
+     */
+    where: RouteStopWhereUniqueInput
+  }
+
+  /**
+   * RouteStop deleteMany
+   */
+  export type RouteStopDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RouteStops to delete
+     */
+    where?: RouteStopWhereInput
+  }
+
+  /**
+   * RouteStop.studentTransports
+   */
+  export type RouteStop$studentTransportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    where?: StudentTransportWhereInput
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    cursor?: StudentTransportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentTransportScalarFieldEnum | StudentTransportScalarFieldEnum[]
+  }
+
+  /**
+   * RouteStop.boardingLogs
+   */
+  export type RouteStop$boardingLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    where?: BoardingLogWhereInput
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    cursor?: BoardingLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
+  }
+
+  /**
+   * RouteStop without action
+   */
+  export type RouteStopDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StudentTransport
+   */
+
+  export type AggregateStudentTransport = {
+    _count: StudentTransportCountAggregateOutputType | null
+    _avg: StudentTransportAvgAggregateOutputType | null
+    _sum: StudentTransportSumAggregateOutputType | null
+    _min: StudentTransportMinAggregateOutputType | null
+    _max: StudentTransportMaxAggregateOutputType | null
+  }
+
+  export type StudentTransportAvgAggregateOutputType = {
+    feeAmount: number | null
+  }
+
+  export type StudentTransportSumAggregateOutputType = {
+    feeAmount: number | null
+  }
+
+  export type StudentTransportMinAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    routeId: string | null
+    stopId: string | null
+    qrCode: string | null
+    feeAmount: number | null
+    pickupType: $Enums.PickupType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StudentTransportMaxAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    routeId: string | null
+    stopId: string | null
+    qrCode: string | null
+    feeAmount: number | null
+    pickupType: $Enums.PickupType | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StudentTransportCountAggregateOutputType = {
+    id: number
+    studentId: number
+    routeId: number
+    stopId: number
+    qrCode: number
+    feeAmount: number
+    pickupType: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StudentTransportAvgAggregateInputType = {
+    feeAmount?: true
+  }
+
+  export type StudentTransportSumAggregateInputType = {
+    feeAmount?: true
+  }
+
+  export type StudentTransportMinAggregateInputType = {
+    id?: true
+    studentId?: true
+    routeId?: true
+    stopId?: true
+    qrCode?: true
+    feeAmount?: true
+    pickupType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StudentTransportMaxAggregateInputType = {
+    id?: true
+    studentId?: true
+    routeId?: true
+    stopId?: true
+    qrCode?: true
+    feeAmount?: true
+    pickupType?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StudentTransportCountAggregateInputType = {
+    id?: true
+    studentId?: true
+    routeId?: true
+    stopId?: true
+    qrCode?: true
+    feeAmount?: true
+    pickupType?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StudentTransportAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudentTransport to aggregate.
+     */
+    where?: StudentTransportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentTransports to fetch.
+     */
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StudentTransportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentTransports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentTransports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StudentTransports
+    **/
+    _count?: true | StudentTransportCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StudentTransportAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StudentTransportSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StudentTransportMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StudentTransportMaxAggregateInputType
+  }
+
+  export type GetStudentTransportAggregateType<T extends StudentTransportAggregateArgs> = {
+        [P in keyof T & keyof AggregateStudentTransport]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStudentTransport[P]>
+      : GetScalarType<T[P], AggregateStudentTransport[P]>
+  }
+
+
+
+
+  export type StudentTransportGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentTransportWhereInput
+    orderBy?: StudentTransportOrderByWithAggregationInput | StudentTransportOrderByWithAggregationInput[]
+    by: StudentTransportScalarFieldEnum[] | StudentTransportScalarFieldEnum
+    having?: StudentTransportScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StudentTransportCountAggregateInputType | true
+    _avg?: StudentTransportAvgAggregateInputType
+    _sum?: StudentTransportSumAggregateInputType
+    _min?: StudentTransportMinAggregateInputType
+    _max?: StudentTransportMaxAggregateInputType
+  }
+
+  export type StudentTransportGroupByOutputType = {
+    id: string
+    studentId: string
+    routeId: string
+    stopId: string
+    qrCode: string | null
+    feeAmount: number
+    pickupType: $Enums.PickupType
+    createdAt: Date
+    updatedAt: Date
+    _count: StudentTransportCountAggregateOutputType | null
+    _avg: StudentTransportAvgAggregateOutputType | null
+    _sum: StudentTransportSumAggregateOutputType | null
+    _min: StudentTransportMinAggregateOutputType | null
+    _max: StudentTransportMaxAggregateOutputType | null
+  }
+
+  type GetStudentTransportGroupByPayload<T extends StudentTransportGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StudentTransportGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StudentTransportGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StudentTransportGroupByOutputType[P]>
+            : GetScalarType<T[P], StudentTransportGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StudentTransportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    routeId?: boolean
+    stopId?: boolean
+    qrCode?: boolean
+    feeAmount?: boolean
+    pickupType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    stop?: boolean | RouteStopDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["studentTransport"]>
+
+  export type StudentTransportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    routeId?: boolean
+    stopId?: boolean
+    qrCode?: boolean
+    feeAmount?: boolean
+    pickupType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    stop?: boolean | RouteStopDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["studentTransport"]>
+
+  export type StudentTransportSelectScalar = {
+    id?: boolean
+    studentId?: boolean
+    routeId?: boolean
+    stopId?: boolean
+    qrCode?: boolean
+    feeAmount?: boolean
+    pickupType?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StudentTransportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    stop?: boolean | RouteStopDefaultArgs<ExtArgs>
+  }
+  export type StudentTransportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    route?: boolean | RouteDefaultArgs<ExtArgs>
+    stop?: boolean | RouteStopDefaultArgs<ExtArgs>
+  }
+
+  export type $StudentTransportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StudentTransport"
+    objects: {
+      student: Prisma.$StudentPayload<ExtArgs>
+      route: Prisma.$RoutePayload<ExtArgs>
+      stop: Prisma.$RouteStopPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentId: string
+      routeId: string
+      stopId: string
+      qrCode: string | null
+      feeAmount: number
+      pickupType: $Enums.PickupType
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["studentTransport"]>
+    composites: {}
+  }
+
+  type StudentTransportGetPayload<S extends boolean | null | undefined | StudentTransportDefaultArgs> = $Result.GetResult<Prisma.$StudentTransportPayload, S>
+
+  type StudentTransportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StudentTransportFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StudentTransportCountAggregateInputType | true
+    }
+
+  export interface StudentTransportDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StudentTransport'], meta: { name: 'StudentTransport' } }
+    /**
+     * Find zero or one StudentTransport that matches the filter.
+     * @param {StudentTransportFindUniqueArgs} args - Arguments to find a StudentTransport
+     * @example
+     * // Get one StudentTransport
+     * const studentTransport = await prisma.studentTransport.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StudentTransportFindUniqueArgs>(args: SelectSubset<T, StudentTransportFindUniqueArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StudentTransport that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StudentTransportFindUniqueOrThrowArgs} args - Arguments to find a StudentTransport
+     * @example
+     * // Get one StudentTransport
+     * const studentTransport = await prisma.studentTransport.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StudentTransportFindUniqueOrThrowArgs>(args: SelectSubset<T, StudentTransportFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StudentTransport that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportFindFirstArgs} args - Arguments to find a StudentTransport
+     * @example
+     * // Get one StudentTransport
+     * const studentTransport = await prisma.studentTransport.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StudentTransportFindFirstArgs>(args?: SelectSubset<T, StudentTransportFindFirstArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StudentTransport that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportFindFirstOrThrowArgs} args - Arguments to find a StudentTransport
+     * @example
+     * // Get one StudentTransport
+     * const studentTransport = await prisma.studentTransport.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StudentTransportFindFirstOrThrowArgs>(args?: SelectSubset<T, StudentTransportFindFirstOrThrowArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StudentTransports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StudentTransports
+     * const studentTransports = await prisma.studentTransport.findMany()
+     * 
+     * // Get first 10 StudentTransports
+     * const studentTransports = await prisma.studentTransport.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const studentTransportWithIdOnly = await prisma.studentTransport.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StudentTransportFindManyArgs>(args?: SelectSubset<T, StudentTransportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StudentTransport.
+     * @param {StudentTransportCreateArgs} args - Arguments to create a StudentTransport.
+     * @example
+     * // Create one StudentTransport
+     * const StudentTransport = await prisma.studentTransport.create({
+     *   data: {
+     *     // ... data to create a StudentTransport
+     *   }
+     * })
+     * 
+     */
+    create<T extends StudentTransportCreateArgs>(args: SelectSubset<T, StudentTransportCreateArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StudentTransports.
+     * @param {StudentTransportCreateManyArgs} args - Arguments to create many StudentTransports.
+     * @example
+     * // Create many StudentTransports
+     * const studentTransport = await prisma.studentTransport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StudentTransportCreateManyArgs>(args?: SelectSubset<T, StudentTransportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StudentTransports and returns the data saved in the database.
+     * @param {StudentTransportCreateManyAndReturnArgs} args - Arguments to create many StudentTransports.
+     * @example
+     * // Create many StudentTransports
+     * const studentTransport = await prisma.studentTransport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StudentTransports and only return the `id`
+     * const studentTransportWithIdOnly = await prisma.studentTransport.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StudentTransportCreateManyAndReturnArgs>(args?: SelectSubset<T, StudentTransportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StudentTransport.
+     * @param {StudentTransportDeleteArgs} args - Arguments to delete one StudentTransport.
+     * @example
+     * // Delete one StudentTransport
+     * const StudentTransport = await prisma.studentTransport.delete({
+     *   where: {
+     *     // ... filter to delete one StudentTransport
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StudentTransportDeleteArgs>(args: SelectSubset<T, StudentTransportDeleteArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StudentTransport.
+     * @param {StudentTransportUpdateArgs} args - Arguments to update one StudentTransport.
+     * @example
+     * // Update one StudentTransport
+     * const studentTransport = await prisma.studentTransport.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StudentTransportUpdateArgs>(args: SelectSubset<T, StudentTransportUpdateArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StudentTransports.
+     * @param {StudentTransportDeleteManyArgs} args - Arguments to filter StudentTransports to delete.
+     * @example
+     * // Delete a few StudentTransports
+     * const { count } = await prisma.studentTransport.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StudentTransportDeleteManyArgs>(args?: SelectSubset<T, StudentTransportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StudentTransports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StudentTransports
+     * const studentTransport = await prisma.studentTransport.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StudentTransportUpdateManyArgs>(args: SelectSubset<T, StudentTransportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StudentTransport.
+     * @param {StudentTransportUpsertArgs} args - Arguments to update or create a StudentTransport.
+     * @example
+     * // Update or create a StudentTransport
+     * const studentTransport = await prisma.studentTransport.upsert({
+     *   create: {
+     *     // ... data to create a StudentTransport
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StudentTransport we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StudentTransportUpsertArgs>(args: SelectSubset<T, StudentTransportUpsertArgs<ExtArgs>>): Prisma__StudentTransportClient<$Result.GetResult<Prisma.$StudentTransportPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StudentTransports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportCountArgs} args - Arguments to filter StudentTransports to count.
+     * @example
+     * // Count the number of StudentTransports
+     * const count = await prisma.studentTransport.count({
+     *   where: {
+     *     // ... the filter for the StudentTransports we want to count
+     *   }
+     * })
+    **/
+    count<T extends StudentTransportCountArgs>(
+      args?: Subset<T, StudentTransportCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StudentTransportCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StudentTransport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StudentTransportAggregateArgs>(args: Subset<T, StudentTransportAggregateArgs>): Prisma.PrismaPromise<GetStudentTransportAggregateType<T>>
+
+    /**
+     * Group by StudentTransport.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StudentTransportGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StudentTransportGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StudentTransportGroupByArgs['orderBy'] }
+        : { orderBy?: StudentTransportGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StudentTransportGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStudentTransportGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StudentTransport model
+   */
+  readonly fields: StudentTransportFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StudentTransport.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StudentTransportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    route<T extends RouteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RouteDefaultArgs<ExtArgs>>): Prisma__RouteClient<$Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    stop<T extends RouteStopDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RouteStopDefaultArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StudentTransport model
+   */ 
+  interface StudentTransportFieldRefs {
+    readonly id: FieldRef<"StudentTransport", 'String'>
+    readonly studentId: FieldRef<"StudentTransport", 'String'>
+    readonly routeId: FieldRef<"StudentTransport", 'String'>
+    readonly stopId: FieldRef<"StudentTransport", 'String'>
+    readonly qrCode: FieldRef<"StudentTransport", 'String'>
+    readonly feeAmount: FieldRef<"StudentTransport", 'Float'>
+    readonly pickupType: FieldRef<"StudentTransport", 'PickupType'>
+    readonly createdAt: FieldRef<"StudentTransport", 'DateTime'>
+    readonly updatedAt: FieldRef<"StudentTransport", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StudentTransport findUnique
+   */
+  export type StudentTransportFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentTransport to fetch.
+     */
+    where: StudentTransportWhereUniqueInput
+  }
+
+  /**
+   * StudentTransport findUniqueOrThrow
+   */
+  export type StudentTransportFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentTransport to fetch.
+     */
+    where: StudentTransportWhereUniqueInput
+  }
+
+  /**
+   * StudentTransport findFirst
+   */
+  export type StudentTransportFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentTransport to fetch.
+     */
+    where?: StudentTransportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentTransports to fetch.
+     */
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudentTransports.
+     */
+    cursor?: StudentTransportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentTransports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentTransports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudentTransports.
+     */
+    distinct?: StudentTransportScalarFieldEnum | StudentTransportScalarFieldEnum[]
+  }
+
+  /**
+   * StudentTransport findFirstOrThrow
+   */
+  export type StudentTransportFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentTransport to fetch.
+     */
+    where?: StudentTransportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentTransports to fetch.
+     */
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StudentTransports.
+     */
+    cursor?: StudentTransportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentTransports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentTransports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StudentTransports.
+     */
+    distinct?: StudentTransportScalarFieldEnum | StudentTransportScalarFieldEnum[]
+  }
+
+  /**
+   * StudentTransport findMany
+   */
+  export type StudentTransportFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter, which StudentTransports to fetch.
+     */
+    where?: StudentTransportWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StudentTransports to fetch.
+     */
+    orderBy?: StudentTransportOrderByWithRelationInput | StudentTransportOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StudentTransports.
+     */
+    cursor?: StudentTransportWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StudentTransports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StudentTransports.
+     */
+    skip?: number
+    distinct?: StudentTransportScalarFieldEnum | StudentTransportScalarFieldEnum[]
+  }
+
+  /**
+   * StudentTransport create
+   */
+  export type StudentTransportCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StudentTransport.
+     */
+    data: XOR<StudentTransportCreateInput, StudentTransportUncheckedCreateInput>
+  }
+
+  /**
+   * StudentTransport createMany
+   */
+  export type StudentTransportCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StudentTransports.
+     */
+    data: StudentTransportCreateManyInput | StudentTransportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StudentTransport createManyAndReturn
+   */
+  export type StudentTransportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StudentTransports.
+     */
+    data: StudentTransportCreateManyInput | StudentTransportCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StudentTransport update
+   */
+  export type StudentTransportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StudentTransport.
+     */
+    data: XOR<StudentTransportUpdateInput, StudentTransportUncheckedUpdateInput>
+    /**
+     * Choose, which StudentTransport to update.
+     */
+    where: StudentTransportWhereUniqueInput
+  }
+
+  /**
+   * StudentTransport updateMany
+   */
+  export type StudentTransportUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StudentTransports.
+     */
+    data: XOR<StudentTransportUpdateManyMutationInput, StudentTransportUncheckedUpdateManyInput>
+    /**
+     * Filter which StudentTransports to update
+     */
+    where?: StudentTransportWhereInput
+  }
+
+  /**
+   * StudentTransport upsert
+   */
+  export type StudentTransportUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StudentTransport to update in case it exists.
+     */
+    where: StudentTransportWhereUniqueInput
+    /**
+     * In case the StudentTransport found by the `where` argument doesn't exist, create a new StudentTransport with this data.
+     */
+    create: XOR<StudentTransportCreateInput, StudentTransportUncheckedCreateInput>
+    /**
+     * In case the StudentTransport was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StudentTransportUpdateInput, StudentTransportUncheckedUpdateInput>
+  }
+
+  /**
+   * StudentTransport delete
+   */
+  export type StudentTransportDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+    /**
+     * Filter which StudentTransport to delete.
+     */
+    where: StudentTransportWhereUniqueInput
+  }
+
+  /**
+   * StudentTransport deleteMany
+   */
+  export type StudentTransportDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StudentTransports to delete
+     */
+    where?: StudentTransportWhereInput
+  }
+
+  /**
+   * StudentTransport without action
+   */
+  export type StudentTransportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StudentTransport
+     */
+    select?: StudentTransportSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentTransportInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BoardingLog
+   */
+
+  export type AggregateBoardingLog = {
+    _count: BoardingLogCountAggregateOutputType | null
+    _min: BoardingLogMinAggregateOutputType | null
+    _max: BoardingLogMaxAggregateOutputType | null
+  }
+
+  export type BoardingLogMinAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    vehicleId: string | null
+    stopId: string | null
+    timestamp: Date | null
+    type: $Enums.BoardingType | null
+    scanMethod: $Enums.ScanMethod | null
+  }
+
+  export type BoardingLogMaxAggregateOutputType = {
+    id: string | null
+    studentId: string | null
+    vehicleId: string | null
+    stopId: string | null
+    timestamp: Date | null
+    type: $Enums.BoardingType | null
+    scanMethod: $Enums.ScanMethod | null
+  }
+
+  export type BoardingLogCountAggregateOutputType = {
+    id: number
+    studentId: number
+    vehicleId: number
+    stopId: number
+    timestamp: number
+    type: number
+    scanMethod: number
+    _all: number
+  }
+
+
+  export type BoardingLogMinAggregateInputType = {
+    id?: true
+    studentId?: true
+    vehicleId?: true
+    stopId?: true
+    timestamp?: true
+    type?: true
+    scanMethod?: true
+  }
+
+  export type BoardingLogMaxAggregateInputType = {
+    id?: true
+    studentId?: true
+    vehicleId?: true
+    stopId?: true
+    timestamp?: true
+    type?: true
+    scanMethod?: true
+  }
+
+  export type BoardingLogCountAggregateInputType = {
+    id?: true
+    studentId?: true
+    vehicleId?: true
+    stopId?: true
+    timestamp?: true
+    type?: true
+    scanMethod?: true
+    _all?: true
+  }
+
+  export type BoardingLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BoardingLog to aggregate.
+     */
+    where?: BoardingLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardingLogs to fetch.
+     */
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BoardingLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardingLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardingLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BoardingLogs
+    **/
+    _count?: true | BoardingLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BoardingLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BoardingLogMaxAggregateInputType
+  }
+
+  export type GetBoardingLogAggregateType<T extends BoardingLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateBoardingLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBoardingLog[P]>
+      : GetScalarType<T[P], AggregateBoardingLog[P]>
+  }
+
+
+
+
+  export type BoardingLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardingLogWhereInput
+    orderBy?: BoardingLogOrderByWithAggregationInput | BoardingLogOrderByWithAggregationInput[]
+    by: BoardingLogScalarFieldEnum[] | BoardingLogScalarFieldEnum
+    having?: BoardingLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BoardingLogCountAggregateInputType | true
+    _min?: BoardingLogMinAggregateInputType
+    _max?: BoardingLogMaxAggregateInputType
+  }
+
+  export type BoardingLogGroupByOutputType = {
+    id: string
+    studentId: string
+    vehicleId: string
+    stopId: string | null
+    timestamp: Date
+    type: $Enums.BoardingType
+    scanMethod: $Enums.ScanMethod
+    _count: BoardingLogCountAggregateOutputType | null
+    _min: BoardingLogMinAggregateOutputType | null
+    _max: BoardingLogMaxAggregateOutputType | null
+  }
+
+  type GetBoardingLogGroupByPayload<T extends BoardingLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BoardingLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BoardingLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BoardingLogGroupByOutputType[P]>
+            : GetScalarType<T[P], BoardingLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BoardingLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    stopId?: boolean
+    timestamp?: boolean
+    type?: boolean
+    scanMethod?: boolean
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    stop?: boolean | BoardingLog$stopArgs<ExtArgs>
+  }, ExtArgs["result"]["boardingLog"]>
+
+  export type BoardingLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    stopId?: boolean
+    timestamp?: boolean
+    type?: boolean
+    scanMethod?: boolean
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    stop?: boolean | BoardingLog$stopArgs<ExtArgs>
+  }, ExtArgs["result"]["boardingLog"]>
+
+  export type BoardingLogSelectScalar = {
+    id?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    stopId?: boolean
+    timestamp?: boolean
+    type?: boolean
+    scanMethod?: boolean
+  }
+
+  export type BoardingLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    stop?: boolean | BoardingLog$stopArgs<ExtArgs>
+  }
+  export type BoardingLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    stop?: boolean | BoardingLog$stopArgs<ExtArgs>
+  }
+
+  export type $BoardingLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BoardingLog"
+    objects: {
+      student: Prisma.$StudentPayload<ExtArgs>
+      vehicle: Prisma.$VehiclePayload<ExtArgs>
+      stop: Prisma.$RouteStopPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      studentId: string
+      vehicleId: string
+      stopId: string | null
+      timestamp: Date
+      type: $Enums.BoardingType
+      scanMethod: $Enums.ScanMethod
+    }, ExtArgs["result"]["boardingLog"]>
+    composites: {}
+  }
+
+  type BoardingLogGetPayload<S extends boolean | null | undefined | BoardingLogDefaultArgs> = $Result.GetResult<Prisma.$BoardingLogPayload, S>
+
+  type BoardingLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BoardingLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BoardingLogCountAggregateInputType | true
+    }
+
+  export interface BoardingLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BoardingLog'], meta: { name: 'BoardingLog' } }
+    /**
+     * Find zero or one BoardingLog that matches the filter.
+     * @param {BoardingLogFindUniqueArgs} args - Arguments to find a BoardingLog
+     * @example
+     * // Get one BoardingLog
+     * const boardingLog = await prisma.boardingLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BoardingLogFindUniqueArgs>(args: SelectSubset<T, BoardingLogFindUniqueArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BoardingLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BoardingLogFindUniqueOrThrowArgs} args - Arguments to find a BoardingLog
+     * @example
+     * // Get one BoardingLog
+     * const boardingLog = await prisma.boardingLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BoardingLogFindUniqueOrThrowArgs>(args: SelectSubset<T, BoardingLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BoardingLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogFindFirstArgs} args - Arguments to find a BoardingLog
+     * @example
+     * // Get one BoardingLog
+     * const boardingLog = await prisma.boardingLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BoardingLogFindFirstArgs>(args?: SelectSubset<T, BoardingLogFindFirstArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BoardingLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogFindFirstOrThrowArgs} args - Arguments to find a BoardingLog
+     * @example
+     * // Get one BoardingLog
+     * const boardingLog = await prisma.boardingLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BoardingLogFindFirstOrThrowArgs>(args?: SelectSubset<T, BoardingLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BoardingLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BoardingLogs
+     * const boardingLogs = await prisma.boardingLog.findMany()
+     * 
+     * // Get first 10 BoardingLogs
+     * const boardingLogs = await prisma.boardingLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const boardingLogWithIdOnly = await prisma.boardingLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BoardingLogFindManyArgs>(args?: SelectSubset<T, BoardingLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BoardingLog.
+     * @param {BoardingLogCreateArgs} args - Arguments to create a BoardingLog.
+     * @example
+     * // Create one BoardingLog
+     * const BoardingLog = await prisma.boardingLog.create({
+     *   data: {
+     *     // ... data to create a BoardingLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends BoardingLogCreateArgs>(args: SelectSubset<T, BoardingLogCreateArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BoardingLogs.
+     * @param {BoardingLogCreateManyArgs} args - Arguments to create many BoardingLogs.
+     * @example
+     * // Create many BoardingLogs
+     * const boardingLog = await prisma.boardingLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BoardingLogCreateManyArgs>(args?: SelectSubset<T, BoardingLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BoardingLogs and returns the data saved in the database.
+     * @param {BoardingLogCreateManyAndReturnArgs} args - Arguments to create many BoardingLogs.
+     * @example
+     * // Create many BoardingLogs
+     * const boardingLog = await prisma.boardingLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BoardingLogs and only return the `id`
+     * const boardingLogWithIdOnly = await prisma.boardingLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BoardingLogCreateManyAndReturnArgs>(args?: SelectSubset<T, BoardingLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BoardingLog.
+     * @param {BoardingLogDeleteArgs} args - Arguments to delete one BoardingLog.
+     * @example
+     * // Delete one BoardingLog
+     * const BoardingLog = await prisma.boardingLog.delete({
+     *   where: {
+     *     // ... filter to delete one BoardingLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BoardingLogDeleteArgs>(args: SelectSubset<T, BoardingLogDeleteArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BoardingLog.
+     * @param {BoardingLogUpdateArgs} args - Arguments to update one BoardingLog.
+     * @example
+     * // Update one BoardingLog
+     * const boardingLog = await prisma.boardingLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BoardingLogUpdateArgs>(args: SelectSubset<T, BoardingLogUpdateArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BoardingLogs.
+     * @param {BoardingLogDeleteManyArgs} args - Arguments to filter BoardingLogs to delete.
+     * @example
+     * // Delete a few BoardingLogs
+     * const { count } = await prisma.boardingLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BoardingLogDeleteManyArgs>(args?: SelectSubset<T, BoardingLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BoardingLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BoardingLogs
+     * const boardingLog = await prisma.boardingLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BoardingLogUpdateManyArgs>(args: SelectSubset<T, BoardingLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BoardingLog.
+     * @param {BoardingLogUpsertArgs} args - Arguments to update or create a BoardingLog.
+     * @example
+     * // Update or create a BoardingLog
+     * const boardingLog = await prisma.boardingLog.upsert({
+     *   create: {
+     *     // ... data to create a BoardingLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BoardingLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BoardingLogUpsertArgs>(args: SelectSubset<T, BoardingLogUpsertArgs<ExtArgs>>): Prisma__BoardingLogClient<$Result.GetResult<Prisma.$BoardingLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BoardingLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogCountArgs} args - Arguments to filter BoardingLogs to count.
+     * @example
+     * // Count the number of BoardingLogs
+     * const count = await prisma.boardingLog.count({
+     *   where: {
+     *     // ... the filter for the BoardingLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends BoardingLogCountArgs>(
+      args?: Subset<T, BoardingLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BoardingLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BoardingLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BoardingLogAggregateArgs>(args: Subset<T, BoardingLogAggregateArgs>): Prisma.PrismaPromise<GetBoardingLogAggregateType<T>>
+
+    /**
+     * Group by BoardingLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardingLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BoardingLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BoardingLogGroupByArgs['orderBy'] }
+        : { orderBy?: BoardingLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BoardingLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBoardingLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BoardingLog model
+   */
+  readonly fields: BoardingLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BoardingLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BoardingLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    stop<T extends BoardingLog$stopArgs<ExtArgs> = {}>(args?: Subset<T, BoardingLog$stopArgs<ExtArgs>>): Prisma__RouteStopClient<$Result.GetResult<Prisma.$RouteStopPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BoardingLog model
+   */ 
+  interface BoardingLogFieldRefs {
+    readonly id: FieldRef<"BoardingLog", 'String'>
+    readonly studentId: FieldRef<"BoardingLog", 'String'>
+    readonly vehicleId: FieldRef<"BoardingLog", 'String'>
+    readonly stopId: FieldRef<"BoardingLog", 'String'>
+    readonly timestamp: FieldRef<"BoardingLog", 'DateTime'>
+    readonly type: FieldRef<"BoardingLog", 'BoardingType'>
+    readonly scanMethod: FieldRef<"BoardingLog", 'ScanMethod'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BoardingLog findUnique
+   */
+  export type BoardingLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardingLog to fetch.
+     */
+    where: BoardingLogWhereUniqueInput
+  }
+
+  /**
+   * BoardingLog findUniqueOrThrow
+   */
+  export type BoardingLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardingLog to fetch.
+     */
+    where: BoardingLogWhereUniqueInput
+  }
+
+  /**
+   * BoardingLog findFirst
+   */
+  export type BoardingLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardingLog to fetch.
+     */
+    where?: BoardingLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardingLogs to fetch.
+     */
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BoardingLogs.
+     */
+    cursor?: BoardingLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardingLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardingLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BoardingLogs.
+     */
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
+  }
+
+  /**
+   * BoardingLog findFirstOrThrow
+   */
+  export type BoardingLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardingLog to fetch.
+     */
+    where?: BoardingLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardingLogs to fetch.
+     */
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BoardingLogs.
+     */
+    cursor?: BoardingLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardingLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardingLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BoardingLogs.
+     */
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
+  }
+
+  /**
+   * BoardingLog findMany
+   */
+  export type BoardingLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardingLogs to fetch.
+     */
+    where?: BoardingLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardingLogs to fetch.
+     */
+    orderBy?: BoardingLogOrderByWithRelationInput | BoardingLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BoardingLogs.
+     */
+    cursor?: BoardingLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardingLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardingLogs.
+     */
+    skip?: number
+    distinct?: BoardingLogScalarFieldEnum | BoardingLogScalarFieldEnum[]
+  }
+
+  /**
+   * BoardingLog create
+   */
+  export type BoardingLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BoardingLog.
+     */
+    data: XOR<BoardingLogCreateInput, BoardingLogUncheckedCreateInput>
+  }
+
+  /**
+   * BoardingLog createMany
+   */
+  export type BoardingLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BoardingLogs.
+     */
+    data: BoardingLogCreateManyInput | BoardingLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BoardingLog createManyAndReturn
+   */
+  export type BoardingLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BoardingLogs.
+     */
+    data: BoardingLogCreateManyInput | BoardingLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BoardingLog update
+   */
+  export type BoardingLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BoardingLog.
+     */
+    data: XOR<BoardingLogUpdateInput, BoardingLogUncheckedUpdateInput>
+    /**
+     * Choose, which BoardingLog to update.
+     */
+    where: BoardingLogWhereUniqueInput
+  }
+
+  /**
+   * BoardingLog updateMany
+   */
+  export type BoardingLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BoardingLogs.
+     */
+    data: XOR<BoardingLogUpdateManyMutationInput, BoardingLogUncheckedUpdateManyInput>
+    /**
+     * Filter which BoardingLogs to update
+     */
+    where?: BoardingLogWhereInput
+  }
+
+  /**
+   * BoardingLog upsert
+   */
+  export type BoardingLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BoardingLog to update in case it exists.
+     */
+    where: BoardingLogWhereUniqueInput
+    /**
+     * In case the BoardingLog found by the `where` argument doesn't exist, create a new BoardingLog with this data.
+     */
+    create: XOR<BoardingLogCreateInput, BoardingLogUncheckedCreateInput>
+    /**
+     * In case the BoardingLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BoardingLogUpdateInput, BoardingLogUncheckedUpdateInput>
+  }
+
+  /**
+   * BoardingLog delete
+   */
+  export type BoardingLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+    /**
+     * Filter which BoardingLog to delete.
+     */
+    where: BoardingLogWhereUniqueInput
+  }
+
+  /**
+   * BoardingLog deleteMany
+   */
+  export type BoardingLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BoardingLogs to delete
+     */
+    where?: BoardingLogWhereInput
+  }
+
+  /**
+   * BoardingLog.stop
+   */
+  export type BoardingLog$stopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RouteStop
+     */
+    select?: RouteStopSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RouteStopInclude<ExtArgs> | null
+    where?: RouteStopWhereInput
+  }
+
+  /**
+   * BoardingLog without action
+   */
+  export type BoardingLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardingLog
+     */
+    select?: BoardingLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardingLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -43448,6 +50566,103 @@ export namespace Prisma {
   export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
 
 
+  export const DriverScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    phone: 'phone',
+    licenseNo: 'licenseNo',
+    licenseExpiry: 'licenseExpiry',
+    medicalExpiry: 'medicalExpiry',
+    policeVerified: 'policeVerified',
+    photoUrl: 'photoUrl',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DriverScalarFieldEnum = (typeof DriverScalarFieldEnum)[keyof typeof DriverScalarFieldEnum]
+
+
+  export const VehicleScalarFieldEnum: {
+    id: 'id',
+    registrationNo: 'registrationNo',
+    type: 'type',
+    capacity: 'capacity',
+    manufacturer: 'manufacturer',
+    model: 'model',
+    year: 'year',
+    insuranceNo: 'insuranceNo',
+    insuranceExpiry: 'insuranceExpiry',
+    permitExpiry: 'permitExpiry',
+    fitnessExpiry: 'fitnessExpiry',
+    gpsDeviceId: 'gpsDeviceId',
+    fuelType: 'fuelType',
+    odometerReading: 'odometerReading',
+    lastServiceDate: 'lastServiceDate',
+    status: 'status',
+    driverId: 'driverId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VehicleScalarFieldEnum = (typeof VehicleScalarFieldEnum)[keyof typeof VehicleScalarFieldEnum]
+
+
+  export const RouteScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    vehicleId: 'vehicleId',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RouteScalarFieldEnum = (typeof RouteScalarFieldEnum)[keyof typeof RouteScalarFieldEnum]
+
+
+  export const RouteStopScalarFieldEnum: {
+    id: 'id',
+    routeId: 'routeId',
+    stopName: 'stopName',
+    landmark: 'landmark',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    sequence: 'sequence',
+    morningArrival: 'morningArrival',
+    eveningArrival: 'eveningArrival'
+  };
+
+  export type RouteStopScalarFieldEnum = (typeof RouteStopScalarFieldEnum)[keyof typeof RouteStopScalarFieldEnum]
+
+
+  export const StudentTransportScalarFieldEnum: {
+    id: 'id',
+    studentId: 'studentId',
+    routeId: 'routeId',
+    stopId: 'stopId',
+    qrCode: 'qrCode',
+    feeAmount: 'feeAmount',
+    pickupType: 'pickupType',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StudentTransportScalarFieldEnum = (typeof StudentTransportScalarFieldEnum)[keyof typeof StudentTransportScalarFieldEnum]
+
+
+  export const BoardingLogScalarFieldEnum: {
+    id: 'id',
+    studentId: 'studentId',
+    vehicleId: 'vehicleId',
+    stopId: 'stopId',
+    timestamp: 'timestamp',
+    type: 'type',
+    scanMethod: 'scanMethod'
+  };
+
+  export type BoardingLogScalarFieldEnum = (typeof BoardingLogScalarFieldEnum)[keyof typeof BoardingLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -43828,6 +51043,90 @@ export namespace Prisma {
    */
   export type ListEnumSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubmissionStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'VehicleType'
+   */
+  export type EnumVehicleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleType'>
+    
+
+
+  /**
+   * Reference to a field of type 'VehicleType[]'
+   */
+  export type ListEnumVehicleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FuelType'
+   */
+  export type EnumFuelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FuelType'>
+    
+
+
+  /**
+   * Reference to a field of type 'FuelType[]'
+   */
+  export type ListEnumFuelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FuelType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'VehicleStatus'
+   */
+  export type EnumVehicleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'VehicleStatus[]'
+   */
+  export type ListEnumVehicleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VehicleStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PickupType'
+   */
+  export type EnumPickupTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PickupType'>
+    
+
+
+  /**
+   * Reference to a field of type 'PickupType[]'
+   */
+  export type ListEnumPickupTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PickupType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BoardingType'
+   */
+  export type EnumBoardingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BoardingType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BoardingType[]'
+   */
+  export type ListEnumBoardingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BoardingType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ScanMethod'
+   */
+  export type EnumScanMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScanMethod'>
+    
+
+
+  /**
+   * Reference to a field of type 'ScanMethod[]'
+   */
+  export type ListEnumScanMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScanMethod[]'>
+    
   /**
    * Deep Input Types
    */
@@ -44007,6 +51306,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordListRelationFilter
     payments?: PaymentListRelationFilter
     submissions?: SubmissionListRelationFilter
+    transportAssignment?: XOR<StudentTransportNullableRelationFilter, StudentTransportWhereInput> | null
+    boardingLogs?: BoardingLogListRelationFilter
   }
 
   export type StudentOrderByWithRelationInput = {
@@ -44043,6 +51344,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
     submissions?: SubmissionOrderByRelationAggregateInput
+    transportAssignment?: StudentTransportOrderByWithRelationInput
+    boardingLogs?: BoardingLogOrderByRelationAggregateInput
   }
 
   export type StudentWhereUniqueInput = Prisma.AtLeast<{
@@ -44082,6 +51385,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordListRelationFilter
     payments?: PaymentListRelationFilter
     submissions?: SubmissionListRelationFilter
+    transportAssignment?: XOR<StudentTransportNullableRelationFilter, StudentTransportWhereInput> | null
+    boardingLogs?: BoardingLogListRelationFilter
   }, "id" | "userId" | "admissionNo">
 
   export type StudentOrderByWithAggregationInput = {
@@ -46792,6 +54097,527 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
   }
 
+  export type DriverWhereInput = {
+    AND?: DriverWhereInput | DriverWhereInput[]
+    OR?: DriverWhereInput[]
+    NOT?: DriverWhereInput | DriverWhereInput[]
+    id?: StringFilter<"Driver"> | string
+    name?: StringFilter<"Driver"> | string
+    phone?: StringFilter<"Driver"> | string
+    licenseNo?: StringFilter<"Driver"> | string
+    licenseExpiry?: DateTimeFilter<"Driver"> | Date | string
+    medicalExpiry?: DateTimeFilter<"Driver"> | Date | string
+    policeVerified?: BoolFilter<"Driver"> | boolean
+    photoUrl?: StringNullableFilter<"Driver"> | string | null
+    status?: StringFilter<"Driver"> | string
+    createdAt?: DateTimeFilter<"Driver"> | Date | string
+    updatedAt?: DateTimeFilter<"Driver"> | Date | string
+    vehicles?: VehicleListRelationFilter
+  }
+
+  export type DriverOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    licenseNo?: SortOrder
+    licenseExpiry?: SortOrder
+    medicalExpiry?: SortOrder
+    policeVerified?: SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    vehicles?: VehicleOrderByRelationAggregateInput
+  }
+
+  export type DriverWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    licenseNo?: string
+    AND?: DriverWhereInput | DriverWhereInput[]
+    OR?: DriverWhereInput[]
+    NOT?: DriverWhereInput | DriverWhereInput[]
+    name?: StringFilter<"Driver"> | string
+    phone?: StringFilter<"Driver"> | string
+    licenseExpiry?: DateTimeFilter<"Driver"> | Date | string
+    medicalExpiry?: DateTimeFilter<"Driver"> | Date | string
+    policeVerified?: BoolFilter<"Driver"> | boolean
+    photoUrl?: StringNullableFilter<"Driver"> | string | null
+    status?: StringFilter<"Driver"> | string
+    createdAt?: DateTimeFilter<"Driver"> | Date | string
+    updatedAt?: DateTimeFilter<"Driver"> | Date | string
+    vehicles?: VehicleListRelationFilter
+  }, "id" | "licenseNo">
+
+  export type DriverOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    licenseNo?: SortOrder
+    licenseExpiry?: SortOrder
+    medicalExpiry?: SortOrder
+    policeVerified?: SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DriverCountOrderByAggregateInput
+    _max?: DriverMaxOrderByAggregateInput
+    _min?: DriverMinOrderByAggregateInput
+  }
+
+  export type DriverScalarWhereWithAggregatesInput = {
+    AND?: DriverScalarWhereWithAggregatesInput | DriverScalarWhereWithAggregatesInput[]
+    OR?: DriverScalarWhereWithAggregatesInput[]
+    NOT?: DriverScalarWhereWithAggregatesInput | DriverScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Driver"> | string
+    name?: StringWithAggregatesFilter<"Driver"> | string
+    phone?: StringWithAggregatesFilter<"Driver"> | string
+    licenseNo?: StringWithAggregatesFilter<"Driver"> | string
+    licenseExpiry?: DateTimeWithAggregatesFilter<"Driver"> | Date | string
+    medicalExpiry?: DateTimeWithAggregatesFilter<"Driver"> | Date | string
+    policeVerified?: BoolWithAggregatesFilter<"Driver"> | boolean
+    photoUrl?: StringNullableWithAggregatesFilter<"Driver"> | string | null
+    status?: StringWithAggregatesFilter<"Driver"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Driver"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Driver"> | Date | string
+  }
+
+  export type VehicleWhereInput = {
+    AND?: VehicleWhereInput | VehicleWhereInput[]
+    OR?: VehicleWhereInput[]
+    NOT?: VehicleWhereInput | VehicleWhereInput[]
+    id?: StringFilter<"Vehicle"> | string
+    registrationNo?: StringFilter<"Vehicle"> | string
+    type?: EnumVehicleTypeFilter<"Vehicle"> | $Enums.VehicleType
+    capacity?: IntFilter<"Vehicle"> | number
+    manufacturer?: StringNullableFilter<"Vehicle"> | string | null
+    model?: StringNullableFilter<"Vehicle"> | string | null
+    year?: IntNullableFilter<"Vehicle"> | number | null
+    insuranceNo?: StringNullableFilter<"Vehicle"> | string | null
+    insuranceExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    permitExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    fitnessExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    gpsDeviceId?: StringNullableFilter<"Vehicle"> | string | null
+    fuelType?: EnumFuelTypeFilter<"Vehicle"> | $Enums.FuelType
+    odometerReading?: IntFilter<"Vehicle"> | number
+    lastServiceDate?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    status?: EnumVehicleStatusFilter<"Vehicle"> | $Enums.VehicleStatus
+    driverId?: StringNullableFilter<"Vehicle"> | string | null
+    createdAt?: DateTimeFilter<"Vehicle"> | Date | string
+    updatedAt?: DateTimeFilter<"Vehicle"> | Date | string
+    driver?: XOR<DriverNullableRelationFilter, DriverWhereInput> | null
+    routes?: RouteListRelationFilter
+    boardingLogs?: BoardingLogListRelationFilter
+  }
+
+  export type VehicleOrderByWithRelationInput = {
+    id?: SortOrder
+    registrationNo?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
+    manufacturer?: SortOrderInput | SortOrder
+    model?: SortOrderInput | SortOrder
+    year?: SortOrderInput | SortOrder
+    insuranceNo?: SortOrderInput | SortOrder
+    insuranceExpiry?: SortOrderInput | SortOrder
+    permitExpiry?: SortOrderInput | SortOrder
+    fitnessExpiry?: SortOrderInput | SortOrder
+    gpsDeviceId?: SortOrderInput | SortOrder
+    fuelType?: SortOrder
+    odometerReading?: SortOrder
+    lastServiceDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    driverId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    driver?: DriverOrderByWithRelationInput
+    routes?: RouteOrderByRelationAggregateInput
+    boardingLogs?: BoardingLogOrderByRelationAggregateInput
+  }
+
+  export type VehicleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    registrationNo?: string
+    AND?: VehicleWhereInput | VehicleWhereInput[]
+    OR?: VehicleWhereInput[]
+    NOT?: VehicleWhereInput | VehicleWhereInput[]
+    type?: EnumVehicleTypeFilter<"Vehicle"> | $Enums.VehicleType
+    capacity?: IntFilter<"Vehicle"> | number
+    manufacturer?: StringNullableFilter<"Vehicle"> | string | null
+    model?: StringNullableFilter<"Vehicle"> | string | null
+    year?: IntNullableFilter<"Vehicle"> | number | null
+    insuranceNo?: StringNullableFilter<"Vehicle"> | string | null
+    insuranceExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    permitExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    fitnessExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    gpsDeviceId?: StringNullableFilter<"Vehicle"> | string | null
+    fuelType?: EnumFuelTypeFilter<"Vehicle"> | $Enums.FuelType
+    odometerReading?: IntFilter<"Vehicle"> | number
+    lastServiceDate?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    status?: EnumVehicleStatusFilter<"Vehicle"> | $Enums.VehicleStatus
+    driverId?: StringNullableFilter<"Vehicle"> | string | null
+    createdAt?: DateTimeFilter<"Vehicle"> | Date | string
+    updatedAt?: DateTimeFilter<"Vehicle"> | Date | string
+    driver?: XOR<DriverNullableRelationFilter, DriverWhereInput> | null
+    routes?: RouteListRelationFilter
+    boardingLogs?: BoardingLogListRelationFilter
+  }, "id" | "registrationNo">
+
+  export type VehicleOrderByWithAggregationInput = {
+    id?: SortOrder
+    registrationNo?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
+    manufacturer?: SortOrderInput | SortOrder
+    model?: SortOrderInput | SortOrder
+    year?: SortOrderInput | SortOrder
+    insuranceNo?: SortOrderInput | SortOrder
+    insuranceExpiry?: SortOrderInput | SortOrder
+    permitExpiry?: SortOrderInput | SortOrder
+    fitnessExpiry?: SortOrderInput | SortOrder
+    gpsDeviceId?: SortOrderInput | SortOrder
+    fuelType?: SortOrder
+    odometerReading?: SortOrder
+    lastServiceDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    driverId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VehicleCountOrderByAggregateInput
+    _avg?: VehicleAvgOrderByAggregateInput
+    _max?: VehicleMaxOrderByAggregateInput
+    _min?: VehicleMinOrderByAggregateInput
+    _sum?: VehicleSumOrderByAggregateInput
+  }
+
+  export type VehicleScalarWhereWithAggregatesInput = {
+    AND?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
+    OR?: VehicleScalarWhereWithAggregatesInput[]
+    NOT?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Vehicle"> | string
+    registrationNo?: StringWithAggregatesFilter<"Vehicle"> | string
+    type?: EnumVehicleTypeWithAggregatesFilter<"Vehicle"> | $Enums.VehicleType
+    capacity?: IntWithAggregatesFilter<"Vehicle"> | number
+    manufacturer?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    model?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    year?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
+    insuranceNo?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    insuranceExpiry?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
+    permitExpiry?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
+    fitnessExpiry?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
+    gpsDeviceId?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    fuelType?: EnumFuelTypeWithAggregatesFilter<"Vehicle"> | $Enums.FuelType
+    odometerReading?: IntWithAggregatesFilter<"Vehicle"> | number
+    lastServiceDate?: DateTimeNullableWithAggregatesFilter<"Vehicle"> | Date | string | null
+    status?: EnumVehicleStatusWithAggregatesFilter<"Vehicle"> | $Enums.VehicleStatus
+    driverId?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Vehicle"> | Date | string
+  }
+
+  export type RouteWhereInput = {
+    AND?: RouteWhereInput | RouteWhereInput[]
+    OR?: RouteWhereInput[]
+    NOT?: RouteWhereInput | RouteWhereInput[]
+    id?: StringFilter<"Route"> | string
+    name?: StringFilter<"Route"> | string
+    vehicleId?: StringNullableFilter<"Route"> | string | null
+    isActive?: BoolFilter<"Route"> | boolean
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    updatedAt?: DateTimeFilter<"Route"> | Date | string
+    vehicle?: XOR<VehicleNullableRelationFilter, VehicleWhereInput> | null
+    stops?: RouteStopListRelationFilter
+    studentTransports?: StudentTransportListRelationFilter
+  }
+
+  export type RouteOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    vehicleId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    vehicle?: VehicleOrderByWithRelationInput
+    stops?: RouteStopOrderByRelationAggregateInput
+    studentTransports?: StudentTransportOrderByRelationAggregateInput
+  }
+
+  export type RouteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RouteWhereInput | RouteWhereInput[]
+    OR?: RouteWhereInput[]
+    NOT?: RouteWhereInput | RouteWhereInput[]
+    name?: StringFilter<"Route"> | string
+    vehicleId?: StringNullableFilter<"Route"> | string | null
+    isActive?: BoolFilter<"Route"> | boolean
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    updatedAt?: DateTimeFilter<"Route"> | Date | string
+    vehicle?: XOR<VehicleNullableRelationFilter, VehicleWhereInput> | null
+    stops?: RouteStopListRelationFilter
+    studentTransports?: StudentTransportListRelationFilter
+  }, "id">
+
+  export type RouteOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    vehicleId?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RouteCountOrderByAggregateInput
+    _max?: RouteMaxOrderByAggregateInput
+    _min?: RouteMinOrderByAggregateInput
+  }
+
+  export type RouteScalarWhereWithAggregatesInput = {
+    AND?: RouteScalarWhereWithAggregatesInput | RouteScalarWhereWithAggregatesInput[]
+    OR?: RouteScalarWhereWithAggregatesInput[]
+    NOT?: RouteScalarWhereWithAggregatesInput | RouteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Route"> | string
+    name?: StringWithAggregatesFilter<"Route"> | string
+    vehicleId?: StringNullableWithAggregatesFilter<"Route"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Route"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Route"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Route"> | Date | string
+  }
+
+  export type RouteStopWhereInput = {
+    AND?: RouteStopWhereInput | RouteStopWhereInput[]
+    OR?: RouteStopWhereInput[]
+    NOT?: RouteStopWhereInput | RouteStopWhereInput[]
+    id?: StringFilter<"RouteStop"> | string
+    routeId?: StringFilter<"RouteStop"> | string
+    stopName?: StringFilter<"RouteStop"> | string
+    landmark?: StringNullableFilter<"RouteStop"> | string | null
+    latitude?: FloatNullableFilter<"RouteStop"> | number | null
+    longitude?: FloatNullableFilter<"RouteStop"> | number | null
+    sequence?: IntFilter<"RouteStop"> | number
+    morningArrival?: StringNullableFilter<"RouteStop"> | string | null
+    eveningArrival?: StringNullableFilter<"RouteStop"> | string | null
+    route?: XOR<RouteRelationFilter, RouteWhereInput>
+    studentTransports?: StudentTransportListRelationFilter
+    boardingLogs?: BoardingLogListRelationFilter
+  }
+
+  export type RouteStopOrderByWithRelationInput = {
+    id?: SortOrder
+    routeId?: SortOrder
+    stopName?: SortOrder
+    landmark?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    sequence?: SortOrder
+    morningArrival?: SortOrderInput | SortOrder
+    eveningArrival?: SortOrderInput | SortOrder
+    route?: RouteOrderByWithRelationInput
+    studentTransports?: StudentTransportOrderByRelationAggregateInput
+    boardingLogs?: BoardingLogOrderByRelationAggregateInput
+  }
+
+  export type RouteStopWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RouteStopWhereInput | RouteStopWhereInput[]
+    OR?: RouteStopWhereInput[]
+    NOT?: RouteStopWhereInput | RouteStopWhereInput[]
+    routeId?: StringFilter<"RouteStop"> | string
+    stopName?: StringFilter<"RouteStop"> | string
+    landmark?: StringNullableFilter<"RouteStop"> | string | null
+    latitude?: FloatNullableFilter<"RouteStop"> | number | null
+    longitude?: FloatNullableFilter<"RouteStop"> | number | null
+    sequence?: IntFilter<"RouteStop"> | number
+    morningArrival?: StringNullableFilter<"RouteStop"> | string | null
+    eveningArrival?: StringNullableFilter<"RouteStop"> | string | null
+    route?: XOR<RouteRelationFilter, RouteWhereInput>
+    studentTransports?: StudentTransportListRelationFilter
+    boardingLogs?: BoardingLogListRelationFilter
+  }, "id">
+
+  export type RouteStopOrderByWithAggregationInput = {
+    id?: SortOrder
+    routeId?: SortOrder
+    stopName?: SortOrder
+    landmark?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    sequence?: SortOrder
+    morningArrival?: SortOrderInput | SortOrder
+    eveningArrival?: SortOrderInput | SortOrder
+    _count?: RouteStopCountOrderByAggregateInput
+    _avg?: RouteStopAvgOrderByAggregateInput
+    _max?: RouteStopMaxOrderByAggregateInput
+    _min?: RouteStopMinOrderByAggregateInput
+    _sum?: RouteStopSumOrderByAggregateInput
+  }
+
+  export type RouteStopScalarWhereWithAggregatesInput = {
+    AND?: RouteStopScalarWhereWithAggregatesInput | RouteStopScalarWhereWithAggregatesInput[]
+    OR?: RouteStopScalarWhereWithAggregatesInput[]
+    NOT?: RouteStopScalarWhereWithAggregatesInput | RouteStopScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RouteStop"> | string
+    routeId?: StringWithAggregatesFilter<"RouteStop"> | string
+    stopName?: StringWithAggregatesFilter<"RouteStop"> | string
+    landmark?: StringNullableWithAggregatesFilter<"RouteStop"> | string | null
+    latitude?: FloatNullableWithAggregatesFilter<"RouteStop"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"RouteStop"> | number | null
+    sequence?: IntWithAggregatesFilter<"RouteStop"> | number
+    morningArrival?: StringNullableWithAggregatesFilter<"RouteStop"> | string | null
+    eveningArrival?: StringNullableWithAggregatesFilter<"RouteStop"> | string | null
+  }
+
+  export type StudentTransportWhereInput = {
+    AND?: StudentTransportWhereInput | StudentTransportWhereInput[]
+    OR?: StudentTransportWhereInput[]
+    NOT?: StudentTransportWhereInput | StudentTransportWhereInput[]
+    id?: StringFilter<"StudentTransport"> | string
+    studentId?: StringFilter<"StudentTransport"> | string
+    routeId?: StringFilter<"StudentTransport"> | string
+    stopId?: StringFilter<"StudentTransport"> | string
+    qrCode?: StringNullableFilter<"StudentTransport"> | string | null
+    feeAmount?: FloatFilter<"StudentTransport"> | number
+    pickupType?: EnumPickupTypeFilter<"StudentTransport"> | $Enums.PickupType
+    createdAt?: DateTimeFilter<"StudentTransport"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentTransport"> | Date | string
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    route?: XOR<RouteRelationFilter, RouteWhereInput>
+    stop?: XOR<RouteStopRelationFilter, RouteStopWhereInput>
+  }
+
+  export type StudentTransportOrderByWithRelationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    routeId?: SortOrder
+    stopId?: SortOrder
+    qrCode?: SortOrderInput | SortOrder
+    feeAmount?: SortOrder
+    pickupType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    student?: StudentOrderByWithRelationInput
+    route?: RouteOrderByWithRelationInput
+    stop?: RouteStopOrderByWithRelationInput
+  }
+
+  export type StudentTransportWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    studentId?: string
+    qrCode?: string
+    AND?: StudentTransportWhereInput | StudentTransportWhereInput[]
+    OR?: StudentTransportWhereInput[]
+    NOT?: StudentTransportWhereInput | StudentTransportWhereInput[]
+    routeId?: StringFilter<"StudentTransport"> | string
+    stopId?: StringFilter<"StudentTransport"> | string
+    feeAmount?: FloatFilter<"StudentTransport"> | number
+    pickupType?: EnumPickupTypeFilter<"StudentTransport"> | $Enums.PickupType
+    createdAt?: DateTimeFilter<"StudentTransport"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentTransport"> | Date | string
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    route?: XOR<RouteRelationFilter, RouteWhereInput>
+    stop?: XOR<RouteStopRelationFilter, RouteStopWhereInput>
+  }, "id" | "studentId" | "qrCode">
+
+  export type StudentTransportOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    routeId?: SortOrder
+    stopId?: SortOrder
+    qrCode?: SortOrderInput | SortOrder
+    feeAmount?: SortOrder
+    pickupType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StudentTransportCountOrderByAggregateInput
+    _avg?: StudentTransportAvgOrderByAggregateInput
+    _max?: StudentTransportMaxOrderByAggregateInput
+    _min?: StudentTransportMinOrderByAggregateInput
+    _sum?: StudentTransportSumOrderByAggregateInput
+  }
+
+  export type StudentTransportScalarWhereWithAggregatesInput = {
+    AND?: StudentTransportScalarWhereWithAggregatesInput | StudentTransportScalarWhereWithAggregatesInput[]
+    OR?: StudentTransportScalarWhereWithAggregatesInput[]
+    NOT?: StudentTransportScalarWhereWithAggregatesInput | StudentTransportScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StudentTransport"> | string
+    studentId?: StringWithAggregatesFilter<"StudentTransport"> | string
+    routeId?: StringWithAggregatesFilter<"StudentTransport"> | string
+    stopId?: StringWithAggregatesFilter<"StudentTransport"> | string
+    qrCode?: StringNullableWithAggregatesFilter<"StudentTransport"> | string | null
+    feeAmount?: FloatWithAggregatesFilter<"StudentTransport"> | number
+    pickupType?: EnumPickupTypeWithAggregatesFilter<"StudentTransport"> | $Enums.PickupType
+    createdAt?: DateTimeWithAggregatesFilter<"StudentTransport"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StudentTransport"> | Date | string
+  }
+
+  export type BoardingLogWhereInput = {
+    AND?: BoardingLogWhereInput | BoardingLogWhereInput[]
+    OR?: BoardingLogWhereInput[]
+    NOT?: BoardingLogWhereInput | BoardingLogWhereInput[]
+    id?: StringFilter<"BoardingLog"> | string
+    studentId?: StringFilter<"BoardingLog"> | string
+    vehicleId?: StringFilter<"BoardingLog"> | string
+    stopId?: StringNullableFilter<"BoardingLog"> | string | null
+    timestamp?: DateTimeFilter<"BoardingLog"> | Date | string
+    type?: EnumBoardingTypeFilter<"BoardingLog"> | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFilter<"BoardingLog"> | $Enums.ScanMethod
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    stop?: XOR<RouteStopNullableRelationFilter, RouteStopWhereInput> | null
+  }
+
+  export type BoardingLogOrderByWithRelationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    stopId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    type?: SortOrder
+    scanMethod?: SortOrder
+    student?: StudentOrderByWithRelationInput
+    vehicle?: VehicleOrderByWithRelationInput
+    stop?: RouteStopOrderByWithRelationInput
+  }
+
+  export type BoardingLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BoardingLogWhereInput | BoardingLogWhereInput[]
+    OR?: BoardingLogWhereInput[]
+    NOT?: BoardingLogWhereInput | BoardingLogWhereInput[]
+    studentId?: StringFilter<"BoardingLog"> | string
+    vehicleId?: StringFilter<"BoardingLog"> | string
+    stopId?: StringNullableFilter<"BoardingLog"> | string | null
+    timestamp?: DateTimeFilter<"BoardingLog"> | Date | string
+    type?: EnumBoardingTypeFilter<"BoardingLog"> | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFilter<"BoardingLog"> | $Enums.ScanMethod
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    stop?: XOR<RouteStopNullableRelationFilter, RouteStopWhereInput> | null
+  }, "id">
+
+  export type BoardingLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    stopId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    type?: SortOrder
+    scanMethod?: SortOrder
+    _count?: BoardingLogCountOrderByAggregateInput
+    _max?: BoardingLogMaxOrderByAggregateInput
+    _min?: BoardingLogMinOrderByAggregateInput
+  }
+
+  export type BoardingLogScalarWhereWithAggregatesInput = {
+    AND?: BoardingLogScalarWhereWithAggregatesInput | BoardingLogScalarWhereWithAggregatesInput[]
+    OR?: BoardingLogScalarWhereWithAggregatesInput[]
+    NOT?: BoardingLogScalarWhereWithAggregatesInput | BoardingLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BoardingLog"> | string
+    studentId?: StringWithAggregatesFilter<"BoardingLog"> | string
+    vehicleId?: StringWithAggregatesFilter<"BoardingLog"> | string
+    stopId?: StringNullableWithAggregatesFilter<"BoardingLog"> | string | null
+    timestamp?: DateTimeWithAggregatesFilter<"BoardingLog"> | Date | string
+    type?: EnumBoardingTypeWithAggregatesFilter<"BoardingLog"> | $Enums.BoardingType
+    scanMethod?: EnumScanMethodWithAggregatesFilter<"BoardingLog"> | $Enums.ScanMethod
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -46995,6 +54821,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateInput = {
@@ -47030,6 +54858,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUpdateInput = {
@@ -47065,6 +54895,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateInput = {
@@ -47100,6 +54932,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentCreateManyInput = {
@@ -50030,6 +57864,578 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DriverCreateInput = {
+    id?: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date | string
+    medicalExpiry: Date | string
+    policeVerified?: boolean
+    photoUrl?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleCreateNestedManyWithoutDriverInput
+  }
+
+  export type DriverUncheckedCreateInput = {
+    id?: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date | string
+    medicalExpiry: Date | string
+    policeVerified?: boolean
+    photoUrl?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutDriverInput
+  }
+
+  export type DriverUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUpdateManyWithoutDriverNestedInput
+  }
+
+  export type DriverUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicles?: VehicleUncheckedUpdateManyWithoutDriverNestedInput
+  }
+
+  export type DriverCreateManyInput = {
+    id?: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date | string
+    medicalExpiry: Date | string
+    policeVerified?: boolean
+    photoUrl?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DriverUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DriverUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleCreateInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    driver?: DriverCreateNestedOneWithoutVehiclesInput
+    routes?: RouteCreateNestedManyWithoutVehicleInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    driverId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: RouteUncheckedCreateNestedManyWithoutVehicleInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driver?: DriverUpdateOneWithoutVehiclesNestedInput
+    routes?: RouteUpdateManyWithoutVehicleNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUncheckedUpdateManyWithoutVehicleNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleCreateManyInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    driverId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteCreateInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicle?: VehicleCreateNestedOneWithoutRoutesInput
+    stops?: RouteStopCreateNestedManyWithoutRouteInput
+    studentTransports?: StudentTransportCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUncheckedCreateInput = {
+    id?: string
+    name: string
+    vehicleId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stops?: RouteStopUncheckedCreateNestedManyWithoutRouteInput
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneWithoutRoutesNestedInput
+    stops?: RouteStopUpdateManyWithoutRouteNestedInput
+    studentTransports?: StudentTransportUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    vehicleId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stops?: RouteStopUncheckedUpdateManyWithoutRouteNestedInput
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteCreateManyInput = {
+    id?: string
+    name: string
+    vehicleId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RouteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    vehicleId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteStopCreateInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    route: RouteCreateNestedOneWithoutStopsInput
+    studentTransports?: StudentTransportCreateNestedManyWithoutStopInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopUncheckedCreateInput = {
+    id?: string
+    routeId: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutStopInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    route?: RouteUpdateOneRequiredWithoutStopsNestedInput
+    studentTransports?: StudentTransportUpdateManyWithoutStopNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutStopNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopCreateManyInput = {
+    id?: string
+    routeId: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+  }
+
+  export type RouteStopUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RouteStopUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StudentTransportCreateInput = {
+    id?: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutTransportAssignmentInput
+    route: RouteCreateNestedOneWithoutStudentTransportsInput
+    stop: RouteStopCreateNestedOneWithoutStudentTransportsInput
+  }
+
+  export type StudentTransportUncheckedCreateInput = {
+    id?: string
+    studentId: string
+    routeId: string
+    stopId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentTransportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
+    route?: RouteUpdateOneRequiredWithoutStudentTransportsNestedInput
+    stop?: RouteStopUpdateOneRequiredWithoutStudentTransportsNestedInput
+  }
+
+  export type StudentTransportUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentTransportCreateManyInput = {
+    id?: string
+    studentId: string
+    routeId: string
+    stopId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentTransportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentTransportUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardingLogCreateInput = {
+    id?: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+    student: StudentCreateNestedOneWithoutBoardingLogsInput
+    vehicle: VehicleCreateNestedOneWithoutBoardingLogsInput
+    stop?: RouteStopCreateNestedOneWithoutBoardingLogsInput
+  }
+
+  export type BoardingLogUncheckedCreateInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type BoardingLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+    student?: StudentUpdateOneRequiredWithoutBoardingLogsNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutBoardingLogsNestedInput
+    stop?: RouteStopUpdateOneWithoutBoardingLogsNestedInput
+  }
+
+  export type BoardingLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type BoardingLogCreateManyInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type BoardingLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type BoardingLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -50491,6 +58897,17 @@ export namespace Prisma {
     none?: SubmissionWhereInput
   }
 
+  export type StudentTransportNullableRelationFilter = {
+    is?: StudentTransportWhereInput | null
+    isNot?: StudentTransportWhereInput | null
+  }
+
+  export type BoardingLogListRelationFilter = {
+    every?: BoardingLogWhereInput
+    some?: BoardingLogWhereInput
+    none?: BoardingLogWhereInput
+  }
+
   export type AcademicGradeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -50520,6 +58937,10 @@ export namespace Prisma {
   }
 
   export type SubmissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BoardingLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -52556,6 +60977,474 @@ export namespace Prisma {
     _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
   }
 
+  export type VehicleListRelationFilter = {
+    every?: VehicleWhereInput
+    some?: VehicleWhereInput
+    none?: VehicleWhereInput
+  }
+
+  export type VehicleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DriverCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    licenseNo?: SortOrder
+    licenseExpiry?: SortOrder
+    medicalExpiry?: SortOrder
+    policeVerified?: SortOrder
+    photoUrl?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DriverMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    licenseNo?: SortOrder
+    licenseExpiry?: SortOrder
+    medicalExpiry?: SortOrder
+    policeVerified?: SortOrder
+    photoUrl?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DriverMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    licenseNo?: SortOrder
+    licenseExpiry?: SortOrder
+    medicalExpiry?: SortOrder
+    policeVerified?: SortOrder
+    photoUrl?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumVehicleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleType | EnumVehicleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleTypeFilter<$PrismaModel> | $Enums.VehicleType
+  }
+
+  export type EnumFuelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FuelType | EnumFuelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFuelTypeFilter<$PrismaModel> | $Enums.FuelType
+  }
+
+  export type EnumVehicleStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleStatus | EnumVehicleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleStatusFilter<$PrismaModel> | $Enums.VehicleStatus
+  }
+
+  export type DriverNullableRelationFilter = {
+    is?: DriverWhereInput | null
+    isNot?: DriverWhereInput | null
+  }
+
+  export type RouteListRelationFilter = {
+    every?: RouteWhereInput
+    some?: RouteWhereInput
+    none?: RouteWhereInput
+  }
+
+  export type RouteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VehicleCountOrderByAggregateInput = {
+    id?: SortOrder
+    registrationNo?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
+    manufacturer?: SortOrder
+    model?: SortOrder
+    year?: SortOrder
+    insuranceNo?: SortOrder
+    insuranceExpiry?: SortOrder
+    permitExpiry?: SortOrder
+    fitnessExpiry?: SortOrder
+    gpsDeviceId?: SortOrder
+    fuelType?: SortOrder
+    odometerReading?: SortOrder
+    lastServiceDate?: SortOrder
+    status?: SortOrder
+    driverId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleAvgOrderByAggregateInput = {
+    capacity?: SortOrder
+    year?: SortOrder
+    odometerReading?: SortOrder
+  }
+
+  export type VehicleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    registrationNo?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
+    manufacturer?: SortOrder
+    model?: SortOrder
+    year?: SortOrder
+    insuranceNo?: SortOrder
+    insuranceExpiry?: SortOrder
+    permitExpiry?: SortOrder
+    fitnessExpiry?: SortOrder
+    gpsDeviceId?: SortOrder
+    fuelType?: SortOrder
+    odometerReading?: SortOrder
+    lastServiceDate?: SortOrder
+    status?: SortOrder
+    driverId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleMinOrderByAggregateInput = {
+    id?: SortOrder
+    registrationNo?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
+    manufacturer?: SortOrder
+    model?: SortOrder
+    year?: SortOrder
+    insuranceNo?: SortOrder
+    insuranceExpiry?: SortOrder
+    permitExpiry?: SortOrder
+    fitnessExpiry?: SortOrder
+    gpsDeviceId?: SortOrder
+    fuelType?: SortOrder
+    odometerReading?: SortOrder
+    lastServiceDate?: SortOrder
+    status?: SortOrder
+    driverId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleSumOrderByAggregateInput = {
+    capacity?: SortOrder
+    year?: SortOrder
+    odometerReading?: SortOrder
+  }
+
+  export type EnumVehicleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleType | EnumVehicleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleTypeWithAggregatesFilter<$PrismaModel> | $Enums.VehicleType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVehicleTypeFilter<$PrismaModel>
+    _max?: NestedEnumVehicleTypeFilter<$PrismaModel>
+  }
+
+  export type EnumFuelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FuelType | EnumFuelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFuelTypeWithAggregatesFilter<$PrismaModel> | $Enums.FuelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFuelTypeFilter<$PrismaModel>
+    _max?: NestedEnumFuelTypeFilter<$PrismaModel>
+  }
+
+  export type EnumVehicleStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleStatus | EnumVehicleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleStatusWithAggregatesFilter<$PrismaModel> | $Enums.VehicleStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVehicleStatusFilter<$PrismaModel>
+    _max?: NestedEnumVehicleStatusFilter<$PrismaModel>
+  }
+
+  export type VehicleNullableRelationFilter = {
+    is?: VehicleWhereInput | null
+    isNot?: VehicleWhereInput | null
+  }
+
+  export type RouteStopListRelationFilter = {
+    every?: RouteStopWhereInput
+    some?: RouteStopWhereInput
+    none?: RouteStopWhereInput
+  }
+
+  export type StudentTransportListRelationFilter = {
+    every?: StudentTransportWhereInput
+    some?: StudentTransportWhereInput
+    none?: StudentTransportWhereInput
+  }
+
+  export type RouteStopOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StudentTransportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RouteCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    vehicleId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RouteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    vehicleId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RouteMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    vehicleId?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type RouteRelationFilter = {
+    is?: RouteWhereInput
+    isNot?: RouteWhereInput
+  }
+
+  export type RouteStopCountOrderByAggregateInput = {
+    id?: SortOrder
+    routeId?: SortOrder
+    stopName?: SortOrder
+    landmark?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    sequence?: SortOrder
+    morningArrival?: SortOrder
+    eveningArrival?: SortOrder
+  }
+
+  export type RouteStopAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type RouteStopMaxOrderByAggregateInput = {
+    id?: SortOrder
+    routeId?: SortOrder
+    stopName?: SortOrder
+    landmark?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    sequence?: SortOrder
+    morningArrival?: SortOrder
+    eveningArrival?: SortOrder
+  }
+
+  export type RouteStopMinOrderByAggregateInput = {
+    id?: SortOrder
+    routeId?: SortOrder
+    stopName?: SortOrder
+    landmark?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    sequence?: SortOrder
+    morningArrival?: SortOrder
+    eveningArrival?: SortOrder
+  }
+
+  export type RouteStopSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+    sequence?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type EnumPickupTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PickupType | EnumPickupTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPickupTypeFilter<$PrismaModel> | $Enums.PickupType
+  }
+
+  export type RouteStopRelationFilter = {
+    is?: RouteStopWhereInput
+    isNot?: RouteStopWhereInput
+  }
+
+  export type StudentTransportCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    routeId?: SortOrder
+    stopId?: SortOrder
+    qrCode?: SortOrder
+    feeAmount?: SortOrder
+    pickupType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentTransportAvgOrderByAggregateInput = {
+    feeAmount?: SortOrder
+  }
+
+  export type StudentTransportMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    routeId?: SortOrder
+    stopId?: SortOrder
+    qrCode?: SortOrder
+    feeAmount?: SortOrder
+    pickupType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentTransportMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    routeId?: SortOrder
+    stopId?: SortOrder
+    qrCode?: SortOrder
+    feeAmount?: SortOrder
+    pickupType?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StudentTransportSumOrderByAggregateInput = {
+    feeAmount?: SortOrder
+  }
+
+  export type EnumPickupTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PickupType | EnumPickupTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPickupTypeWithAggregatesFilter<$PrismaModel> | $Enums.PickupType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPickupTypeFilter<$PrismaModel>
+    _max?: NestedEnumPickupTypeFilter<$PrismaModel>
+  }
+
+  export type EnumBoardingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BoardingType | EnumBoardingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBoardingTypeFilter<$PrismaModel> | $Enums.BoardingType
+  }
+
+  export type EnumScanMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScanMethod | EnumScanMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumScanMethodFilter<$PrismaModel> | $Enums.ScanMethod
+  }
+
+  export type VehicleRelationFilter = {
+    is?: VehicleWhereInput
+    isNot?: VehicleWhereInput
+  }
+
+  export type RouteStopNullableRelationFilter = {
+    is?: RouteStopWhereInput | null
+    isNot?: RouteStopWhereInput | null
+  }
+
+  export type BoardingLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    stopId?: SortOrder
+    timestamp?: SortOrder
+    type?: SortOrder
+    scanMethod?: SortOrder
+  }
+
+  export type BoardingLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    stopId?: SortOrder
+    timestamp?: SortOrder
+    type?: SortOrder
+    scanMethod?: SortOrder
+  }
+
+  export type BoardingLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    stopId?: SortOrder
+    timestamp?: SortOrder
+    type?: SortOrder
+    scanMethod?: SortOrder
+  }
+
+  export type EnumBoardingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BoardingType | EnumBoardingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBoardingTypeWithAggregatesFilter<$PrismaModel> | $Enums.BoardingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBoardingTypeFilter<$PrismaModel>
+    _max?: NestedEnumBoardingTypeFilter<$PrismaModel>
+  }
+
+  export type EnumScanMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScanMethod | EnumScanMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumScanMethodWithAggregatesFilter<$PrismaModel> | $Enums.ScanMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumScanMethodFilter<$PrismaModel>
+    _max?: NestedEnumScanMethodFilter<$PrismaModel>
+  }
+
   export type AiChatHistoryCreateNestedManyWithoutUserInput = {
     create?: XOR<AiChatHistoryCreateWithoutUserInput, AiChatHistoryUncheckedCreateWithoutUserInput> | AiChatHistoryCreateWithoutUserInput[] | AiChatHistoryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AiChatHistoryCreateOrConnectWithoutUserInput | AiChatHistoryCreateOrConnectWithoutUserInput[]
@@ -53098,6 +61987,19 @@ export namespace Prisma {
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
+  export type StudentTransportCreateNestedOneWithoutStudentInput = {
+    create?: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStudentInput
+    connect?: StudentTransportWhereUniqueInput
+  }
+
+  export type BoardingLogCreateNestedManyWithoutStudentInput = {
+    create?: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput> | BoardingLogCreateWithoutStudentInput[] | BoardingLogUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStudentInput | BoardingLogCreateOrConnectWithoutStudentInput[]
+    createMany?: BoardingLogCreateManyStudentInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+  }
+
   export type AcademicGradeUncheckedCreateNestedManyWithoutStudentInput = {
     create?: XOR<AcademicGradeCreateWithoutStudentInput, AcademicGradeUncheckedCreateWithoutStudentInput> | AcademicGradeCreateWithoutStudentInput[] | AcademicGradeUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: AcademicGradeCreateOrConnectWithoutStudentInput | AcademicGradeCreateOrConnectWithoutStudentInput[]
@@ -53158,6 +62060,19 @@ export namespace Prisma {
     connectOrCreate?: SubmissionCreateOrConnectWithoutStudentInput | SubmissionCreateOrConnectWithoutStudentInput[]
     createMany?: SubmissionCreateManyStudentInputEnvelope
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+  }
+
+  export type StudentTransportUncheckedCreateNestedOneWithoutStudentInput = {
+    create?: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStudentInput
+    connect?: StudentTransportWhereUniqueInput
+  }
+
+  export type BoardingLogUncheckedCreateNestedManyWithoutStudentInput = {
+    create?: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput> | BoardingLogCreateWithoutStudentInput[] | BoardingLogUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStudentInput | BoardingLogCreateOrConnectWithoutStudentInput[]
+    createMany?: BoardingLogCreateManyStudentInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
   }
 
   export type EnumStudentStatusFieldUpdateOperationsInput = {
@@ -53304,6 +62219,30 @@ export namespace Prisma {
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
+  export type StudentTransportUpdateOneWithoutStudentNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStudentInput
+    upsert?: StudentTransportUpsertWithoutStudentInput
+    disconnect?: StudentTransportWhereInput | boolean
+    delete?: StudentTransportWhereInput | boolean
+    connect?: StudentTransportWhereUniqueInput
+    update?: XOR<XOR<StudentTransportUpdateToOneWithWhereWithoutStudentInput, StudentTransportUpdateWithoutStudentInput>, StudentTransportUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type BoardingLogUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput> | BoardingLogCreateWithoutStudentInput[] | BoardingLogUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStudentInput | BoardingLogCreateOrConnectWithoutStudentInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutStudentInput | BoardingLogUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: BoardingLogCreateManyStudentInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutStudentInput | BoardingLogUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutStudentInput | BoardingLogUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+  }
+
   export type AcademicGradeUncheckedUpdateManyWithoutStudentNestedInput = {
     create?: XOR<AcademicGradeCreateWithoutStudentInput, AcademicGradeUncheckedCreateWithoutStudentInput> | AcademicGradeCreateWithoutStudentInput[] | AcademicGradeUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: AcademicGradeCreateOrConnectWithoutStudentInput | AcademicGradeCreateOrConnectWithoutStudentInput[]
@@ -53424,6 +62363,30 @@ export namespace Prisma {
     update?: SubmissionUpdateWithWhereUniqueWithoutStudentInput | SubmissionUpdateWithWhereUniqueWithoutStudentInput[]
     updateMany?: SubmissionUpdateManyWithWhereWithoutStudentInput | SubmissionUpdateManyWithWhereWithoutStudentInput[]
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
+  }
+
+  export type StudentTransportUncheckedUpdateOneWithoutStudentNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStudentInput
+    upsert?: StudentTransportUpsertWithoutStudentInput
+    disconnect?: StudentTransportWhereInput | boolean
+    delete?: StudentTransportWhereInput | boolean
+    connect?: StudentTransportWhereUniqueInput
+    update?: XOR<XOR<StudentTransportUpdateToOneWithWhereWithoutStudentInput, StudentTransportUpdateWithoutStudentInput>, StudentTransportUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput> | BoardingLogCreateWithoutStudentInput[] | BoardingLogUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStudentInput | BoardingLogCreateOrConnectWithoutStudentInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutStudentInput | BoardingLogUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: BoardingLogCreateManyStudentInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutStudentInput | BoardingLogUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutStudentInput | BoardingLogUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
   }
 
   export type AcademicGradeCreateNestedManyWithoutEnteredByInput = {
@@ -54997,6 +63960,464 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutSubmissionsInput, StudentUpdateWithoutSubmissionsInput>, StudentUncheckedUpdateWithoutSubmissionsInput>
   }
 
+  export type VehicleCreateNestedManyWithoutDriverInput = {
+    create?: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput> | VehicleCreateWithoutDriverInput[] | VehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: VehicleCreateOrConnectWithoutDriverInput | VehicleCreateOrConnectWithoutDriverInput[]
+    createMany?: VehicleCreateManyDriverInputEnvelope
+    connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+  }
+
+  export type VehicleUncheckedCreateNestedManyWithoutDriverInput = {
+    create?: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput> | VehicleCreateWithoutDriverInput[] | VehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: VehicleCreateOrConnectWithoutDriverInput | VehicleCreateOrConnectWithoutDriverInput[]
+    createMany?: VehicleCreateManyDriverInputEnvelope
+    connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+  }
+
+  export type VehicleUpdateManyWithoutDriverNestedInput = {
+    create?: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput> | VehicleCreateWithoutDriverInput[] | VehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: VehicleCreateOrConnectWithoutDriverInput | VehicleCreateOrConnectWithoutDriverInput[]
+    upsert?: VehicleUpsertWithWhereUniqueWithoutDriverInput | VehicleUpsertWithWhereUniqueWithoutDriverInput[]
+    createMany?: VehicleCreateManyDriverInputEnvelope
+    set?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    disconnect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    delete?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    update?: VehicleUpdateWithWhereUniqueWithoutDriverInput | VehicleUpdateWithWhereUniqueWithoutDriverInput[]
+    updateMany?: VehicleUpdateManyWithWhereWithoutDriverInput | VehicleUpdateManyWithWhereWithoutDriverInput[]
+    deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
+  }
+
+  export type VehicleUncheckedUpdateManyWithoutDriverNestedInput = {
+    create?: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput> | VehicleCreateWithoutDriverInput[] | VehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: VehicleCreateOrConnectWithoutDriverInput | VehicleCreateOrConnectWithoutDriverInput[]
+    upsert?: VehicleUpsertWithWhereUniqueWithoutDriverInput | VehicleUpsertWithWhereUniqueWithoutDriverInput[]
+    createMany?: VehicleCreateManyDriverInputEnvelope
+    set?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    disconnect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    delete?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
+    update?: VehicleUpdateWithWhereUniqueWithoutDriverInput | VehicleUpdateWithWhereUniqueWithoutDriverInput[]
+    updateMany?: VehicleUpdateManyWithWhereWithoutDriverInput | VehicleUpdateManyWithWhereWithoutDriverInput[]
+    deleteMany?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
+  }
+
+  export type DriverCreateNestedOneWithoutVehiclesInput = {
+    create?: XOR<DriverCreateWithoutVehiclesInput, DriverUncheckedCreateWithoutVehiclesInput>
+    connectOrCreate?: DriverCreateOrConnectWithoutVehiclesInput
+    connect?: DriverWhereUniqueInput
+  }
+
+  export type RouteCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput> | RouteCreateWithoutVehicleInput[] | RouteUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutVehicleInput | RouteCreateOrConnectWithoutVehicleInput[]
+    createMany?: RouteCreateManyVehicleInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type BoardingLogCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput> | BoardingLogCreateWithoutVehicleInput[] | BoardingLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutVehicleInput | BoardingLogCreateOrConnectWithoutVehicleInput[]
+    createMany?: BoardingLogCreateManyVehicleInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+  }
+
+  export type RouteUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput> | RouteCreateWithoutVehicleInput[] | RouteUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutVehicleInput | RouteCreateOrConnectWithoutVehicleInput[]
+    createMany?: RouteCreateManyVehicleInputEnvelope
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+  }
+
+  export type BoardingLogUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput> | BoardingLogCreateWithoutVehicleInput[] | BoardingLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutVehicleInput | BoardingLogCreateOrConnectWithoutVehicleInput[]
+    createMany?: BoardingLogCreateManyVehicleInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+  }
+
+  export type EnumVehicleTypeFieldUpdateOperationsInput = {
+    set?: $Enums.VehicleType
+  }
+
+  export type EnumFuelTypeFieldUpdateOperationsInput = {
+    set?: $Enums.FuelType
+  }
+
+  export type EnumVehicleStatusFieldUpdateOperationsInput = {
+    set?: $Enums.VehicleStatus
+  }
+
+  export type DriverUpdateOneWithoutVehiclesNestedInput = {
+    create?: XOR<DriverCreateWithoutVehiclesInput, DriverUncheckedCreateWithoutVehiclesInput>
+    connectOrCreate?: DriverCreateOrConnectWithoutVehiclesInput
+    upsert?: DriverUpsertWithoutVehiclesInput
+    disconnect?: DriverWhereInput | boolean
+    delete?: DriverWhereInput | boolean
+    connect?: DriverWhereUniqueInput
+    update?: XOR<XOR<DriverUpdateToOneWithWhereWithoutVehiclesInput, DriverUpdateWithoutVehiclesInput>, DriverUncheckedUpdateWithoutVehiclesInput>
+  }
+
+  export type RouteUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput> | RouteCreateWithoutVehicleInput[] | RouteUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutVehicleInput | RouteCreateOrConnectWithoutVehicleInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutVehicleInput | RouteUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: RouteCreateManyVehicleInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutVehicleInput | RouteUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutVehicleInput | RouteUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type BoardingLogUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput> | BoardingLogCreateWithoutVehicleInput[] | BoardingLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutVehicleInput | BoardingLogCreateOrConnectWithoutVehicleInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutVehicleInput | BoardingLogUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: BoardingLogCreateManyVehicleInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutVehicleInput | BoardingLogUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutVehicleInput | BoardingLogUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+  }
+
+  export type RouteUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput> | RouteCreateWithoutVehicleInput[] | RouteUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: RouteCreateOrConnectWithoutVehicleInput | RouteCreateOrConnectWithoutVehicleInput[]
+    upsert?: RouteUpsertWithWhereUniqueWithoutVehicleInput | RouteUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: RouteCreateManyVehicleInputEnvelope
+    set?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    disconnect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    delete?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    connect?: RouteWhereUniqueInput | RouteWhereUniqueInput[]
+    update?: RouteUpdateWithWhereUniqueWithoutVehicleInput | RouteUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: RouteUpdateManyWithWhereWithoutVehicleInput | RouteUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: RouteScalarWhereInput | RouteScalarWhereInput[]
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput> | BoardingLogCreateWithoutVehicleInput[] | BoardingLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutVehicleInput | BoardingLogCreateOrConnectWithoutVehicleInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutVehicleInput | BoardingLogUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: BoardingLogCreateManyVehicleInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutVehicleInput | BoardingLogUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutVehicleInput | BoardingLogUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+  }
+
+  export type VehicleCreateNestedOneWithoutRoutesInput = {
+    create?: XOR<VehicleCreateWithoutRoutesInput, VehicleUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutRoutesInput
+    connect?: VehicleWhereUniqueInput
+  }
+
+  export type RouteStopCreateNestedManyWithoutRouteInput = {
+    create?: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput> | RouteStopCreateWithoutRouteInput[] | RouteStopUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: RouteStopCreateOrConnectWithoutRouteInput | RouteStopCreateOrConnectWithoutRouteInput[]
+    createMany?: RouteStopCreateManyRouteInputEnvelope
+    connect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+  }
+
+  export type StudentTransportCreateNestedManyWithoutRouteInput = {
+    create?: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput> | StudentTransportCreateWithoutRouteInput[] | StudentTransportUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutRouteInput | StudentTransportCreateOrConnectWithoutRouteInput[]
+    createMany?: StudentTransportCreateManyRouteInputEnvelope
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+  }
+
+  export type RouteStopUncheckedCreateNestedManyWithoutRouteInput = {
+    create?: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput> | RouteStopCreateWithoutRouteInput[] | RouteStopUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: RouteStopCreateOrConnectWithoutRouteInput | RouteStopCreateOrConnectWithoutRouteInput[]
+    createMany?: RouteStopCreateManyRouteInputEnvelope
+    connect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+  }
+
+  export type StudentTransportUncheckedCreateNestedManyWithoutRouteInput = {
+    create?: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput> | StudentTransportCreateWithoutRouteInput[] | StudentTransportUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutRouteInput | StudentTransportCreateOrConnectWithoutRouteInput[]
+    createMany?: StudentTransportCreateManyRouteInputEnvelope
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+  }
+
+  export type VehicleUpdateOneWithoutRoutesNestedInput = {
+    create?: XOR<VehicleCreateWithoutRoutesInput, VehicleUncheckedCreateWithoutRoutesInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutRoutesInput
+    upsert?: VehicleUpsertWithoutRoutesInput
+    disconnect?: VehicleWhereInput | boolean
+    delete?: VehicleWhereInput | boolean
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutRoutesInput, VehicleUpdateWithoutRoutesInput>, VehicleUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type RouteStopUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput> | RouteStopCreateWithoutRouteInput[] | RouteStopUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: RouteStopCreateOrConnectWithoutRouteInput | RouteStopCreateOrConnectWithoutRouteInput[]
+    upsert?: RouteStopUpsertWithWhereUniqueWithoutRouteInput | RouteStopUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: RouteStopCreateManyRouteInputEnvelope
+    set?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    disconnect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    delete?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    connect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    update?: RouteStopUpdateWithWhereUniqueWithoutRouteInput | RouteStopUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: RouteStopUpdateManyWithWhereWithoutRouteInput | RouteStopUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: RouteStopScalarWhereInput | RouteStopScalarWhereInput[]
+  }
+
+  export type StudentTransportUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput> | StudentTransportCreateWithoutRouteInput[] | StudentTransportUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutRouteInput | StudentTransportCreateOrConnectWithoutRouteInput[]
+    upsert?: StudentTransportUpsertWithWhereUniqueWithoutRouteInput | StudentTransportUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: StudentTransportCreateManyRouteInputEnvelope
+    set?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    disconnect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    delete?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    update?: StudentTransportUpdateWithWhereUniqueWithoutRouteInput | StudentTransportUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: StudentTransportUpdateManyWithWhereWithoutRouteInput | StudentTransportUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+  }
+
+  export type RouteStopUncheckedUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput> | RouteStopCreateWithoutRouteInput[] | RouteStopUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: RouteStopCreateOrConnectWithoutRouteInput | RouteStopCreateOrConnectWithoutRouteInput[]
+    upsert?: RouteStopUpsertWithWhereUniqueWithoutRouteInput | RouteStopUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: RouteStopCreateManyRouteInputEnvelope
+    set?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    disconnect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    delete?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    connect?: RouteStopWhereUniqueInput | RouteStopWhereUniqueInput[]
+    update?: RouteStopUpdateWithWhereUniqueWithoutRouteInput | RouteStopUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: RouteStopUpdateManyWithWhereWithoutRouteInput | RouteStopUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: RouteStopScalarWhereInput | RouteStopScalarWhereInput[]
+  }
+
+  export type StudentTransportUncheckedUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput> | StudentTransportCreateWithoutRouteInput[] | StudentTransportUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutRouteInput | StudentTransportCreateOrConnectWithoutRouteInput[]
+    upsert?: StudentTransportUpsertWithWhereUniqueWithoutRouteInput | StudentTransportUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: StudentTransportCreateManyRouteInputEnvelope
+    set?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    disconnect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    delete?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    update?: StudentTransportUpdateWithWhereUniqueWithoutRouteInput | StudentTransportUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: StudentTransportUpdateManyWithWhereWithoutRouteInput | StudentTransportUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+  }
+
+  export type RouteCreateNestedOneWithoutStopsInput = {
+    create?: XOR<RouteCreateWithoutStopsInput, RouteUncheckedCreateWithoutStopsInput>
+    connectOrCreate?: RouteCreateOrConnectWithoutStopsInput
+    connect?: RouteWhereUniqueInput
+  }
+
+  export type StudentTransportCreateNestedManyWithoutStopInput = {
+    create?: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput> | StudentTransportCreateWithoutStopInput[] | StudentTransportUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStopInput | StudentTransportCreateOrConnectWithoutStopInput[]
+    createMany?: StudentTransportCreateManyStopInputEnvelope
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+  }
+
+  export type BoardingLogCreateNestedManyWithoutStopInput = {
+    create?: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput> | BoardingLogCreateWithoutStopInput[] | BoardingLogUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStopInput | BoardingLogCreateOrConnectWithoutStopInput[]
+    createMany?: BoardingLogCreateManyStopInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+  }
+
+  export type StudentTransportUncheckedCreateNestedManyWithoutStopInput = {
+    create?: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput> | StudentTransportCreateWithoutStopInput[] | StudentTransportUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStopInput | StudentTransportCreateOrConnectWithoutStopInput[]
+    createMany?: StudentTransportCreateManyStopInputEnvelope
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+  }
+
+  export type BoardingLogUncheckedCreateNestedManyWithoutStopInput = {
+    create?: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput> | BoardingLogCreateWithoutStopInput[] | BoardingLogUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStopInput | BoardingLogCreateOrConnectWithoutStopInput[]
+    createMany?: BoardingLogCreateManyStopInputEnvelope
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type RouteUpdateOneRequiredWithoutStopsNestedInput = {
+    create?: XOR<RouteCreateWithoutStopsInput, RouteUncheckedCreateWithoutStopsInput>
+    connectOrCreate?: RouteCreateOrConnectWithoutStopsInput
+    upsert?: RouteUpsertWithoutStopsInput
+    connect?: RouteWhereUniqueInput
+    update?: XOR<XOR<RouteUpdateToOneWithWhereWithoutStopsInput, RouteUpdateWithoutStopsInput>, RouteUncheckedUpdateWithoutStopsInput>
+  }
+
+  export type StudentTransportUpdateManyWithoutStopNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput> | StudentTransportCreateWithoutStopInput[] | StudentTransportUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStopInput | StudentTransportCreateOrConnectWithoutStopInput[]
+    upsert?: StudentTransportUpsertWithWhereUniqueWithoutStopInput | StudentTransportUpsertWithWhereUniqueWithoutStopInput[]
+    createMany?: StudentTransportCreateManyStopInputEnvelope
+    set?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    disconnect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    delete?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    update?: StudentTransportUpdateWithWhereUniqueWithoutStopInput | StudentTransportUpdateWithWhereUniqueWithoutStopInput[]
+    updateMany?: StudentTransportUpdateManyWithWhereWithoutStopInput | StudentTransportUpdateManyWithWhereWithoutStopInput[]
+    deleteMany?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+  }
+
+  export type BoardingLogUpdateManyWithoutStopNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput> | BoardingLogCreateWithoutStopInput[] | BoardingLogUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStopInput | BoardingLogCreateOrConnectWithoutStopInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutStopInput | BoardingLogUpsertWithWhereUniqueWithoutStopInput[]
+    createMany?: BoardingLogCreateManyStopInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutStopInput | BoardingLogUpdateWithWhereUniqueWithoutStopInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutStopInput | BoardingLogUpdateManyWithWhereWithoutStopInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+  }
+
+  export type StudentTransportUncheckedUpdateManyWithoutStopNestedInput = {
+    create?: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput> | StudentTransportCreateWithoutStopInput[] | StudentTransportUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: StudentTransportCreateOrConnectWithoutStopInput | StudentTransportCreateOrConnectWithoutStopInput[]
+    upsert?: StudentTransportUpsertWithWhereUniqueWithoutStopInput | StudentTransportUpsertWithWhereUniqueWithoutStopInput[]
+    createMany?: StudentTransportCreateManyStopInputEnvelope
+    set?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    disconnect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    delete?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    connect?: StudentTransportWhereUniqueInput | StudentTransportWhereUniqueInput[]
+    update?: StudentTransportUpdateWithWhereUniqueWithoutStopInput | StudentTransportUpdateWithWhereUniqueWithoutStopInput[]
+    updateMany?: StudentTransportUpdateManyWithWhereWithoutStopInput | StudentTransportUpdateManyWithWhereWithoutStopInput[]
+    deleteMany?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutStopNestedInput = {
+    create?: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput> | BoardingLogCreateWithoutStopInput[] | BoardingLogUncheckedCreateWithoutStopInput[]
+    connectOrCreate?: BoardingLogCreateOrConnectWithoutStopInput | BoardingLogCreateOrConnectWithoutStopInput[]
+    upsert?: BoardingLogUpsertWithWhereUniqueWithoutStopInput | BoardingLogUpsertWithWhereUniqueWithoutStopInput[]
+    createMany?: BoardingLogCreateManyStopInputEnvelope
+    set?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    disconnect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    delete?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    connect?: BoardingLogWhereUniqueInput | BoardingLogWhereUniqueInput[]
+    update?: BoardingLogUpdateWithWhereUniqueWithoutStopInput | BoardingLogUpdateWithWhereUniqueWithoutStopInput[]
+    updateMany?: BoardingLogUpdateManyWithWhereWithoutStopInput | BoardingLogUpdateManyWithWhereWithoutStopInput[]
+    deleteMany?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+  }
+
+  export type StudentCreateNestedOneWithoutTransportAssignmentInput = {
+    create?: XOR<StudentCreateWithoutTransportAssignmentInput, StudentUncheckedCreateWithoutTransportAssignmentInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutTransportAssignmentInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type RouteCreateNestedOneWithoutStudentTransportsInput = {
+    create?: XOR<RouteCreateWithoutStudentTransportsInput, RouteUncheckedCreateWithoutStudentTransportsInput>
+    connectOrCreate?: RouteCreateOrConnectWithoutStudentTransportsInput
+    connect?: RouteWhereUniqueInput
+  }
+
+  export type RouteStopCreateNestedOneWithoutStudentTransportsInput = {
+    create?: XOR<RouteStopCreateWithoutStudentTransportsInput, RouteStopUncheckedCreateWithoutStudentTransportsInput>
+    connectOrCreate?: RouteStopCreateOrConnectWithoutStudentTransportsInput
+    connect?: RouteStopWhereUniqueInput
+  }
+
+  export type EnumPickupTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PickupType
+  }
+
+  export type StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput = {
+    create?: XOR<StudentCreateWithoutTransportAssignmentInput, StudentUncheckedCreateWithoutTransportAssignmentInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutTransportAssignmentInput
+    upsert?: StudentUpsertWithoutTransportAssignmentInput
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutTransportAssignmentInput, StudentUpdateWithoutTransportAssignmentInput>, StudentUncheckedUpdateWithoutTransportAssignmentInput>
+  }
+
+  export type RouteUpdateOneRequiredWithoutStudentTransportsNestedInput = {
+    create?: XOR<RouteCreateWithoutStudentTransportsInput, RouteUncheckedCreateWithoutStudentTransportsInput>
+    connectOrCreate?: RouteCreateOrConnectWithoutStudentTransportsInput
+    upsert?: RouteUpsertWithoutStudentTransportsInput
+    connect?: RouteWhereUniqueInput
+    update?: XOR<XOR<RouteUpdateToOneWithWhereWithoutStudentTransportsInput, RouteUpdateWithoutStudentTransportsInput>, RouteUncheckedUpdateWithoutStudentTransportsInput>
+  }
+
+  export type RouteStopUpdateOneRequiredWithoutStudentTransportsNestedInput = {
+    create?: XOR<RouteStopCreateWithoutStudentTransportsInput, RouteStopUncheckedCreateWithoutStudentTransportsInput>
+    connectOrCreate?: RouteStopCreateOrConnectWithoutStudentTransportsInput
+    upsert?: RouteStopUpsertWithoutStudentTransportsInput
+    connect?: RouteStopWhereUniqueInput
+    update?: XOR<XOR<RouteStopUpdateToOneWithWhereWithoutStudentTransportsInput, RouteStopUpdateWithoutStudentTransportsInput>, RouteStopUncheckedUpdateWithoutStudentTransportsInput>
+  }
+
+  export type StudentCreateNestedOneWithoutBoardingLogsInput = {
+    create?: XOR<StudentCreateWithoutBoardingLogsInput, StudentUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutBoardingLogsInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type VehicleCreateNestedOneWithoutBoardingLogsInput = {
+    create?: XOR<VehicleCreateWithoutBoardingLogsInput, VehicleUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutBoardingLogsInput
+    connect?: VehicleWhereUniqueInput
+  }
+
+  export type RouteStopCreateNestedOneWithoutBoardingLogsInput = {
+    create?: XOR<RouteStopCreateWithoutBoardingLogsInput, RouteStopUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: RouteStopCreateOrConnectWithoutBoardingLogsInput
+    connect?: RouteStopWhereUniqueInput
+  }
+
+  export type EnumBoardingTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BoardingType
+  }
+
+  export type EnumScanMethodFieldUpdateOperationsInput = {
+    set?: $Enums.ScanMethod
+  }
+
+  export type StudentUpdateOneRequiredWithoutBoardingLogsNestedInput = {
+    create?: XOR<StudentCreateWithoutBoardingLogsInput, StudentUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutBoardingLogsInput
+    upsert?: StudentUpsertWithoutBoardingLogsInput
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutBoardingLogsInput, StudentUpdateWithoutBoardingLogsInput>, StudentUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
+  export type VehicleUpdateOneRequiredWithoutBoardingLogsNestedInput = {
+    create?: XOR<VehicleCreateWithoutBoardingLogsInput, VehicleUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutBoardingLogsInput
+    upsert?: VehicleUpsertWithoutBoardingLogsInput
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutBoardingLogsInput, VehicleUpdateWithoutBoardingLogsInput>, VehicleUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
+  export type RouteStopUpdateOneWithoutBoardingLogsNestedInput = {
+    create?: XOR<RouteStopCreateWithoutBoardingLogsInput, RouteStopUncheckedCreateWithoutBoardingLogsInput>
+    connectOrCreate?: RouteStopCreateOrConnectWithoutBoardingLogsInput
+    upsert?: RouteStopUpsertWithoutBoardingLogsInput
+    disconnect?: RouteStopWhereInput | boolean
+    delete?: RouteStopWhereInput | boolean
+    connect?: RouteStopWhereUniqueInput
+    update?: XOR<XOR<RouteStopUpdateToOneWithWhereWithoutBoardingLogsInput, RouteStopUpdateWithoutBoardingLogsInput>, RouteStopUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -55596,6 +65017,124 @@ export namespace Prisma {
     _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumVehicleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleType | EnumVehicleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleTypeFilter<$PrismaModel> | $Enums.VehicleType
+  }
+
+  export type NestedEnumFuelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FuelType | EnumFuelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFuelTypeFilter<$PrismaModel> | $Enums.FuelType
+  }
+
+  export type NestedEnumVehicleStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleStatus | EnumVehicleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleStatusFilter<$PrismaModel> | $Enums.VehicleStatus
+  }
+
+  export type NestedEnumVehicleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleType | EnumVehicleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleType[] | ListEnumVehicleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleTypeWithAggregatesFilter<$PrismaModel> | $Enums.VehicleType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVehicleTypeFilter<$PrismaModel>
+    _max?: NestedEnumVehicleTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFuelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FuelType | EnumFuelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FuelType[] | ListEnumFuelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFuelTypeWithAggregatesFilter<$PrismaModel> | $Enums.FuelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFuelTypeFilter<$PrismaModel>
+    _max?: NestedEnumFuelTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumVehicleStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VehicleStatus | EnumVehicleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VehicleStatus[] | ListEnumVehicleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVehicleStatusWithAggregatesFilter<$PrismaModel> | $Enums.VehicleStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVehicleStatusFilter<$PrismaModel>
+    _max?: NestedEnumVehicleStatusFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPickupTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.PickupType | EnumPickupTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPickupTypeFilter<$PrismaModel> | $Enums.PickupType
+  }
+
+  export type NestedEnumPickupTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PickupType | EnumPickupTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PickupType[] | ListEnumPickupTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumPickupTypeWithAggregatesFilter<$PrismaModel> | $Enums.PickupType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPickupTypeFilter<$PrismaModel>
+    _max?: NestedEnumPickupTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBoardingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BoardingType | EnumBoardingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBoardingTypeFilter<$PrismaModel> | $Enums.BoardingType
+  }
+
+  export type NestedEnumScanMethodFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScanMethod | EnumScanMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumScanMethodFilter<$PrismaModel> | $Enums.ScanMethod
+  }
+
+  export type NestedEnumBoardingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BoardingType | EnumBoardingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BoardingType[] | ListEnumBoardingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBoardingTypeWithAggregatesFilter<$PrismaModel> | $Enums.BoardingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBoardingTypeFilter<$PrismaModel>
+    _max?: NestedEnumBoardingTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumScanMethodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScanMethod | EnumScanMethodFieldRefInput<$PrismaModel>
+    in?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ScanMethod[] | ListEnumScanMethodFieldRefInput<$PrismaModel>
+    not?: NestedEnumScanMethodWithAggregatesFilter<$PrismaModel> | $Enums.ScanMethod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumScanMethodFilter<$PrismaModel>
+    _max?: NestedEnumScanMethodFilter<$PrismaModel>
+  }
+
   export type AiChatHistoryCreateWithoutUserInput = {
     id?: string
     role: string
@@ -55886,6 +65425,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutUserInput = {
@@ -55920,6 +65461,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutUserInput = {
@@ -56296,6 +65839,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutUserInput = {
@@ -56330,6 +65875,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type SystemSettingUpsertWithWhereUniqueWithoutUpdaterInput = {
@@ -56801,6 +66348,61 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StudentTransportCreateWithoutStudentInput = {
+    id?: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    route: RouteCreateNestedOneWithoutStudentTransportsInput
+    stop: RouteStopCreateNestedOneWithoutStudentTransportsInput
+  }
+
+  export type StudentTransportUncheckedCreateWithoutStudentInput = {
+    id?: string
+    routeId: string
+    stopId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentTransportCreateOrConnectWithoutStudentInput = {
+    where: StudentTransportWhereUniqueInput
+    create: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+  }
+
+  export type BoardingLogCreateWithoutStudentInput = {
+    id?: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+    vehicle: VehicleCreateNestedOneWithoutBoardingLogsInput
+    stop?: RouteStopCreateNestedOneWithoutBoardingLogsInput
+  }
+
+  export type BoardingLogUncheckedCreateWithoutStudentInput = {
+    id?: string
+    vehicleId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type BoardingLogCreateOrConnectWithoutStudentInput = {
+    where: BoardingLogWhereUniqueInput
+    create: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput>
+  }
+
+  export type BoardingLogCreateManyStudentInputEnvelope = {
+    data: BoardingLogCreateManyStudentInput | BoardingLogCreateManyStudentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AcademicGradeUpsertWithWhereUniqueWithoutStudentInput = {
     where: AcademicGradeWhereUniqueInput
     update: XOR<AcademicGradeUpdateWithoutStudentInput, AcademicGradeUncheckedUpdateWithoutStudentInput>
@@ -57166,6 +66768,68 @@ export namespace Prisma {
     remarks?: StringNullableFilter<"Submission"> | string | null
     createdAt?: DateTimeFilter<"Submission"> | Date | string
     updatedAt?: DateTimeFilter<"Submission"> | Date | string
+  }
+
+  export type StudentTransportUpsertWithoutStudentInput = {
+    update: XOR<StudentTransportUpdateWithoutStudentInput, StudentTransportUncheckedUpdateWithoutStudentInput>
+    create: XOR<StudentTransportCreateWithoutStudentInput, StudentTransportUncheckedCreateWithoutStudentInput>
+    where?: StudentTransportWhereInput
+  }
+
+  export type StudentTransportUpdateToOneWithWhereWithoutStudentInput = {
+    where?: StudentTransportWhereInput
+    data: XOR<StudentTransportUpdateWithoutStudentInput, StudentTransportUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type StudentTransportUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    route?: RouteUpdateOneRequiredWithoutStudentTransportsNestedInput
+    stop?: RouteStopUpdateOneRequiredWithoutStudentTransportsNestedInput
+  }
+
+  export type StudentTransportUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardingLogUpsertWithWhereUniqueWithoutStudentInput = {
+    where: BoardingLogWhereUniqueInput
+    update: XOR<BoardingLogUpdateWithoutStudentInput, BoardingLogUncheckedUpdateWithoutStudentInput>
+    create: XOR<BoardingLogCreateWithoutStudentInput, BoardingLogUncheckedCreateWithoutStudentInput>
+  }
+
+  export type BoardingLogUpdateWithWhereUniqueWithoutStudentInput = {
+    where: BoardingLogWhereUniqueInput
+    data: XOR<BoardingLogUpdateWithoutStudentInput, BoardingLogUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type BoardingLogUpdateManyWithWhereWithoutStudentInput = {
+    where: BoardingLogScalarWhereInput
+    data: XOR<BoardingLogUpdateManyMutationInput, BoardingLogUncheckedUpdateManyWithoutStudentInput>
+  }
+
+  export type BoardingLogScalarWhereInput = {
+    AND?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+    OR?: BoardingLogScalarWhereInput[]
+    NOT?: BoardingLogScalarWhereInput | BoardingLogScalarWhereInput[]
+    id?: StringFilter<"BoardingLog"> | string
+    studentId?: StringFilter<"BoardingLog"> | string
+    vehicleId?: StringFilter<"BoardingLog"> | string
+    stopId?: StringNullableFilter<"BoardingLog"> | string | null
+    timestamp?: DateTimeFilter<"BoardingLog"> | Date | string
+    type?: EnumBoardingTypeFilter<"BoardingLog"> | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFilter<"BoardingLog"> | $Enums.ScanMethod
   }
 
   export type AcademicGradeCreateWithoutEnteredByInput = {
@@ -57981,6 +67645,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutAttendanceInput = {
@@ -58015,6 +67681,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAttendanceInput = {
@@ -58122,6 +67790,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutAttendanceInput = {
@@ -58156,6 +67826,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TeacherCreateWithoutAcademicGradesInput = {
@@ -58241,6 +67913,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutAcademicGradesInput = {
@@ -58275,6 +67949,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAcademicGradesInput = {
@@ -58382,6 +68058,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutAcademicGradesInput = {
@@ -58416,6 +68094,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentCreateWithoutAchievementsInput = {
@@ -58450,6 +68130,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutAchievementsInput = {
@@ -58484,6 +68166,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAchievementsInput = {
@@ -58534,6 +68218,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutAchievementsInput = {
@@ -58568,6 +68254,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentCreateWithoutComplaintsInput = {
@@ -58602,6 +68290,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutComplaintsInput = {
@@ -58636,6 +68326,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutComplaintsInput = {
@@ -58737,6 +68429,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutComplaintsInput = {
@@ -58771,6 +68465,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TeacherUpsertWithoutComplaintsInput = {
@@ -58862,6 +68558,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutMedicalInfoInput = {
@@ -58896,6 +68594,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutMedicalInfoInput = {
@@ -58946,6 +68646,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutMedicalInfoInput = {
@@ -58980,6 +68682,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentCreateWithoutCommunicationLogsInput = {
@@ -59014,6 +68718,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutCommunicationLogsInput = {
@@ -59048,6 +68754,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutCommunicationLogsInput = {
@@ -59098,6 +68806,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutCommunicationLogsInput = {
@@ -59132,6 +68842,8 @@ export namespace Prisma {
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type UserCreateWithoutNoticesInput = {
@@ -61622,6 +71334,8 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutFeeRecordsInput = {
@@ -61656,6 +71370,8 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedCreateNestedOneWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutFeeRecordsInput = {
@@ -61793,6 +71509,8 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutFeeRecordsInput = {
@@ -61827,6 +71545,8 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedUpdateOneWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type FeeStructureUpsertWithoutFeeRecordsInput = {
@@ -61961,6 +71681,8 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutStudentInput
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutPaymentsInput = {
@@ -61995,6 +71717,8 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedCreateNestedOneWithoutStudentInput
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutPaymentsInput = {
@@ -62092,6 +71816,8 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutStudentNestedInput
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutPaymentsInput = {
@@ -62126,6 +71852,8 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedUpdateOneWithoutStudentNestedInput
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TeacherCreateWithoutAssignmentsInput = {
@@ -62373,6 +72101,8 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutStudentInput
     feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
     payments?: PaymentCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutSubmissionsInput = {
@@ -62407,6 +72137,8 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedCreateNestedOneWithoutStudentInput
     feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
     payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutSubmissionsInput = {
@@ -62506,6 +72238,8 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutStudentNestedInput
     feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
     payments?: PaymentUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutSubmissionsInput = {
@@ -62540,6 +72274,1285 @@ export namespace Prisma {
     medicalInfo?: MedicalInfoUncheckedUpdateOneWithoutStudentNestedInput
     feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type VehicleCreateWithoutDriverInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: RouteCreateNestedManyWithoutVehicleInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutDriverInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: RouteUncheckedCreateNestedManyWithoutVehicleInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutDriverInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput>
+  }
+
+  export type VehicleCreateManyDriverInputEnvelope = {
+    data: VehicleCreateManyDriverInput | VehicleCreateManyDriverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleUpsertWithWhereUniqueWithoutDriverInput = {
+    where: VehicleWhereUniqueInput
+    update: XOR<VehicleUpdateWithoutDriverInput, VehicleUncheckedUpdateWithoutDriverInput>
+    create: XOR<VehicleCreateWithoutDriverInput, VehicleUncheckedCreateWithoutDriverInput>
+  }
+
+  export type VehicleUpdateWithWhereUniqueWithoutDriverInput = {
+    where: VehicleWhereUniqueInput
+    data: XOR<VehicleUpdateWithoutDriverInput, VehicleUncheckedUpdateWithoutDriverInput>
+  }
+
+  export type VehicleUpdateManyWithWhereWithoutDriverInput = {
+    where: VehicleScalarWhereInput
+    data: XOR<VehicleUpdateManyMutationInput, VehicleUncheckedUpdateManyWithoutDriverInput>
+  }
+
+  export type VehicleScalarWhereInput = {
+    AND?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
+    OR?: VehicleScalarWhereInput[]
+    NOT?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
+    id?: StringFilter<"Vehicle"> | string
+    registrationNo?: StringFilter<"Vehicle"> | string
+    type?: EnumVehicleTypeFilter<"Vehicle"> | $Enums.VehicleType
+    capacity?: IntFilter<"Vehicle"> | number
+    manufacturer?: StringNullableFilter<"Vehicle"> | string | null
+    model?: StringNullableFilter<"Vehicle"> | string | null
+    year?: IntNullableFilter<"Vehicle"> | number | null
+    insuranceNo?: StringNullableFilter<"Vehicle"> | string | null
+    insuranceExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    permitExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    fitnessExpiry?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    gpsDeviceId?: StringNullableFilter<"Vehicle"> | string | null
+    fuelType?: EnumFuelTypeFilter<"Vehicle"> | $Enums.FuelType
+    odometerReading?: IntFilter<"Vehicle"> | number
+    lastServiceDate?: DateTimeNullableFilter<"Vehicle"> | Date | string | null
+    status?: EnumVehicleStatusFilter<"Vehicle"> | $Enums.VehicleStatus
+    driverId?: StringNullableFilter<"Vehicle"> | string | null
+    createdAt?: DateTimeFilter<"Vehicle"> | Date | string
+    updatedAt?: DateTimeFilter<"Vehicle"> | Date | string
+  }
+
+  export type DriverCreateWithoutVehiclesInput = {
+    id?: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date | string
+    medicalExpiry: Date | string
+    policeVerified?: boolean
+    photoUrl?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DriverUncheckedCreateWithoutVehiclesInput = {
+    id?: string
+    name: string
+    phone: string
+    licenseNo: string
+    licenseExpiry: Date | string
+    medicalExpiry: Date | string
+    policeVerified?: boolean
+    photoUrl?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DriverCreateOrConnectWithoutVehiclesInput = {
+    where: DriverWhereUniqueInput
+    create: XOR<DriverCreateWithoutVehiclesInput, DriverUncheckedCreateWithoutVehiclesInput>
+  }
+
+  export type RouteCreateWithoutVehicleInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stops?: RouteStopCreateNestedManyWithoutRouteInput
+    studentTransports?: StudentTransportCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stops?: RouteStopUncheckedCreateNestedManyWithoutRouteInput
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteCreateOrConnectWithoutVehicleInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type RouteCreateManyVehicleInputEnvelope = {
+    data: RouteCreateManyVehicleInput | RouteCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BoardingLogCreateWithoutVehicleInput = {
+    id?: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+    student: StudentCreateNestedOneWithoutBoardingLogsInput
+    stop?: RouteStopCreateNestedOneWithoutBoardingLogsInput
+  }
+
+  export type BoardingLogUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    studentId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type BoardingLogCreateOrConnectWithoutVehicleInput = {
+    where: BoardingLogWhereUniqueInput
+    create: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type BoardingLogCreateManyVehicleInputEnvelope = {
+    data: BoardingLogCreateManyVehicleInput | BoardingLogCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DriverUpsertWithoutVehiclesInput = {
+    update: XOR<DriverUpdateWithoutVehiclesInput, DriverUncheckedUpdateWithoutVehiclesInput>
+    create: XOR<DriverCreateWithoutVehiclesInput, DriverUncheckedCreateWithoutVehiclesInput>
+    where?: DriverWhereInput
+  }
+
+  export type DriverUpdateToOneWithWhereWithoutVehiclesInput = {
+    where?: DriverWhereInput
+    data: XOR<DriverUpdateWithoutVehiclesInput, DriverUncheckedUpdateWithoutVehiclesInput>
+  }
+
+  export type DriverUpdateWithoutVehiclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DriverUncheckedUpdateWithoutVehiclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    licenseNo?: StringFieldUpdateOperationsInput | string
+    licenseExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    medicalExpiry?: DateTimeFieldUpdateOperationsInput | Date | string
+    policeVerified?: BoolFieldUpdateOperationsInput | boolean
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: RouteWhereUniqueInput
+    update: XOR<RouteUpdateWithoutVehicleInput, RouteUncheckedUpdateWithoutVehicleInput>
+    create: XOR<RouteCreateWithoutVehicleInput, RouteUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type RouteUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: RouteWhereUniqueInput
+    data: XOR<RouteUpdateWithoutVehicleInput, RouteUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type RouteUpdateManyWithWhereWithoutVehicleInput = {
+    where: RouteScalarWhereInput
+    data: XOR<RouteUpdateManyMutationInput, RouteUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type RouteScalarWhereInput = {
+    AND?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    OR?: RouteScalarWhereInput[]
+    NOT?: RouteScalarWhereInput | RouteScalarWhereInput[]
+    id?: StringFilter<"Route"> | string
+    name?: StringFilter<"Route"> | string
+    vehicleId?: StringNullableFilter<"Route"> | string | null
+    isActive?: BoolFilter<"Route"> | boolean
+    createdAt?: DateTimeFilter<"Route"> | Date | string
+    updatedAt?: DateTimeFilter<"Route"> | Date | string
+  }
+
+  export type BoardingLogUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: BoardingLogWhereUniqueInput
+    update: XOR<BoardingLogUpdateWithoutVehicleInput, BoardingLogUncheckedUpdateWithoutVehicleInput>
+    create: XOR<BoardingLogCreateWithoutVehicleInput, BoardingLogUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type BoardingLogUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: BoardingLogWhereUniqueInput
+    data: XOR<BoardingLogUpdateWithoutVehicleInput, BoardingLogUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type BoardingLogUpdateManyWithWhereWithoutVehicleInput = {
+    where: BoardingLogScalarWhereInput
+    data: XOR<BoardingLogUpdateManyMutationInput, BoardingLogUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type VehicleCreateWithoutRoutesInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    driver?: DriverCreateNestedOneWithoutVehiclesInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutRoutesInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    driverId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutRoutesInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutRoutesInput, VehicleUncheckedCreateWithoutRoutesInput>
+  }
+
+  export type RouteStopCreateWithoutRouteInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    studentTransports?: StudentTransportCreateNestedManyWithoutStopInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopUncheckedCreateWithoutRouteInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutStopInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopCreateOrConnectWithoutRouteInput = {
+    where: RouteStopWhereUniqueInput
+    create: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput>
+  }
+
+  export type RouteStopCreateManyRouteInputEnvelope = {
+    data: RouteStopCreateManyRouteInput | RouteStopCreateManyRouteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StudentTransportCreateWithoutRouteInput = {
+    id?: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutTransportAssignmentInput
+    stop: RouteStopCreateNestedOneWithoutStudentTransportsInput
+  }
+
+  export type StudentTransportUncheckedCreateWithoutRouteInput = {
+    id?: string
+    studentId: string
+    stopId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentTransportCreateOrConnectWithoutRouteInput = {
+    where: StudentTransportWhereUniqueInput
+    create: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput>
+  }
+
+  export type StudentTransportCreateManyRouteInputEnvelope = {
+    data: StudentTransportCreateManyRouteInput | StudentTransportCreateManyRouteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleUpsertWithoutRoutesInput = {
+    update: XOR<VehicleUpdateWithoutRoutesInput, VehicleUncheckedUpdateWithoutRoutesInput>
+    create: XOR<VehicleCreateWithoutRoutesInput, VehicleUncheckedCreateWithoutRoutesInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutRoutesInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutRoutesInput, VehicleUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type VehicleUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driver?: DriverUpdateOneWithoutVehiclesNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutRoutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type RouteStopUpsertWithWhereUniqueWithoutRouteInput = {
+    where: RouteStopWhereUniqueInput
+    update: XOR<RouteStopUpdateWithoutRouteInput, RouteStopUncheckedUpdateWithoutRouteInput>
+    create: XOR<RouteStopCreateWithoutRouteInput, RouteStopUncheckedCreateWithoutRouteInput>
+  }
+
+  export type RouteStopUpdateWithWhereUniqueWithoutRouteInput = {
+    where: RouteStopWhereUniqueInput
+    data: XOR<RouteStopUpdateWithoutRouteInput, RouteStopUncheckedUpdateWithoutRouteInput>
+  }
+
+  export type RouteStopUpdateManyWithWhereWithoutRouteInput = {
+    where: RouteStopScalarWhereInput
+    data: XOR<RouteStopUpdateManyMutationInput, RouteStopUncheckedUpdateManyWithoutRouteInput>
+  }
+
+  export type RouteStopScalarWhereInput = {
+    AND?: RouteStopScalarWhereInput | RouteStopScalarWhereInput[]
+    OR?: RouteStopScalarWhereInput[]
+    NOT?: RouteStopScalarWhereInput | RouteStopScalarWhereInput[]
+    id?: StringFilter<"RouteStop"> | string
+    routeId?: StringFilter<"RouteStop"> | string
+    stopName?: StringFilter<"RouteStop"> | string
+    landmark?: StringNullableFilter<"RouteStop"> | string | null
+    latitude?: FloatNullableFilter<"RouteStop"> | number | null
+    longitude?: FloatNullableFilter<"RouteStop"> | number | null
+    sequence?: IntFilter<"RouteStop"> | number
+    morningArrival?: StringNullableFilter<"RouteStop"> | string | null
+    eveningArrival?: StringNullableFilter<"RouteStop"> | string | null
+  }
+
+  export type StudentTransportUpsertWithWhereUniqueWithoutRouteInput = {
+    where: StudentTransportWhereUniqueInput
+    update: XOR<StudentTransportUpdateWithoutRouteInput, StudentTransportUncheckedUpdateWithoutRouteInput>
+    create: XOR<StudentTransportCreateWithoutRouteInput, StudentTransportUncheckedCreateWithoutRouteInput>
+  }
+
+  export type StudentTransportUpdateWithWhereUniqueWithoutRouteInput = {
+    where: StudentTransportWhereUniqueInput
+    data: XOR<StudentTransportUpdateWithoutRouteInput, StudentTransportUncheckedUpdateWithoutRouteInput>
+  }
+
+  export type StudentTransportUpdateManyWithWhereWithoutRouteInput = {
+    where: StudentTransportScalarWhereInput
+    data: XOR<StudentTransportUpdateManyMutationInput, StudentTransportUncheckedUpdateManyWithoutRouteInput>
+  }
+
+  export type StudentTransportScalarWhereInput = {
+    AND?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+    OR?: StudentTransportScalarWhereInput[]
+    NOT?: StudentTransportScalarWhereInput | StudentTransportScalarWhereInput[]
+    id?: StringFilter<"StudentTransport"> | string
+    studentId?: StringFilter<"StudentTransport"> | string
+    routeId?: StringFilter<"StudentTransport"> | string
+    stopId?: StringFilter<"StudentTransport"> | string
+    qrCode?: StringNullableFilter<"StudentTransport"> | string | null
+    feeAmount?: FloatFilter<"StudentTransport"> | number
+    pickupType?: EnumPickupTypeFilter<"StudentTransport"> | $Enums.PickupType
+    createdAt?: DateTimeFilter<"StudentTransport"> | Date | string
+    updatedAt?: DateTimeFilter<"StudentTransport"> | Date | string
+  }
+
+  export type RouteCreateWithoutStopsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicle?: VehicleCreateNestedOneWithoutRoutesInput
+    studentTransports?: StudentTransportCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUncheckedCreateWithoutStopsInput = {
+    id?: string
+    name: string
+    vehicleId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteCreateOrConnectWithoutStopsInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutStopsInput, RouteUncheckedCreateWithoutStopsInput>
+  }
+
+  export type StudentTransportCreateWithoutStopInput = {
+    id?: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutTransportAssignmentInput
+    route: RouteCreateNestedOneWithoutStudentTransportsInput
+  }
+
+  export type StudentTransportUncheckedCreateWithoutStopInput = {
+    id?: string
+    studentId: string
+    routeId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StudentTransportCreateOrConnectWithoutStopInput = {
+    where: StudentTransportWhereUniqueInput
+    create: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput>
+  }
+
+  export type StudentTransportCreateManyStopInputEnvelope = {
+    data: StudentTransportCreateManyStopInput | StudentTransportCreateManyStopInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BoardingLogCreateWithoutStopInput = {
+    id?: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+    student: StudentCreateNestedOneWithoutBoardingLogsInput
+    vehicle: VehicleCreateNestedOneWithoutBoardingLogsInput
+  }
+
+  export type BoardingLogUncheckedCreateWithoutStopInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type BoardingLogCreateOrConnectWithoutStopInput = {
+    where: BoardingLogWhereUniqueInput
+    create: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput>
+  }
+
+  export type BoardingLogCreateManyStopInputEnvelope = {
+    data: BoardingLogCreateManyStopInput | BoardingLogCreateManyStopInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RouteUpsertWithoutStopsInput = {
+    update: XOR<RouteUpdateWithoutStopsInput, RouteUncheckedUpdateWithoutStopsInput>
+    create: XOR<RouteCreateWithoutStopsInput, RouteUncheckedCreateWithoutStopsInput>
+    where?: RouteWhereInput
+  }
+
+  export type RouteUpdateToOneWithWhereWithoutStopsInput = {
+    where?: RouteWhereInput
+    data: XOR<RouteUpdateWithoutStopsInput, RouteUncheckedUpdateWithoutStopsInput>
+  }
+
+  export type RouteUpdateWithoutStopsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneWithoutRoutesNestedInput
+    studentTransports?: StudentTransportUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutStopsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    vehicleId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutRouteNestedInput
+  }
+
+  export type StudentTransportUpsertWithWhereUniqueWithoutStopInput = {
+    where: StudentTransportWhereUniqueInput
+    update: XOR<StudentTransportUpdateWithoutStopInput, StudentTransportUncheckedUpdateWithoutStopInput>
+    create: XOR<StudentTransportCreateWithoutStopInput, StudentTransportUncheckedCreateWithoutStopInput>
+  }
+
+  export type StudentTransportUpdateWithWhereUniqueWithoutStopInput = {
+    where: StudentTransportWhereUniqueInput
+    data: XOR<StudentTransportUpdateWithoutStopInput, StudentTransportUncheckedUpdateWithoutStopInput>
+  }
+
+  export type StudentTransportUpdateManyWithWhereWithoutStopInput = {
+    where: StudentTransportScalarWhereInput
+    data: XOR<StudentTransportUpdateManyMutationInput, StudentTransportUncheckedUpdateManyWithoutStopInput>
+  }
+
+  export type BoardingLogUpsertWithWhereUniqueWithoutStopInput = {
+    where: BoardingLogWhereUniqueInput
+    update: XOR<BoardingLogUpdateWithoutStopInput, BoardingLogUncheckedUpdateWithoutStopInput>
+    create: XOR<BoardingLogCreateWithoutStopInput, BoardingLogUncheckedCreateWithoutStopInput>
+  }
+
+  export type BoardingLogUpdateWithWhereUniqueWithoutStopInput = {
+    where: BoardingLogWhereUniqueInput
+    data: XOR<BoardingLogUpdateWithoutStopInput, BoardingLogUncheckedUpdateWithoutStopInput>
+  }
+
+  export type BoardingLogUpdateManyWithWhereWithoutStopInput = {
+    where: BoardingLogScalarWhereInput
+    data: XOR<BoardingLogUpdateManyMutationInput, BoardingLogUncheckedUpdateManyWithoutStopInput>
+  }
+
+  export type StudentCreateWithoutTransportAssignmentInput = {
+    id?: string
+    admissionNo: string
+    firstName: string
+    lastName: string
+    dateOfBirth?: Date | string | null
+    gender?: string | null
+    class: string
+    section: string
+    rollNo: number
+    parentName: string
+    parentPhone: string
+    parentEmail?: string | null
+    status?: $Enums.StudentStatus
+    bloodGroup?: string | null
+    photoUrl?: string | null
+    address?: string | null
+    totalPresent?: number
+    totalAbsent?: number
+    attendancePercentage?: number
+    lastAttendanceDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicGrades?: AcademicGradeCreateNestedManyWithoutStudentInput
+    achievements?: AchievementCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutStudentInput
+    complaints?: ComplaintCreateNestedManyWithoutStudentInput
+    medicalInfo?: MedicalInfoCreateNestedOneWithoutStudentInput
+    user?: UserCreateNestedOneWithoutStudentInput
+    feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
+    payments?: PaymentCreateNestedManyWithoutStudentInput
+    submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentUncheckedCreateWithoutTransportAssignmentInput = {
+    id?: string
+    userId?: string | null
+    admissionNo: string
+    firstName: string
+    lastName: string
+    dateOfBirth?: Date | string | null
+    gender?: string | null
+    class: string
+    section: string
+    rollNo: number
+    parentName: string
+    parentPhone: string
+    parentEmail?: string | null
+    status?: $Enums.StudentStatus
+    bloodGroup?: string | null
+    photoUrl?: string | null
+    address?: string | null
+    totalPresent?: number
+    totalAbsent?: number
+    attendancePercentage?: number
+    lastAttendanceDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicGrades?: AcademicGradeUncheckedCreateNestedManyWithoutStudentInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutStudentInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutStudentInput
+    medicalInfo?: MedicalInfoUncheckedCreateNestedOneWithoutStudentInput
+    feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutTransportAssignmentInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutTransportAssignmentInput, StudentUncheckedCreateWithoutTransportAssignmentInput>
+  }
+
+  export type RouteCreateWithoutStudentTransportsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicle?: VehicleCreateNestedOneWithoutRoutesInput
+    stops?: RouteStopCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteUncheckedCreateWithoutStudentTransportsInput = {
+    id?: string
+    name: string
+    vehicleId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stops?: RouteStopUncheckedCreateNestedManyWithoutRouteInput
+  }
+
+  export type RouteCreateOrConnectWithoutStudentTransportsInput = {
+    where: RouteWhereUniqueInput
+    create: XOR<RouteCreateWithoutStudentTransportsInput, RouteUncheckedCreateWithoutStudentTransportsInput>
+  }
+
+  export type RouteStopCreateWithoutStudentTransportsInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    route: RouteCreateNestedOneWithoutStopsInput
+    boardingLogs?: BoardingLogCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopUncheckedCreateWithoutStudentTransportsInput = {
+    id?: string
+    routeId: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    boardingLogs?: BoardingLogUncheckedCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopCreateOrConnectWithoutStudentTransportsInput = {
+    where: RouteStopWhereUniqueInput
+    create: XOR<RouteStopCreateWithoutStudentTransportsInput, RouteStopUncheckedCreateWithoutStudentTransportsInput>
+  }
+
+  export type StudentUpsertWithoutTransportAssignmentInput = {
+    update: XOR<StudentUpdateWithoutTransportAssignmentInput, StudentUncheckedUpdateWithoutTransportAssignmentInput>
+    create: XOR<StudentCreateWithoutTransportAssignmentInput, StudentUncheckedCreateWithoutTransportAssignmentInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutTransportAssignmentInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutTransportAssignmentInput, StudentUncheckedUpdateWithoutTransportAssignmentInput>
+  }
+
+  export type StudentUpdateWithoutTransportAssignmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNo?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: StringFieldUpdateOperationsInput | string
+    section?: StringFieldUpdateOperationsInput | string
+    rollNo?: IntFieldUpdateOperationsInput | number
+    parentName?: StringFieldUpdateOperationsInput | string
+    parentPhone?: StringFieldUpdateOperationsInput | string
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    totalPresent?: IntFieldUpdateOperationsInput | number
+    totalAbsent?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: FloatFieldUpdateOperationsInput | number
+    lastAttendanceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicGrades?: AcademicGradeUpdateManyWithoutStudentNestedInput
+    achievements?: AchievementUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutStudentNestedInput
+    complaints?: ComplaintUpdateManyWithoutStudentNestedInput
+    medicalInfo?: MedicalInfoUpdateOneWithoutStudentNestedInput
+    user?: UserUpdateOneWithoutStudentNestedInput
+    feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
+    payments?: PaymentUpdateManyWithoutStudentNestedInput
+    submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutTransportAssignmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionNo?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: StringFieldUpdateOperationsInput | string
+    section?: StringFieldUpdateOperationsInput | string
+    rollNo?: IntFieldUpdateOperationsInput | number
+    parentName?: StringFieldUpdateOperationsInput | string
+    parentPhone?: StringFieldUpdateOperationsInput | string
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    totalPresent?: IntFieldUpdateOperationsInput | number
+    totalAbsent?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: FloatFieldUpdateOperationsInput | number
+    lastAttendanceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicGrades?: AcademicGradeUncheckedUpdateManyWithoutStudentNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutStudentNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutStudentNestedInput
+    medicalInfo?: MedicalInfoUncheckedUpdateOneWithoutStudentNestedInput
+    feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type RouteUpsertWithoutStudentTransportsInput = {
+    update: XOR<RouteUpdateWithoutStudentTransportsInput, RouteUncheckedUpdateWithoutStudentTransportsInput>
+    create: XOR<RouteCreateWithoutStudentTransportsInput, RouteUncheckedCreateWithoutStudentTransportsInput>
+    where?: RouteWhereInput
+  }
+
+  export type RouteUpdateToOneWithWhereWithoutStudentTransportsInput = {
+    where?: RouteWhereInput
+    data: XOR<RouteUpdateWithoutStudentTransportsInput, RouteUncheckedUpdateWithoutStudentTransportsInput>
+  }
+
+  export type RouteUpdateWithoutStudentTransportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: VehicleUpdateOneWithoutRoutesNestedInput
+    stops?: RouteStopUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutStudentTransportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    vehicleId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stops?: RouteStopUncheckedUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteStopUpsertWithoutStudentTransportsInput = {
+    update: XOR<RouteStopUpdateWithoutStudentTransportsInput, RouteStopUncheckedUpdateWithoutStudentTransportsInput>
+    create: XOR<RouteStopCreateWithoutStudentTransportsInput, RouteStopUncheckedCreateWithoutStudentTransportsInput>
+    where?: RouteStopWhereInput
+  }
+
+  export type RouteStopUpdateToOneWithWhereWithoutStudentTransportsInput = {
+    where?: RouteStopWhereInput
+    data: XOR<RouteStopUpdateWithoutStudentTransportsInput, RouteStopUncheckedUpdateWithoutStudentTransportsInput>
+  }
+
+  export type RouteStopUpdateWithoutStudentTransportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    route?: RouteUpdateOneRequiredWithoutStopsNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopUncheckedUpdateWithoutStudentTransportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStopNestedInput
+  }
+
+  export type StudentCreateWithoutBoardingLogsInput = {
+    id?: string
+    admissionNo: string
+    firstName: string
+    lastName: string
+    dateOfBirth?: Date | string | null
+    gender?: string | null
+    class: string
+    section: string
+    rollNo: number
+    parentName: string
+    parentPhone: string
+    parentEmail?: string | null
+    status?: $Enums.StudentStatus
+    bloodGroup?: string | null
+    photoUrl?: string | null
+    address?: string | null
+    totalPresent?: number
+    totalAbsent?: number
+    attendancePercentage?: number
+    lastAttendanceDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicGrades?: AcademicGradeCreateNestedManyWithoutStudentInput
+    achievements?: AchievementCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutStudentInput
+    complaints?: ComplaintCreateNestedManyWithoutStudentInput
+    medicalInfo?: MedicalInfoCreateNestedOneWithoutStudentInput
+    user?: UserCreateNestedOneWithoutStudentInput
+    feeRecords?: FeeRecordCreateNestedManyWithoutStudentInput
+    payments?: PaymentCreateNestedManyWithoutStudentInput
+    submissions?: SubmissionCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportCreateNestedOneWithoutStudentInput
+  }
+
+  export type StudentUncheckedCreateWithoutBoardingLogsInput = {
+    id?: string
+    userId?: string | null
+    admissionNo: string
+    firstName: string
+    lastName: string
+    dateOfBirth?: Date | string | null
+    gender?: string | null
+    class: string
+    section: string
+    rollNo: number
+    parentName: string
+    parentPhone: string
+    parentEmail?: string | null
+    status?: $Enums.StudentStatus
+    bloodGroup?: string | null
+    photoUrl?: string | null
+    address?: string | null
+    totalPresent?: number
+    totalAbsent?: number
+    attendancePercentage?: number
+    lastAttendanceDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicGrades?: AcademicGradeUncheckedCreateNestedManyWithoutStudentInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutStudentInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutStudentInput
+    medicalInfo?: MedicalInfoUncheckedCreateNestedOneWithoutStudentInput
+    feeRecords?: FeeRecordUncheckedCreateNestedManyWithoutStudentInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStudentInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutStudentInput
+    transportAssignment?: StudentTransportUncheckedCreateNestedOneWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutBoardingLogsInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutBoardingLogsInput, StudentUncheckedCreateWithoutBoardingLogsInput>
+  }
+
+  export type VehicleCreateWithoutBoardingLogsInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    driver?: DriverCreateNestedOneWithoutVehiclesInput
+    routes?: RouteCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutBoardingLogsInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    driverId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: RouteUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutBoardingLogsInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutBoardingLogsInput, VehicleUncheckedCreateWithoutBoardingLogsInput>
+  }
+
+  export type RouteStopCreateWithoutBoardingLogsInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    route: RouteCreateNestedOneWithoutStopsInput
+    studentTransports?: StudentTransportCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopUncheckedCreateWithoutBoardingLogsInput = {
+    id?: string
+    routeId: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+    studentTransports?: StudentTransportUncheckedCreateNestedManyWithoutStopInput
+  }
+
+  export type RouteStopCreateOrConnectWithoutBoardingLogsInput = {
+    where: RouteStopWhereUniqueInput
+    create: XOR<RouteStopCreateWithoutBoardingLogsInput, RouteStopUncheckedCreateWithoutBoardingLogsInput>
+  }
+
+  export type StudentUpsertWithoutBoardingLogsInput = {
+    update: XOR<StudentUpdateWithoutBoardingLogsInput, StudentUncheckedUpdateWithoutBoardingLogsInput>
+    create: XOR<StudentCreateWithoutBoardingLogsInput, StudentUncheckedCreateWithoutBoardingLogsInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutBoardingLogsInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutBoardingLogsInput, StudentUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
+  export type StudentUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNo?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: StringFieldUpdateOperationsInput | string
+    section?: StringFieldUpdateOperationsInput | string
+    rollNo?: IntFieldUpdateOperationsInput | number
+    parentName?: StringFieldUpdateOperationsInput | string
+    parentPhone?: StringFieldUpdateOperationsInput | string
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    totalPresent?: IntFieldUpdateOperationsInput | number
+    totalAbsent?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: FloatFieldUpdateOperationsInput | number
+    lastAttendanceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicGrades?: AcademicGradeUpdateManyWithoutStudentNestedInput
+    achievements?: AchievementUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutStudentNestedInput
+    complaints?: ComplaintUpdateManyWithoutStudentNestedInput
+    medicalInfo?: MedicalInfoUpdateOneWithoutStudentNestedInput
+    user?: UserUpdateOneWithoutStudentNestedInput
+    feeRecords?: FeeRecordUpdateManyWithoutStudentNestedInput
+    payments?: PaymentUpdateManyWithoutStudentNestedInput
+    submissions?: SubmissionUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUpdateOneWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    admissionNo?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    class?: StringFieldUpdateOperationsInput | string
+    section?: StringFieldUpdateOperationsInput | string
+    rollNo?: IntFieldUpdateOperationsInput | number
+    parentName?: StringFieldUpdateOperationsInput | string
+    parentPhone?: StringFieldUpdateOperationsInput | string
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStudentStatusFieldUpdateOperationsInput | $Enums.StudentStatus
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    totalPresent?: IntFieldUpdateOperationsInput | number
+    totalAbsent?: IntFieldUpdateOperationsInput | number
+    attendancePercentage?: FloatFieldUpdateOperationsInput | number
+    lastAttendanceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicGrades?: AcademicGradeUncheckedUpdateManyWithoutStudentNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutStudentNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutStudentNestedInput
+    medicalInfo?: MedicalInfoUncheckedUpdateOneWithoutStudentNestedInput
+    feeRecords?: FeeRecordUncheckedUpdateManyWithoutStudentNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStudentNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutStudentNestedInput
+    transportAssignment?: StudentTransportUncheckedUpdateOneWithoutStudentNestedInput
+  }
+
+  export type VehicleUpsertWithoutBoardingLogsInput = {
+    update: XOR<VehicleUpdateWithoutBoardingLogsInput, VehicleUncheckedUpdateWithoutBoardingLogsInput>
+    create: XOR<VehicleCreateWithoutBoardingLogsInput, VehicleUncheckedCreateWithoutBoardingLogsInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutBoardingLogsInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutBoardingLogsInput, VehicleUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
+  export type VehicleUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driver?: DriverUpdateOneWithoutVehiclesNestedInput
+    routes?: RouteUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type RouteStopUpsertWithoutBoardingLogsInput = {
+    update: XOR<RouteStopUpdateWithoutBoardingLogsInput, RouteStopUncheckedUpdateWithoutBoardingLogsInput>
+    create: XOR<RouteStopCreateWithoutBoardingLogsInput, RouteStopUncheckedCreateWithoutBoardingLogsInput>
+    where?: RouteStopWhereInput
+  }
+
+  export type RouteStopUpdateToOneWithWhereWithoutBoardingLogsInput = {
+    where?: RouteStopWhereInput
+    data: XOR<RouteStopUpdateWithoutBoardingLogsInput, RouteStopUncheckedUpdateWithoutBoardingLogsInput>
+  }
+
+  export type RouteStopUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    route?: RouteUpdateOneRequiredWithoutStopsNestedInput
+    studentTransports?: StudentTransportUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopUncheckedUpdateWithoutBoardingLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutStopNestedInput
   }
 
   export type AiChatHistoryCreateManyUserInput = {
@@ -63037,6 +74050,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BoardingLogCreateManyStudentInput = {
+    id?: string
+    vehicleId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
   export type AcademicGradeUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
     subject?: StringFieldUpdateOperationsInput | string
@@ -63358,6 +74380,33 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardingLogUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+    vehicle?: VehicleUpdateOneRequiredWithoutBoardingLogsNestedInput
+    stop?: RouteStopUpdateOneWithoutBoardingLogsNestedInput
+  }
+
+  export type BoardingLogUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
   }
 
   export type AcademicGradeCreateManyEnteredByInput = {
@@ -64174,6 +75223,338 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VehicleCreateManyDriverInput = {
+    id?: string
+    registrationNo: string
+    type: $Enums.VehicleType
+    capacity: number
+    manufacturer?: string | null
+    model?: string | null
+    year?: number | null
+    insuranceNo?: string | null
+    insuranceExpiry?: Date | string | null
+    permitExpiry?: Date | string | null
+    fitnessExpiry?: Date | string | null
+    gpsDeviceId?: string | null
+    fuelType?: $Enums.FuelType
+    odometerReading?: number
+    lastServiceDate?: Date | string | null
+    status?: $Enums.VehicleStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUpdateManyWithoutVehicleNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: RouteUncheckedUpdateManyWithoutVehicleNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateManyWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNo?: StringFieldUpdateOperationsInput | string
+    type?: EnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType
+    capacity?: IntFieldUpdateOperationsInput | number
+    manufacturer?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableIntFieldUpdateOperationsInput | number | null
+    insuranceNo?: NullableStringFieldUpdateOperationsInput | string | null
+    insuranceExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    permitExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fitnessExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gpsDeviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+    odometerReading?: IntFieldUpdateOperationsInput | number
+    lastServiceDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumVehicleStatusFieldUpdateOperationsInput | $Enums.VehicleStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RouteCreateManyVehicleInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardingLogCreateManyVehicleInput = {
+    id?: string
+    studentId: string
+    stopId?: string | null
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type RouteUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stops?: RouteStopUpdateManyWithoutRouteNestedInput
+    studentTransports?: StudentTransportUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stops?: RouteStopUncheckedUpdateManyWithoutRouteNestedInput
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutRouteNestedInput
+  }
+
+  export type RouteUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardingLogUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+    student?: StudentUpdateOneRequiredWithoutBoardingLogsNestedInput
+    stop?: RouteStopUpdateOneWithoutBoardingLogsNestedInput
+  }
+
+  export type BoardingLogUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    stopId?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type RouteStopCreateManyRouteInput = {
+    id?: string
+    stopName: string
+    landmark?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    sequence: number
+    morningArrival?: string | null
+    eveningArrival?: string | null
+  }
+
+  export type StudentTransportCreateManyRouteInput = {
+    id?: string
+    studentId: string
+    stopId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RouteStopUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    studentTransports?: StudentTransportUpdateManyWithoutStopNestedInput
+    boardingLogs?: BoardingLogUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopUncheckedUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    studentTransports?: StudentTransportUncheckedUpdateManyWithoutStopNestedInput
+    boardingLogs?: BoardingLogUncheckedUpdateManyWithoutStopNestedInput
+  }
+
+  export type RouteStopUncheckedUpdateManyWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stopName?: StringFieldUpdateOperationsInput | string
+    landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    sequence?: IntFieldUpdateOperationsInput | number
+    morningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+    eveningArrival?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StudentTransportUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
+    stop?: RouteStopUpdateOneRequiredWithoutStudentTransportsNestedInput
+  }
+
+  export type StudentTransportUncheckedUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    stopId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentTransportUncheckedUpdateManyWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    stopId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentTransportCreateManyStopInput = {
+    id?: string
+    studentId: string
+    routeId: string
+    qrCode?: string | null
+    feeAmount?: number
+    pickupType?: $Enums.PickupType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardingLogCreateManyStopInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    timestamp?: Date | string
+    type: $Enums.BoardingType
+    scanMethod?: $Enums.ScanMethod
+  }
+
+  export type StudentTransportUpdateWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutTransportAssignmentNestedInput
+    route?: RouteUpdateOneRequiredWithoutStudentTransportsNestedInput
+  }
+
+  export type StudentTransportUncheckedUpdateWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StudentTransportUncheckedUpdateManyWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    qrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    feeAmount?: FloatFieldUpdateOperationsInput | number
+    pickupType?: EnumPickupTypeFieldUpdateOperationsInput | $Enums.PickupType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardingLogUpdateWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+    student?: StudentUpdateOneRequiredWithoutBoardingLogsNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutBoardingLogsNestedInput
+  }
+
+  export type BoardingLogUncheckedUpdateWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
+  export type BoardingLogUncheckedUpdateManyWithoutStopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumBoardingTypeFieldUpdateOperationsInput | $Enums.BoardingType
+    scanMethod?: EnumScanMethodFieldUpdateOperationsInput | $Enums.ScanMethod
+  }
+
 
 
   /**
@@ -64227,6 +75608,22 @@ export namespace Prisma {
      * @deprecated Use AssignmentCountOutputTypeDefaultArgs instead
      */
     export type AssignmentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AssignmentCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DriverCountOutputTypeDefaultArgs instead
+     */
+    export type DriverCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DriverCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleCountOutputTypeDefaultArgs instead
+     */
+    export type VehicleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RouteCountOutputTypeDefaultArgs instead
+     */
+    export type RouteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RouteCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RouteStopCountOutputTypeDefaultArgs instead
+     */
+    export type RouteStopCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RouteStopCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -64375,6 +75772,30 @@ export namespace Prisma {
      * @deprecated Use SubmissionDefaultArgs instead
      */
     export type SubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SubmissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DriverDefaultArgs instead
+     */
+    export type DriverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DriverDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use VehicleDefaultArgs instead
+     */
+    export type VehicleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RouteDefaultArgs instead
+     */
+    export type RouteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RouteDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RouteStopDefaultArgs instead
+     */
+    export type RouteStopArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RouteStopDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StudentTransportDefaultArgs instead
+     */
+    export type StudentTransportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StudentTransportDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BoardingLogDefaultArgs instead
+     */
+    export type BoardingLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BoardingLogDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

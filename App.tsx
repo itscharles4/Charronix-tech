@@ -14,6 +14,7 @@ import TeacherManagement from '@/components/TeacherManagement';
 import LandingPage from '@/components/LandingPage';
 import { authAPI } from './services/api';
 import PrincipalNotificationsPage from './components/PrincipalNotificationsPage';
+import TransportManagement from './components/TransportManagement';
 
 
 import {
@@ -196,6 +197,7 @@ const App: React.FC = () => {
       case 'teachers': return <TeacherManagement isDarkMode={isDarkMode} />;
       case 'timetable': return <TimetableGenerator isDarkMode={isDarkMode} />;
       case 'notifications': return <PrincipalNotificationsPage isDarkMode={isDarkMode} />;
+      case 'transport': return <TransportManagement isDarkMode={isDarkMode} />;
       default: return <Dashboard isDarkMode={isDarkMode} />;
     }
   };

@@ -41,6 +41,29 @@ export class ParentService {
                     orderBy: { date: 'desc' },
                 },
                 medicalInfo: true,
+                transportAssignment: {
+                    include: {
+                        route: {
+                            include: {
+                                vehicle: {
+                                    include: { driver: true },
+                                },
+                                stops: {
+                                    orderBy: { sequence: 'asc' },
+                                },
+                            },
+                        },
+                        stop: true,
+                    },
+                },
+                boardingLogs: {
+                    orderBy: { timestamp: 'desc' },
+                    take: 10,
+                    include: {
+                        vehicle: { select: { registrationNo: true } },
+                        stop: { select: { stopName: true } },
+                    },
+                },
             },
         });
 

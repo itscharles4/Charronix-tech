@@ -4,7 +4,8 @@ import {
    Award, Stethoscope, ChevronRight, GraduationCap, Target,
    LayoutDashboard, BarChart3, MessageSquareWarning, CalendarDays,
    ChevronLeft, RefreshCw, Mail, Phone, BookOpen, Star,
-   AlertCircle, Clock, CheckCheck, XCircle, Loader2, CreditCard
+   AlertCircle, Clock, CheckCheck, XCircle, Loader2, CreditCard,
+   Bus, MapPin, Navigation, Shield, QrCode
 } from 'lucide-react';
 import { parentAPI } from '../services/api';
 import FeeDashboard from './ParentPortal/FeeDashboard';
@@ -662,12 +663,198 @@ const ParentPortal: React.FC<ParentPortalProps> = ({ isDarkMode, activeView, set
       );
    };
 
+   // ─── VIEW: TRANSPORT ──────────────────────────────────────────────────────
+   const renderTransport = () => {
+      const transport = child.transportAssignment;
+      const boardingHistory = child.boardingLogs || [];
+
+      if (!transport) {
+         return (
+            <div className="space-y-6 animate-fadeIn">
+               <ChildHeader />
+               <div className={`${card} p-12 text-center`}>
+                  <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-5">
+                     <Bus size={40} className="text-slate-300" />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-white">No Transport Assigned</h3>
+                  <p className="text-slate-500 mt-3 max-w-md mx-auto">{child.firstName} is not currently enrolled in school transport. Contact the school office for transport registration.</p>
+               </div>
+            </div>
+         );
+      }
+
+      const route = transport.route;
+      const vehicle = route?.vehicle;
+      const driver = vehicle?.driver;
+      const stops = route?.stops || [];
+      const assignedStop = transport.stop;
+
+      return (
+         <div className="space-y-6 animate-fadeIn">
+            <ChildHeader />
+
+            {/* Bus Details Card */}
+            <div className={`${card} overflow-hidden`}>
+               <div className="bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-700 p-6 text-white">
+                  <div className="flex items-center gap-4">
+                     <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur border border-white/10">
+                        <Bus size={28} />
+                     </div>
+                     <div>
+                        <h3 className="text-2xl font-black">{child.firstName}'s School Bus</h3>
+                        <p className="text-white/60 text-sm font-bold">{route?.name}</p>
+                     </div>
+                  </div>
+               </div>
+               <div className="p-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+                     <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-1">Vehicle</p>
+                     <p className="text-sm font-black text-slate-800 dark:text-white">{vehicle?.registrationNo || '—'}</p>
+                     <p className="text-[10px] text-slate-400">{vehicle?.manufacturer} {vehicle?.model}</p>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+                     <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-1">Type</p>
+                     <p className="text-sm font-black text-slate-800 dark:text-white">{vehicle?.type || '—'}</p>
+                     <p className="text-[10px] text-slate-400">{vehicle?.capacity} seats</p>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+                     <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-1">Driver</p>
+                     <p className="text-sm font-black text-slate-800 dark:text-white">{driver?.name || '—'}</p>
+                     {driver?.policeVerified && <span className="text-[9px] text-emerald-600 font-bold flex items-center gap-1"><Shield size={10} /> Verified</span>}
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+                     <p className="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-1">Driver Phone</p>
+                     <p className="text-sm font-black text-indigo-600">{driver?.phone || '—'}</p>
+                     <p className="text-[10px] text-slate-400">Call for updates</p>
+                  </div>
+               </div>
+            </div>
+
+            {/* Pickup Details & Estimated Schedule */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+               {/* Assigned Stop */}
+               <div className={`${card} p-6`}>
+                  <div className="flex items-center gap-3 mb-4">
+                     <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-600"><MapPin size={20} /></div>
+                     <h4 className="text-lg font-black text-slate-800 dark:text-white">Pickup Point</h4>
+                  </div>
+                  <div className="bg-emerald-50 dark:bg-emerald-900/10 rounded-2xl p-5 border border-emerald-100 dark:border-emerald-900/30">
+                     <p className="text-xl font-black text-slate-800 dark:text-white">{assignedStop?.stopName}</p>
+                     {assignedStop?.landmark && <p className="text-sm text-slate-500 mt-1">{assignedStop.landmark}</p>}
+                     <div className="flex items-center gap-6 mt-4">
+                        <div className="flex items-center gap-2">
+                           <Clock size={14} className="text-indigo-500" />
+                           <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Morning: <span className="text-indigo-600 font-black">{assignedStop?.morningArrival || '—'}</span></span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                           <Clock size={14} className="text-purple-500" />
+                           <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Evening: <span className="text-purple-600 font-black">{assignedStop?.eveningArrival || '—'}</span></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="mt-3 flex items-center gap-2">
+                     <span className="px-3 py-1 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-[10px] font-black uppercase tracking-widest rounded-lg">Estimated Schedule</span>
+                     <span className="text-[10px] text-slate-400">Times are approximate</span>
+                  </div>
+               </div>
+
+               {/* Route Stop Sequence */}
+               <div className={`${card} p-6`}>
+                  <div className="flex items-center gap-3 mb-4">
+                     <div className="p-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-xl text-purple-600"><Navigation size={20} /></div>
+                     <h4 className="text-lg font-black text-slate-800 dark:text-white">Route Stops</h4>
+                  </div>
+                  <div className="space-y-0">
+                     {stops.map((stop: any, i: number) => {
+                        const isMyStop = stop.id === assignedStop?.id;
+                        const isLast = i === stops.length - 1;
+                        return (
+                           <div key={stop.id} className="flex items-start gap-3">
+                              <div className="flex flex-col items-center">
+                                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-black shrink-0 ${isMyStop ? 'bg-gradient-to-br from-emerald-500 to-green-600 ring-2 ring-emerald-300 ring-offset-2 dark:ring-offset-slate-900' :
+                                       isLast ? 'bg-gradient-to-br from-slate-600 to-slate-700' :
+                                          'bg-gradient-to-br from-indigo-400 to-blue-500'
+                                    }`}>{i + 1}</div>
+                                 {!isLast && <div className="w-0.5 h-8 bg-indigo-200 dark:bg-indigo-900/40" />}
+                              </div>
+                              <div className={`pb-2 ${isMyStop ? '' : ''}`}>
+                                 <p className={`text-sm font-black ${isMyStop ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                                    {stop.stopName} {isMyStop && '← Your Stop'}
+                                 </p>
+                                 <p className="text-[10px] text-slate-400">{stop.morningArrival}</p>
+                              </div>
+                           </div>
+                        );
+                     })}
+                  </div>
+               </div>
+            </div>
+
+            {/* Transport Fee */}
+            {transport.feeAmount > 0 && (
+               <div className={`${card} p-5 flex items-center justify-between`}>
+                  <div className="flex items-center gap-3">
+                     <div className="p-2.5 bg-sky-50 dark:bg-sky-900/30 rounded-xl text-sky-600"><CreditCard size={20} /></div>
+                     <div>
+                        <p className="text-sm font-black text-slate-800 dark:text-white">Monthly Transport Fee</p>
+                        <p className="text-[10px] text-slate-400">Pickup type: {transport.pickupType}</p>
+                     </div>
+                  </div>
+                  <p className="text-2xl font-black text-indigo-600">₹{transport.feeAmount.toLocaleString()}</p>
+               </div>
+            )}
+
+            {/* Recent Boarding Activity */}
+            <div className={`${card} overflow-hidden`}>
+               <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                  <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl text-indigo-600"><QrCode size={20} /></div>
+                  <h4 className="text-lg font-black text-slate-800 dark:text-white">Recent Boarding Activity</h4>
+               </div>
+               {boardingHistory.length === 0 ? (
+                  <div className="p-8 text-center text-slate-400">
+                     <QrCode size={24} className="mx-auto mb-2 opacity-30" />
+                     <p className="text-xs font-bold uppercase tracking-widest">No boarding records yet</p>
+                  </div>
+               ) : (
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                     {boardingHistory.map((log: any, i: number) => (
+                        <div key={i} className="px-5 py-3 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                           <div className="flex items-center gap-3">
+                              <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-black ${log.type === 'BOARDING' ? 'bg-emerald-500' : 'bg-blue-500'
+                                 }`}>
+                                 {log.type === 'BOARDING' ? '🟢' : '🔵'}
+                              </span>
+                              <div>
+                                 <p className="text-sm font-bold text-slate-800 dark:text-white">
+                                    {log.type === 'BOARDING' ? 'Boarded' : 'Dropped off'} — {log.vehicle?.registrationNo}
+                                 </p>
+                                 <p className="text-[10px] text-slate-400">{log.stop?.stopName || 'Unknown stop'}</p>
+                              </div>
+                           </div>
+                           <div className="text-right">
+                              <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                                 {new Date(log.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
+                              </p>
+                              <p className="text-[10px] text-slate-400">
+                                 {new Date(log.timestamp).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
+                              </p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+               )}
+            </div>
+         </div>
+      );
+   };
+
    // ─── ROUTER ──────────────────────────────────────────────────────────────
    const views: Record<string, () => React.ReactElement> = {
       overview: renderOverview,
       reports: renderReports,
       complaints: renderComplaints,
       attendance: renderAttendance,
+      transport: renderTransport,
       fees: () => (
          <div className="space-y-6 animate-fadeIn">
             <ChildHeader />

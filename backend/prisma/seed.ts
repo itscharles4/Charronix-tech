@@ -1,6 +1,6 @@
 
 
-import { PrismaClient, Role, StudentStatus, NoticeType, NoticePriority } from '@prisma/client';
+import { PrismaClient, Role, StudentStatus, NoticeType, NoticePriority, VehicleType, VehicleStatus, FuelType, PickupType, BoardingType, ScanMethod } from '../src/generated/client';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
@@ -10,6 +10,12 @@ async function main() {
 
     // Clear existing data
     console.log('🗑️  Clearing existing data...');
+    await prisma.boardingLog.deleteMany();
+    await prisma.studentTransport.deleteMany();
+    await prisma.routeStop.deleteMany();
+    await prisma.route.deleteMany();
+    await prisma.vehicle.deleteMany();
+    await prisma.driver.deleteMany();
     await prisma.attendance.deleteMany();
     await prisma.academicGrade.deleteMany();
     await prisma.achievement.deleteMany();
@@ -393,6 +399,240 @@ async function main() {
             data: { class: 'ALL', section: 'ALL', dayOfWeek: d, period: 99, periodTime: '11:30-12:10', subject: 'LUNCH', teacherName: '-', type: 'BREAK' }
         });
     }
+
+    // ============================================
+    // TRANSPORT MANAGEMENT SEED DATA
+    // ============================================
+    console.log('🚌 Seeding Transport System...');
+
+    // --- DRIVERS ---
+    const driver1 = await prisma.driver.create({
+        data: {
+            name: 'Ravi Kumar',
+            phone: '9876500001',
+            licenseNo: 'KA01-DL-2020-001',
+            licenseExpiry: new Date('2027-06-15'),
+            medicalExpiry: new Date('2026-12-01'),
+            policeVerified: true,
+        }
+    });
+    const driver2 = await prisma.driver.create({
+        data: {
+            name: 'Sunil Yadav',
+            phone: '9876500002',
+            licenseNo: 'KA01-DL-2019-042',
+            licenseExpiry: new Date('2026-11-30'),
+            medicalExpiry: new Date('2026-08-15'),
+            policeVerified: true,
+        }
+    });
+    const driver3 = await prisma.driver.create({
+        data: {
+            name: 'Manoj Pillai',
+            phone: '9876500003',
+            licenseNo: 'KA01-DL-2021-078',
+            licenseExpiry: new Date('2028-03-20'),
+            medicalExpiry: new Date('2027-01-10'),
+            policeVerified: true,
+        }
+    });
+    console.log('✅ 3 Drivers created');
+
+    // --- VEHICLES ---
+    const vehicle1 = await prisma.vehicle.create({
+        data: {
+            registrationNo: 'KA-01-AB-1234',
+            type: VehicleType.BUS,
+            capacity: 45,
+            manufacturer: 'Tata',
+            model: 'Starbus',
+            year: 2022,
+            insuranceNo: 'INS-2024-001',
+            insuranceExpiry: new Date('2026-09-30'),
+            permitExpiry: new Date('2027-03-31'),
+            fitnessExpiry: new Date('2026-06-30'),
+            gpsDeviceId: 'GPS-001',
+            fuelType: FuelType.DIESEL,
+            odometerReading: 45200,
+            lastServiceDate: new Date('2026-02-15'),
+            status: VehicleStatus.ACTIVE,
+            driverId: driver1.id,
+        }
+    });
+    const vehicle2 = await prisma.vehicle.create({
+        data: {
+            registrationNo: 'KA-01-CD-5678',
+            type: VehicleType.BUS,
+            capacity: 40,
+            manufacturer: 'Ashok Leyland',
+            model: 'Lynx',
+            year: 2023,
+            insuranceNo: 'INS-2024-002',
+            insuranceExpiry: new Date('2026-12-15'),
+            permitExpiry: new Date('2027-06-30'),
+            fitnessExpiry: new Date('2026-09-15'),
+            gpsDeviceId: 'GPS-002',
+            fuelType: FuelType.CNG,
+            odometerReading: 28500,
+            lastServiceDate: new Date('2026-03-01'),
+            status: VehicleStatus.ACTIVE,
+            driverId: driver2.id,
+        }
+    });
+    const vehicle3 = await prisma.vehicle.create({
+        data: {
+            registrationNo: 'KA-01-EF-9012',
+            type: VehicleType.VAN,
+            capacity: 15,
+            manufacturer: 'Force',
+            model: 'Traveller',
+            year: 2021,
+            insuranceNo: 'INS-2024-003',
+            insuranceExpiry: new Date('2026-08-01'),
+            permitExpiry: new Date('2026-12-31'),
+            fitnessExpiry: new Date('2026-05-15'),
+            gpsDeviceId: 'GPS-003',
+            fuelType: FuelType.DIESEL,
+            odometerReading: 62100,
+            lastServiceDate: new Date('2026-01-20'),
+            status: VehicleStatus.ACTIVE,
+            driverId: driver3.id,
+        }
+    });
+    console.log('✅ 3 Vehicles created');
+
+    // --- ROUTES & STOPS ---
+    const route1 = await prisma.route.create({
+        data: {
+            name: 'Route A — Jayanagar',
+            vehicleId: vehicle1.id,
+            stops: {
+                create: [
+                    { stopName: 'Jayanagar 4th Block', landmark: 'Near Cool Joint', latitude: 12.9266, longitude: 77.5816, sequence: 1, morningArrival: '7:00 AM', eveningArrival: '3:45 PM' },
+                    { stopName: 'JP Nagar Phase 1', landmark: 'Opp. BDA Complex', latitude: 12.9078, longitude: 77.5859, sequence: 2, morningArrival: '7:15 AM', eveningArrival: '4:00 PM' },
+                    { stopName: 'Banashankari Circle', landmark: 'Near ISKCON', latitude: 12.9248, longitude: 77.5468, sequence: 3, morningArrival: '7:30 AM', eveningArrival: '4:15 PM' },
+                    { stopName: 'Kumaraswamy Layout', landmark: 'Metro Station', latitude: 12.9012, longitude: 77.5588, sequence: 4, morningArrival: '7:40 AM', eveningArrival: '4:30 PM' },
+                    { stopName: 'School Gate', landmark: 'Charronix School', latitude: 12.9352, longitude: 77.6245, sequence: 5, morningArrival: '8:00 AM', eveningArrival: '3:30 PM' },
+                ]
+            }
+        },
+        include: { stops: true }
+    });
+
+    const route2 = await prisma.route.create({
+        data: {
+            name: 'Route B — Koramangala',
+            vehicleId: vehicle2.id,
+            stops: {
+                create: [
+                    { stopName: 'Koramangala 5th Block', landmark: 'Near Forum Mall', latitude: 12.9352, longitude: 77.6245, sequence: 1, morningArrival: '7:05 AM', eveningArrival: '3:50 PM' },
+                    { stopName: 'Madiwala', landmark: 'Silk Board Junction', latitude: 12.9121, longitude: 77.6232, sequence: 2, morningArrival: '7:20 AM', eveningArrival: '4:05 PM' },
+                    { stopName: 'HSR Layout Sector 1', landmark: 'Near BDA Park', latitude: 12.9116, longitude: 77.6389, sequence: 3, morningArrival: '7:30 AM', eveningArrival: '4:15 PM' },
+                    { stopName: 'BTM Layout 2nd Stage', landmark: 'Near Udupi Garden', latitude: 12.9166, longitude: 77.6101, sequence: 4, morningArrival: '7:40 AM', eveningArrival: '4:25 PM' },
+                    { stopName: 'School Gate', landmark: 'Charronix School', latitude: 12.9352, longitude: 77.6245, sequence: 5, morningArrival: '7:55 AM', eveningArrival: '3:30 PM' },
+                ]
+            }
+        },
+        include: { stops: true }
+    });
+
+    const route3 = await prisma.route.create({
+        data: {
+            name: 'Route C — Whitefield',
+            vehicleId: vehicle3.id,
+            stops: {
+                create: [
+                    { stopName: 'Whitefield Main Road', landmark: 'Near Prestige Shantiniketan', latitude: 12.9698, longitude: 77.7500, sequence: 1, morningArrival: '6:50 AM', eveningArrival: '4:00 PM' },
+                    { stopName: 'Marathahalli Bridge', landmark: 'Near Innovative Multiplex', latitude: 12.9591, longitude: 77.6972, sequence: 2, morningArrival: '7:10 AM', eveningArrival: '4:15 PM' },
+                    { stopName: 'Indiranagar 100ft Road', landmark: 'Near CMH Road', latitude: 12.9784, longitude: 77.6408, sequence: 3, morningArrival: '7:30 AM', eveningArrival: '4:30 PM' },
+                    { stopName: 'School Gate', landmark: 'Charronix School', latitude: 12.9352, longitude: 77.6245, sequence: 4, morningArrival: '7:50 AM', eveningArrival: '3:30 PM' },
+                ]
+            }
+        },
+        include: { stops: true }
+    });
+    console.log('✅ 3 Routes with stops created');
+
+    // --- ASSIGN STUDENTS TO ROUTES ---
+    const transportStudents = await prisma.student.findMany({ take: 15 });
+    const routeConfigs = [
+        { route: route1, stops: route1.stops, vehicle: vehicle1 },
+        { route: route2, stops: route2.stops, vehicle: vehicle2 },
+        { route: route3, stops: route3.stops, vehicle: vehicle3 },
+    ];
+
+    for (let i = 0; i < transportStudents.length; i++) {
+        const s = transportStudents[i];
+        const rConfig = routeConfigs[i % 3];
+        const availableStops = rConfig.stops.filter((st: any) => st.stopName !== 'School Gate');
+        const assignedStop = availableStops[i % availableStops.length];
+        const feeSlabs = [1000, 1200, 1500, 1800, 2000];
+
+        await prisma.studentTransport.create({
+            data: {
+                studentId: s.id,
+                routeId: rConfig.route.id,
+                stopId: assignedStop.id,
+                qrCode: `ST-${s.id.substring(0, 8)}-${Date.now()}-${i}`,
+                feeAmount: feeSlabs[i % feeSlabs.length],
+                pickupType: PickupType.BOTH,
+            }
+        });
+    }
+    console.log(`✅ ${transportStudents.length} students assigned to transport routes`);
+
+    // --- BOARDING LOGS (today + recent) ---
+    const now = new Date();
+    const boardingStudents = transportStudents.slice(0, 10);
+    for (let i = 0; i < boardingStudents.length; i++) {
+        const s = boardingStudents[i];
+        const rConfig = routeConfigs[i % 3];
+        const availableStops = rConfig.stops.filter((st: any) => st.stopName !== 'School Gate');
+        const stop = availableStops[i % availableStops.length];
+
+        // Today morning boarding
+        const morningTime = new Date(now);
+        morningTime.setHours(7, 15 + (i * 3), 0, 0);
+        await prisma.boardingLog.create({
+            data: {
+                studentId: s.id,
+                vehicleId: rConfig.vehicle.id,
+                stopId: stop.id,
+                timestamp: morningTime,
+                type: BoardingType.BOARDING,
+                scanMethod: i % 2 === 0 ? ScanMethod.QR_CODE : ScanMethod.MANUAL,
+            }
+        });
+
+        // Yesterday boarding + deboarding
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setHours(7, 10 + (i * 2), 0, 0);
+        await prisma.boardingLog.create({
+            data: {
+                studentId: s.id,
+                vehicleId: rConfig.vehicle.id,
+                stopId: stop.id,
+                timestamp: yesterday,
+                type: BoardingType.BOARDING,
+                scanMethod: ScanMethod.QR_CODE,
+            }
+        });
+        const yesterdayEvening = new Date(now);
+        yesterdayEvening.setDate(yesterdayEvening.getDate() - 1);
+        yesterdayEvening.setHours(15, 30 + (i * 2), 0, 0);
+        await prisma.boardingLog.create({
+            data: {
+                studentId: s.id,
+                vehicleId: rConfig.vehicle.id,
+                stopId: stop.id,
+                timestamp: yesterdayEvening,
+                type: BoardingType.DEBOARDING,
+                scanMethod: ScanMethod.MANUAL,
+            }
+        });
+    }
+    console.log(`✅ ${boardingStudents.length * 3} boarding log entries created`);
 
     // ============================================
     // SYSTEM SETTINGS
