@@ -358,6 +358,9 @@ const App: React.FC = () => {
             <div className="relative">
               {roleInfo.id === 'Parent' ? <Users size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" /> : <ShieldAlert size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />}
               <input
+                id="identifier"
+                name="username"
+                autoComplete="username"
                 type="text"
                 placeholder={ID_PATTERNS[selectedRole]?.placeholder || `Enter ${roleInfo.idLabel}...`}
                 className={`w-full border rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition-all font-bold ${loginError
@@ -393,6 +396,9 @@ const App: React.FC = () => {
             <div className="relative">
               <Lock size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
+                id="password"
+                name="password"
+                autoComplete="current-password"
                 type="password"
                 placeholder="••••••••"
                 className="w-full border border-slate-200 dark:border-slate-700 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition-all font-bold"

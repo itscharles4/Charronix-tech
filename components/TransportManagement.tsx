@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import {
     Bus, Truck, MapPin, Users, Shield, Fuel, Gauge, Clock,
     ChevronDown, UserCheck, QrCode, AlertTriangle, CheckCircle2,
-    Loader2, RefreshCw, Phone, Navigation, Route as RouteIcon, Map as MapIcon
+    Loader2, RefreshCw, Phone, Navigation, Route as RouteIcon, Map as MapIcon, ScanLine
 } from 'lucide-react';
 import { transportAPI } from '../services/api';
 import { LiveTrackingMap } from './LiveTrackingMap';
+import { BoardingScanner } from './BoardingScanner';
 
 interface TransportManagementProps {
     isDarkMode: boolean;
 }
 
 const TransportManagement: React.FC<TransportManagementProps> = ({ isDarkMode }) => {
-    const [activeTab, setActiveTab] = useState<'overview' | 'fleet' | 'routes' | 'boarding' | 'live'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'fleet' | 'routes' | 'boarding' | 'live' | 'scanner'>('overview');
     const [loading, setLoading] = useState(true);
     const [dashboardData, setDashboardData] = useState<any>(null);
     const [vehicles, setVehicles] = useState<any[]>([]);
@@ -412,6 +413,7 @@ const TransportManagement: React.FC<TransportManagementProps> = ({ isDarkMode })
                     { id: 'fleet', label: 'Fleet & Drivers', icon: Bus },
                     { id: 'routes', label: 'Routes', icon: MapPin },
                     { id: 'boarding', label: 'Boarding Log', icon: QrCode },
+                    { id: 'scanner', label: 'Boarding Scanner', icon: ScanLine },
                     { id: 'live', label: 'Live Tracking', icon: MapIcon },
                 ].map(tab => (
                     <button
@@ -432,6 +434,7 @@ const TransportManagement: React.FC<TransportManagementProps> = ({ isDarkMode })
             {activeTab === 'fleet' && renderFleet()}
             {activeTab === 'routes' && renderRoutes()}
             {activeTab === 'boarding' && renderBoarding()}
+            {activeTab === 'scanner' && <BoardingScanner routes={routes} vehicles={vehicles} />}
             {activeTab === 'live' && <LiveTrackingMap />}
         </div>
     );

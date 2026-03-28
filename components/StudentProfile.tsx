@@ -122,7 +122,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student: initialStudent
         </div>
 
         <div className="flex gap-3 w-full md:w-auto">
-          <button className="flex-1 md:flex-none px-6 py-3 bg-indigo-600 text-white font-black rounded-2xl shadow-xl hover:bg-indigo-700 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
+          <button
+            onClick={() => setActiveTab('ACADEMICS')}
+            className="flex-1 md:flex-none px-6 py-3 bg-indigo-600 text-white font-black rounded-2xl shadow-xl hover:bg-indigo-700 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
+          >
             <FileText size={18} /> Report Card
           </button>
         </div>
@@ -140,8 +143,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student: initialStudent
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={`flex items-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-widest transition-all border-b-2 whitespace-nowrap ${activeTab === tab.id
-                ? 'border-indigo-600 text-indigo-600'
-                : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+              ? 'border-indigo-600 text-indigo-600'
+              : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
               }`}
           >
             <tab.icon size={16} />
@@ -161,8 +164,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student: initialStudent
               <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-transparent hover:border-indigo-100 transition-all flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Attendance Rate</p>
-                  <p className={`text-2xl font-black ${getStatusColor(student.overallAttendance || 0)}`}>
-                    {student.overallAttendance || '--'}%
+                  <p className={`text-2xl font-black ${getStatusColor(student.attendancePercentage || student.overallAttendance || 0)}`}>
+                    {student.attendancePercentage || student.overallAttendance || '--'}%
                   </p>
                 </div>
                 <div className="p-3 bg-white dark:bg-slate-900 rounded-2xl">
