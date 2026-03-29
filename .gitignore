@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Credentials (Sensitive)
+ALL_CREDENTIALS.md
+PARENT_CREDENTIALS.md
+PHASE_3_API_INTEGRATION_COMPLETE.md
+BACKEND_DATABASE_DEVELOPMENT.txt
+db_data_report.txt
+SEED_TEST_DATA.sql
+SEED_PARENTS_LOG.txt
+SEED_STUDENTS_LOG.txt
+SEED_TEACHERS_LOG.txt
+*.sql
+*.txt
+*.log

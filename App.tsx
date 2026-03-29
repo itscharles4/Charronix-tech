@@ -148,6 +148,32 @@ const App: React.FC = () => {
         return;
       }
 
+      // ── ROLE-PORTAL ENFORCEMENT ──────────────────────────────────────────
+      // Map backend DB roles → portal names
+      const backendRole: string = (data.data?.user?.role || '').toUpperCase();
+      const ROLE_MAP: Record<string, string[]> = {
+        Student:   ['STUDENT'],
+        Teacher:   ['TEACHER'],
+        Parent:    ['PARENT'],
+        Principal: ['ADMIN', 'PRINCIPAL', 'SUPER_ADMIN'],
+      };
+      const allowedRoles = ROLE_MAP[selectedRole] || [];
+      if (!allowedRoles.includes(backendRole)) {
+        // Determine the correct portal name for a helpful error
+        const correctPortal =
+          backendRole === 'STUDENT'  ? 'Student'   :
+          backendRole === 'TEACHER'  ? 'Teacher'   :
+          backendRole === 'PARENT'   ? 'Parent'    :
+          ['ADMIN','PRINCIPAL','SUPER_ADMIN'].includes(backendRole) ? 'Principal' :
+          'the correct';
+        setLoginError(
+          `Access denied. This ID belongs to the ${correctPortal} portal. Please select the correct portal and try again.`
+        );
+        setIsLoading(false);
+        return;
+      }
+      // ────────────────────────────────────────────────────────────────────
+
       // Store token
       if (data.data?.accessToken) {
         localStorage.setItem('accessToken', data.data.accessToken);
