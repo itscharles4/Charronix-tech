@@ -84,7 +84,7 @@ test.describe('🛡️ Principal / Admin Portal E2E Tests', () => {
         page.locator('text=/smart gateway|portal|charronix/i').first()
       ).toBeVisible({ timeout: 10000 });
     } else {
-      expect(true).toBeTruthy(); // Logout handled differently
+      expect(true).toBeTruthy();
     }
   });
 

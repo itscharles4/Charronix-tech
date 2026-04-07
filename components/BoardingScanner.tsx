@@ -12,7 +12,7 @@ interface BoardingScannerProps {
 
 export const BoardingScanner: React.FC<BoardingScannerProps> = ({ routes, vehicles }) => {
     const [mode, setMode] = useState<'manual' | 'qr'>('manual');
-    const [boardingType, setBoardingType] = useState<'BOARDING' | 'DROPPING'>('BOARDING');
+    const [boardingType, setBoardingType] = useState<'BOARDING' | 'DEBOARDING'>('BOARDING');
     const [selectedVehicle, setSelectedVehicle] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [students, setStudents] = useState<any[]>([]);
@@ -139,7 +139,7 @@ export const BoardingScanner: React.FC<BoardingScannerProps> = ({ routes, vehicl
                     <button onClick={() => setBoardingType('BOARDING')} className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold transition-colors ${boardingType === 'BOARDING' ? 'bg-emerald-500 text-white' : 'text-slate-500 hover:bg-slate-50'}`}>
                         <ArrowUpCircle size={15} /> Boarding
                     </button>
-                    <button onClick={() => setBoardingType('DROPPING')} className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold transition-colors ${boardingType === 'DROPPING' ? 'bg-blue-500 text-white' : 'text-slate-500 hover:bg-slate-50'}`}>
+                    <button onClick={() => setBoardingType('DEBOARDING')} className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold transition-colors ${boardingType === 'DEBOARDING' ? 'bg-blue-500 text-white' : 'text-slate-500 hover:bg-slate-50'}`}>
                         <ArrowDownCircle size={15} /> Dropping
                     </button>
                 </div>

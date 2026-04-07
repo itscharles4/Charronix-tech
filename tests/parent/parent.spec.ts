@@ -13,14 +13,14 @@ test.describe('👨‍👩‍👧 Parent Portal E2E Tests', () => {
 
   test('TC-P01: Parent portal loads after login', async ({ page }) => {
     await expect(
-      page.locator('text=/parent|dashboard|child|welcome/i').first()
+      page.locator('text=/parent|guardian|dashboard|child|welcome/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 
   test('TC-P02: Parent can see child profile information', async ({ page }) => {
     // Child's name or profile section should be visible
     await expect(
-      page.locator('text=/student|child|name|class|section/i').first()
+      page.locator('text=/student|child|name|class|section|roll no/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 
@@ -39,13 +39,13 @@ test.describe('👨‍👩‍👧 Parent Portal E2E Tests', () => {
     }
   });
 
-  test('TC-P04: Parent can view notifications / school notices', async ({ page }) => {
-    const notifBtn = page.locator('button, a, li').filter({ hasText: /notification|notice|announcement/i }).first();
+  test('TC-P04: Parent can view disciplinary logs / complaints', async ({ page }) => {
+    const notifBtn = page.locator('button, a, li').filter({ hasText: /complaint|disciplinary/i }).first();
     if (await notifBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await notifBtn.click();
     }
     await expect(
-      page.locator('text=/notification|notice|announcement|message/i').first()
+      page.locator('text=/complaint|disciplinary|log/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 

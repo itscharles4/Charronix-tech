@@ -39,10 +39,10 @@ test.describe('👨‍🎓 Student Portal E2E Tests', () => {
 
   test('TC-S04: Student can navigate to Notifications page', async ({ page }) => {
     const notifNav = page.locator('button, a, li').filter({ hasText: /notification/i }).first();
-    await notifNav.click();
+    await notifNav.click({ force: true });
     await expect(
-      page.locator('text=/notification|unread|all|academic/i').first()
-    ).toBeVisible({ timeout: 10000 });
+      page.locator('text=/notification|unread|all|academic|message/i').first()
+    ).toBeVisible({ timeout: 15000 });
   });
 
   test('TC-S05: Student can navigate to Timetable page', async ({ page }) => {

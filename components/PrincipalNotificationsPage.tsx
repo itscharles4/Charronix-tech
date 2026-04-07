@@ -4,7 +4,7 @@ import {
     Loader2, Check, AlertCircle, History, ChevronDown, Trash2,
     UserSquare2, UserCheck, RefreshCw
 } from 'lucide-react';
-import { notificationAPI, teacherAPI } from '../services/api';
+import { notificationAPI, teacherAPI, adminAPI } from '../services/api';
 
 interface PrincipalNotificationsPageProps {
     isDarkMode: boolean;
@@ -94,7 +94,7 @@ const PrincipalNotificationsPage: React.FC<PrincipalNotificationsPageProps> = ({
         setLoadingPeople(true);
         Promise.all([
             notificationAPI.getTeachers().catch(() => ({ data: [] })),
-            teacherAPI.getStudents().catch(() => ({ data: [] })),
+            adminAPI.getAllStudents({ limit: '1000' }).catch(() => ({ data: [] })),
         ]).then(([tRes, sRes]) => {
             setTeachers(Array.isArray(tRes?.data) ? tRes.data : []);
             setStudents(Array.isArray(sRes?.data) ? sRes.data : []);

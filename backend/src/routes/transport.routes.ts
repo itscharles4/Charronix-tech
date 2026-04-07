@@ -36,7 +36,7 @@ router.delete('/unassign-student/:studentId', requireRoles(Role.ADMIN), transpor
 
 // ── BOARDING LOGS ────────────────────────────────────────────
 router.get('/boarding-logs', requireRoles(Role.ADMIN, Role.PRINCIPAL, Role.TEACHER), transportController.getBoardingLogs);
-router.post('/boarding-log', requireRoles(Role.ADMIN, Role.TEACHER), transportController.logBoarding);
+router.post('/boarding-log', requireRoles(Role.ADMIN, Role.PRINCIPAL, Role.TEACHER), transportController.logBoarding);
 
 // ── STUDENT TRANSPORT (for parent portal) ────────────────────
 router.get('/student/:studentId', requireRoles(Role.ADMIN, Role.PARENT), transportController.getStudentTransport);
