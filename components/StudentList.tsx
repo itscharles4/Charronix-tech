@@ -412,10 +412,22 @@ const StudentList: React.FC = () => {
                         </button>
                         <button
                           className="p-3 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/40 rounded-2xl transition-all border border-transparent hover:border-red-100 dark:hover:border-red-800"
-                          onClick={(e) => {
+                          onClick={async (e) => {
                             e.stopPropagation();
-                            // Optional: call delete API here
-                            setStudents(students.filter(s => s.id !== student.id));
+                            if (window.confirm(`Are you sure you want to delete ${student.firstName} ${student.lastName}? This action cannot be undone.`)) {
+                              try {
+                                const result = await adminAPI.deleteStudent(student.id);
+                                if (result.success) {
+                                  alert('✅ Student deleted successfully!');
+                                  setStudents(students.filter(s => s.id !== student.id));
+                                } else {
+                                  alert('❌ Failed to delete student: ' + (result.message || 'Unknown error'));
+                                }
+                              } catch (error) {
+                                console.error('Error deleting student:', error);
+                                alert('❌ Error deleting student: ' + (error instanceof Error ? error.message : 'Failed to delete'));
+                              }
+                            }
                           }}
                         >
                           <Trash2 size={18} />

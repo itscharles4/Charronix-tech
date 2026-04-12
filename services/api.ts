@@ -455,6 +455,16 @@ export const adminAPI = {
         });
         if (!response.ok) throw new Error('Failed to create student');
         return response.json();
+    },
+
+    /** Admin: Delete student */
+    deleteStudent: async (id: string) => {
+        const response = await fetch(`${API_BASE_URL}/students/${id}`, {
+            method: 'DELETE',
+            headers: getHeaders(),
+        });
+        if (!response.ok) throw new Error('Failed to delete student');
+        return response.json();
     }
 };
 
