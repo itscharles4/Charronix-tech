@@ -39,51 +39,73 @@ const StudentList: React.FC = () => {
     section: '',
     rollNo: '',
     parentName: '',
-    parentPhone: ''
+    parentPhone: '',
+    parentEmail: '',
+    gender: '',
+    dateOfBirth: '',
+    bloodGroup: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewStudent(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleAddStudent = (e: React.FormEvent) => {
+  const handleAddStudent = async (e: React.FormEvent) => {
     e.preventDefault();
-    const studentToAdd: Student = {
-      id: Date.now().toString(),
-      admissionNo: newStudent.admissionNo,
-      firstName: newStudent.firstName,
-      lastName: newStudent.lastName,
-      class: newStudent.class,
-      section: newStudent.section,
-      rollNo: parseInt(newStudent.rollNo) || 0,
-      parentName: newStudent.parentName,
-      parentPhone: newStudent.parentPhone,
-      status: 'ACTIVE',
-      overallAttendance: 0,
-      achievements: [],
-      communicationLogs: [],
-      academicGrades: [],
-      medicalInfo: {
-        bloodGroup: '',
-        allergies: [],
-        chronicConditions: [],
-        lastCheckup: ''
-      }
-    };
+    
+    if (!newStudent.admissionNo || !newStudent.firstName || !newStudent.lastName || !newStudent.class || !newStudent.section || !newStudent.rollNo || !newStudent.parentName || !newStudent.parentPhone) {
+      alert('Please fill in all required fields');
+      return;
+    }
 
-    setStudents([studentToAdd, ...students]);
-    setIsAddModalOpen(false);
-    setNewStudent({
-      admissionNo: '',
-      firstName: '',
-      lastName: '',
-      class: '',
-      section: '',
-      rollNo: '',
-      parentName: '',
-      parentPhone: ''
-    });
+    setIsSubmitting(true);
+    try {
+      const response = await adminAPI.createStudent({
+        admissionNo: newStudent.admissionNo,
+        firstName: newStudent.firstName,
+        lastName: newStudent.lastName,
+        class: newStudent.class,
+        section: newStudent.section,
+        rollNo: parseInt(newStudent.rollNo) || 0,
+        parentName: newStudent.parentName,
+        parentPhone: newStudent.parentPhone,
+        parentEmail: newStudent.parentEmail || undefined,
+        gender: newStudent.gender || undefined,
+        dateOfBirth: newStudent.dateOfBirth || undefined,
+        bloodGroup: newStudent.bloodGroup || undefined
+      });
+
+      if (response.success || response.data) {
+        alert('✅ Student created successfully!');
+        setIsAddModalOpen(false);
+        setNewStudent({
+          admissionNo: '',
+          firstName: '',
+          lastName: '',
+          class: '',
+          section: '',
+          rollNo: '',
+          parentName: '',
+          parentPhone: '',
+          parentEmail: '',
+          gender: '',
+          dateOfBirth: '',
+          bloodGroup: ''
+        });
+        // Refresh student list
+        await fetchStudents();
+      } else {
+        alert('❌ Failed to create student: ' + (response.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error creating student:', error);
+      alert('❌ Error: ' + (error instanceof Error ? error.message : 'Failed to create student'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getStatusIndicator = (status: string) => {
@@ -268,15 +290,24 @@ const StudentList: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="flex-1 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-widest text-sm"
+                  disabled={isSubmitting}
+                  className="flex-1 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-200 transition-all uppercase tracking-widest text-sm disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-[2] py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all uppercase tracking-widest text-sm"
+                  disabled={isSubmitting}
+                  className="flex-[2] py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Save Student
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save Student'
+                  )}
                 </button>
               </div>
             </form>

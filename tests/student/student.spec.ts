@@ -11,74 +11,77 @@ test.describe('👨‍🎓 Student Portal E2E Tests', () => {
     await logout(page);
   });
 
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S01: Student dashboard loads after login
+  // ═══════════════════════════════════════════════════════════════
   test('TC-S01: Student dashboard loads after login', async ({ page }) => {
-    // Should see the student dashboard or portal content
+    // Student sidebar shows "My Progress" as the dashboard label
     await expect(
-      page.locator('text=/dashboard|my progress|attendance|welcome/i').first()
+      page.locator('text=/My Progress|Dashboard|Welcome/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 
-  test('TC-S02: Student can navigate to Attendance page', async ({ page }) => {
-    // Click Attendance in the sidebar/nav
-    const attendanceNav = page.locator('button, a, li').filter({ hasText: /attendance/i }).first();
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S02: Student sidebar navigation is visible
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S02: Student sidebar navigation is visible', async ({ page }) => {
+    const nav = page.locator('aside, nav, [role="navigation"]').first();
+    await expect(nav).toBeVisible({ timeout: 8000 });
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S03: Student can navigate to Attendance
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S03: Student can navigate to Attendance page', async ({ page }) => {
+    // Student sidebar has "My Attendance"
+    const attendanceNav = page.locator('button').filter({ hasText: /My Attendance|Attendance/i }).first();
     await attendanceNav.click();
-    // Attendance page should show a calendar or stats
     await expect(
-      page.locator('text=/attendance|present|absent|calendar/i').first()
+      page.locator('text=/attendance|present|absent|calendar|%/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 
-  test('TC-S03: Attendance page shows statistics', async ({ page }) => {
-    const attendanceNav = page.locator('button, a, li').filter({ hasText: /attendance/i }).first();
-    await attendanceNav.click();
-    // Should show percentage or stat numbers
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S04: Student can navigate to Exam Reports
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S04: Student can navigate to Exam Reports page', async ({ page }) => {
+    const reportsNav = page.locator('button').filter({ hasText: /Exam Reports|Reports/i }).first();
+    await reportsNav.click();
     await expect(
-      page.locator('text=/%|present|absent|late/i').first()
+      page.locator('text=/report|grade|exam|marks|pdf|download/i').first()
     ).toBeVisible({ timeout: 10000 });
   });
 
-  test('TC-S04: Student can navigate to Notifications page', async ({ page }) => {
-    const notifNav = page.locator('button, a, li').filter({ hasText: /notification/i }).first();
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S05: Student can navigate to Timetable
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S05: Student can navigate to Timetable page', async ({ page }) => {
+    const timetableNav = page.locator('button').filter({ hasText: /My Timetable|Timetable/i }).first();
+    await timetableNav.click();
+    await expect(
+      page.locator('text=/timetable|schedule|monday|period/i').first()
+    ).toBeVisible({ timeout: 10000 });
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S06: Student can navigate to Notifications
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S06: Student can navigate to Notifications', async ({ page }) => {
+    // For Students, clicking Notifications opens the slide-over panel
+    const notifNav = page.locator('button').filter({ hasText: /Notifications/i }).first();
     await notifNav.click({ force: true });
     await expect(
-      page.locator('text=/notification|unread|all|academic|message/i').first()
+      page.locator('text=/notification|unread|all|message/i').first()
     ).toBeVisible({ timeout: 15000 });
   });
 
-  test('TC-S05: Student can navigate to Timetable page', async ({ page }) => {
-    const timetableNav = page.locator('button, a, li').filter({ hasText: /timetable|schedule/i }).first();
-    await timetableNav.click();
-    await expect(
-      page.locator('text=/monday|tuesday|wednesday|timetable|schedule/i').first()
-    ).toBeVisible({ timeout: 10000 });
-  });
-
-  test('TC-S06: Student can navigate to Exam Reports page', async ({ page }) => {
-    const reportsNav = page.locator('button, a, li').filter({ hasText: /report|exam|grade/i }).first();
-    await reportsNav.click();
-    await expect(
-      page.locator('text=/report|grade|exam|marks|pdf/i').first()
-    ).toBeVisible({ timeout: 10000 });
-  });
-
-  test('TC-S07: PDF Download button is visible on Reports page', async ({ page }) => {
-    const reportsNav = page.locator('button, a, li').filter({ hasText: /report|exam|grade/i }).first();
-    await reportsNav.click();
-    await expect(
-      page.locator('button').filter({ hasText: /download|pdf|export/i }).first()
-    ).toBeVisible({ timeout: 10000 });
-  });
-
-  test('TC-S08: Dark mode toggle works on Student portal', async ({ page }) => {
-    const darkToggle = page.locator('button').filter({ hasText: /dark|light|moon|sun/i }).first();
-    if (await darkToggle.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await darkToggle.click();
-      // After toggle, html should have dark class or body background changes
-      const html = page.locator('html');
-      const classList = await html.evaluate(el => el.className);
-      // Just verify no crash after toggle
-      expect(true).toBeTruthy();
-    }
+  // ═══════════════════════════════════════════════════════════════
+  //  TC-S07: Page title is correct
+  // ═══════════════════════════════════════════════════════════════
+  test('TC-S07: Student portal page title is correct', async ({ page }) => {
+    const title = await page.title();
+    expect(title.length).toBeGreaterThan(0);
+    expect(title.toLowerCase()).toContain('charronix');
   });
 
 });

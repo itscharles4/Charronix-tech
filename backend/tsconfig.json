@@ -31,8 +31,7 @@
     },
     "include": [
         "src/**/*",
-        "prisma/**/*.ts",
-        "*.ts"
+        "prisma/**/*.ts"
     ],
     "exclude": [
         "node_modules",

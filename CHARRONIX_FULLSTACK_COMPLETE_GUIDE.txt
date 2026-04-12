@@ -28,7 +28,7 @@ TABLE OF CONTENTS
       5.6  Utilities
       5.7  Backend File Structure
       5.8  Backend Environment Variables (.env)
- 6.  DATABASE — PostgreSQL 17 + Prisma ORM
+ 6.  DATABASE — Mongodb + Prisma ORM
       6.1  Connection Details
       6.2  Enums (All Defined Types)
       6.3  All 31 Prisma Models (Tables)
@@ -67,7 +67,7 @@ Administrators, Principals, Teachers, Students, and Parents.
 Current Status (February 2026):
   - Frontend: COMPLETE (React + TypeScript + Vite, 11 components)
   - Backend:  COMPLETE (Express.js + TypeScript, 19 API modules)
-  - Database: COMPLETE (PostgreSQL 17, 31 tables, migrated + seeded)
+  - Database: COMPLETE (MONGODB, 31 tables, migrated + seeded)
   - Cache:    COMPLETE (Redis 5.x, enabled with 100MB limit)
   - Auth:     COMPLETE (JWT Access + Refresh tokens, RBAC)
 
@@ -99,7 +99,7 @@ Roles Supported:
                  │                         │
                  ▼                         ▼
   ┌─────────────────────────┐   ┌─────────────────────────┐
-  │   PostgreSQL  :5432     │   │   Redis Cache  :6379    │
+  │   Mongodb  :5000    │   │   Redis Cache  :6379    │
   │   charronix_db          │   │   100MB Limit           │
   │   31 Tables             │   │   Sessions, KPIs        │
   │   Prisma Migrations     │   │   Rate Limiting         │

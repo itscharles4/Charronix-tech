@@ -431,6 +431,30 @@ export const adminAPI = {
         });
         if (!response.ok) throw new Error('Failed to fetch student details');
         return response.json();
+    },
+
+    /** Admin: Create new student */
+    createStudent: async (data: {
+        admissionNo: string;
+        firstName: string;
+        lastName: string;
+        class: string;
+        section: string;
+        rollNo: number;
+        parentName: string;
+        parentPhone: string;
+        parentEmail?: string;
+        gender?: string;
+        dateOfBirth?: string;
+        bloodGroup?: string;
+    }) => {
+        const response = await fetch(`${API_BASE_URL}/students`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) throw new Error('Failed to create student');
+        return response.json();
     }
 };
 

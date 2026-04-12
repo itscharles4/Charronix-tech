@@ -11,7 +11,11 @@ export const createStudentSchema = z.object({
         section: z.string().min(1).max(5),
         rollNo: z.number().int().positive(),
         parentName: z.string().min(1).max(200),
-        parentPhone: z.string().regex(/^\d{10}$/, 'Phone must be 10 digits'),
+        parentPhone: z.string()
+            .refine((phone) => {
+                const digitsOnly = phone.replace(/\D/g, '');
+                return digitsOnly.length === 10 || digitsOnly.length === 11;
+            }, 'Phone must be 10 or 11 digits'),
         parentEmail: z.string().email().optional(),
         bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']).optional(),
         address: z.string().max(500).optional(),
@@ -26,7 +30,12 @@ export const updateStudentSchema = z.object({
         class: z.string().min(1).max(10).optional(),
         section: z.string().min(1).max(5).optional(),
         rollNo: z.number().int().positive().optional(),
-        parentPhone: z.string().regex(/^\d{10}$/).optional(),
+        parentPhone: z.string()
+            .refine((phone) => {
+                const digitsOnly = phone.replace(/\D/g, '');
+                return digitsOnly.length === 10 || digitsOnly.length === 11;
+            }, 'Phone must be 10 or 11 digits')
+            .optional(),
         parentEmail: z.string().email().optional(),
         status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
         address: z.string().max(500).optional(),

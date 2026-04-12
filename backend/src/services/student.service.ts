@@ -168,6 +168,9 @@ export class StudentService {
         });
         if (existing) throw new ConflictError(`Admission number ${data.admissionNo} already exists`);
 
+        // Normalize phone number - remove all non-digits
+        const phoneDigitsOnly = data.parentPhone.replace(/\D/g, '');
+
         const student = await prisma.student.create({
             data: {
                 admissionNo: data.admissionNo,
@@ -179,7 +182,7 @@ export class StudentService {
                 section: data.section,
                 rollNo: data.rollNo,
                 parentName: data.parentName,
-                parentPhone: data.parentPhone,
+                parentPhone: phoneDigitsOnly,
                 parentEmail: data.parentEmail,
                 bloodGroup: data.bloodGroup,
                 address: data.address,
@@ -194,11 +197,17 @@ export class StudentService {
         const student = await prisma.student.findUnique({ where: { id } });
         if (!student) throw new NotFoundError('Student');
 
+        // Normalize phone number if provided - remove all non-digits
+        const updateData = { ...data };
+        if (updateData.parentPhone) {
+            updateData.parentPhone = updateData.parentPhone.replace(/\D/g, '');
+        }
+
         const updated = await prisma.student.update({
             where: { id },
             data: {
-                ...data,
-                dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : undefined,
+                ...updateData,
+                dateOfBirth: updateData.dateOfBirth ? new Date(updateData.dateOfBirth) : undefined,
             },
         });
 

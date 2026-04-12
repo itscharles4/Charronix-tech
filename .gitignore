@@ -42,3 +42,15 @@ SEED_TEACHERS_LOG.txt
 *.sql
 *.txt
 *.log
+
+# Environment files
+.env
+.env.*
+
+# Temp files
+*.tmp*
+*.dll.node*
+backend/src/generated/client/*.tmp*
+
+# MongoDB dumps
+backend/mongo_dump/

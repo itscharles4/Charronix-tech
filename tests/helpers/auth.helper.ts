@@ -10,7 +10,23 @@ export const CREDENTIALS = {
 export const BASE_URL = 'http://localhost:3000';
 
 /**
- * Navigates from landing → portal selection → login form → authenticates.
+ * Navigates past the landing page to reach the portal-selection screen.
+ */
+export async function goToPortalSelection(page: Page): Promise<void> {
+  await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+
+  // Landing page has: "Start Your Journey" (hero CTA) or "Get Started" (nav CTA)
+  const ctaBtn = page.locator('button, a').filter({ hasText: /start your journey|get started/i }).first();
+  if (await ctaBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+    await ctaBtn.click();
+  }
+
+  // Wait for the portal-selection heading
+  await page.waitForSelector('text=Smart Gateway to Excellence', { timeout: 15000 });
+}
+
+/**
+ * Full login flow: landing → portal selection → login form → authenticated dashboard.
  */
 export async function loginAs(
   page: Page,
@@ -18,46 +34,39 @@ export async function loginAs(
 ): Promise<void> {
   const creds = CREDENTIALS[role];
 
-  // Start at root
-  await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
+  // 1. Get to the portal selection screen
+  await goToPortalSelection(page);
 
-  // If on landing page, click "Get Started" or any CTA
-  const getStarted = page.locator('button, a').filter({ hasText: /get started|enter|start/i }).first();
-  if (await getStarted.isVisible({ timeout: 3000 }).catch(() => false)) {
-    await getStarted.click({ force: true });
-  }
-
-  // Wait for portal selection page
-  await page.waitForSelector('text=Smart Gateway to Excellence', { timeout: 10000 });
-
-  // Click the role card (e.g. "Student", "Teacher", etc.)
-  const roleCard = page.locator(`text=${creds.role}`).first();
+  // 2. Click the correct role card — match the h3 text exactly
+  //    The portal cards have an h3 with the role label and a "Login" button
+  const roleCard = page.locator('h3').filter({ hasText: new RegExp(`^${creds.role}$`, 'i') }).first();
   await roleCard.click();
 
-  // Fill login form
+  // 3. Wait for the login form to appear — heading is "{Role} Portal"
+  await page.waitForSelector(`text=${creds.role} Portal`, { timeout: 10000 });
+
+  // 4. Fill login form
   await page.locator('#identifier').fill(creds.id);
   await page.locator('#password').fill(creds.password);
 
-  // Submit
+  // 5. Submit
   await page.locator('button[type="submit"]').click();
 
-  // Wait for dashboard to appear
-  await page.waitForURL(BASE_URL, { timeout: 15000 });
-  await page.waitForSelector('text=dashboard, text=Dashboard, text=Welcome', { timeout: 15000 }).catch(() => { });
+  // 6. Wait for authenticated content (sidebar has "Sign Out", or nav items appear)
+  //    Backend bcrypt hash takes ~8s, so we use a generous timeout
+  await page.waitForSelector('text=/Dashboard|My Progress|Overview|Sign Out/i', { timeout: 30000 });
 }
 
 /**
- * Logs out from the application.
+ * Logs out from the application by clicking the sidebar "Sign Out" button.
  */
 export async function logout(page: Page): Promise<void> {
-  // Try closing any open modals (like the Notifications panel) before clicking logout
+  // Close any modals first
   await page.keyboard.press('Escape');
   await page.waitForTimeout(300);
 
-  const logoutBtn = page.locator('button, a').filter({ hasText: /logout|sign out/i }).first();
-  if (await logoutBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-    await logoutBtn.click({ force: true });
+  const signOutBtn = page.locator('button, a').filter({ hasText: /Sign Out/i }).first();
+  if (await signOutBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await signOutBtn.click({ force: true });
   }
 }
-
-
