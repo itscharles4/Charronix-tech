@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc",
+    "build": "vite build",
     "start": "node dist/src/server.js",
     "preview": "vite preview",
     "test:e2e": "playwright test",
