@@ -51,7 +51,7 @@ const MarksUploader: React.FC = () => {
             const [cls, sec] = selectedClass.split('-');
             const token = localStorage.getItem('accessToken');
             const res = await fetch(
-                `http://localhost:5000/api/v1/students?class=${cls}&section=${sec}&limit=100&sortBy=rollNo&sortOrder=asc`,
+                `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/v1/students?class=${cls}&section=${sec}&limit=100&sortBy=rollNo&sortOrder=asc`,
                 { headers: { 'Content-Type': 'application/json', Authorization: token ? `Bearer ${token}` : '' } }
             );
             const json = await res.json();
@@ -88,7 +88,7 @@ const MarksUploader: React.FC = () => {
             const token = localStorage.getItem('accessToken');
             const records = students.map(s => ({ studentId: s.id, score: scores[s.id] || 0 }));
 
-            const res = await fetch('http://localhost:5000/api/v1/grades/bulk', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/v1/grades/bulk`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Authorization: token ? `Bearer ${token}` : '' },
                 body: JSON.stringify({

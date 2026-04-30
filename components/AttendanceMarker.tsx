@@ -44,7 +44,7 @@ const AttendanceMarker: React.FC = () => {
       const [cls, sec] = selectedClass.split('-');
       const token = localStorage.getItem('accessToken');
       const res = await fetch(
-        `http://localhost:5000/api/v1/students?class=${cls}&section=${sec}&limit=100&sortBy=rollNo&sortOrder=asc`,
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/v1/students?class=${cls}&section=${sec}&limit=100&sortBy=rollNo&sortOrder=asc`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const AttendanceMarker: React.FC = () => {
         status: attendance[s.id] || 'PRESENT',
       }));
 
-      const res = await fetch('http://localhost:5000/api/v1/attendance/mark', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/v1/attendance/mark`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

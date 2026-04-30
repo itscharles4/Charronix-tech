@@ -21,7 +21,7 @@ async function showData() {
         }
         console.log('------------------------------------\n');
         
-        // Show sample data for a few collections
+        
         const sampleCollections = ['User', 'Student', 'Vehicle', 'StudentTransport']; // adjust depending on tables
         for (const name of sampleCollections) {
             const exists = collections.find(c => c.name === name);

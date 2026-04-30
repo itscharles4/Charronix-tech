@@ -77,7 +77,7 @@ const ComplaintFormInner: React.FC<ComplaintFormInnerProps> = ({ card, initials,
         const fetchStudents = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
-                const res = await fetch('http://localhost:5000/api/v1/students?limit=200', {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/v1/students?limit=200`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': token ? `Bearer ${token}` : '',
