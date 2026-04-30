@@ -1,6 +1,6 @@
 
 
-import { PrismaClient, Role, StudentStatus, NoticeType, NoticePriority, VehicleType, VehicleStatus, FuelType, PickupType, BoardingType, ScanMethod } from '../src/generated/client';
+import { PrismaClient, Role, StudentStatus, NoticeType, NoticePriority, VehicleType, VehicleStatus, FuelType, PickupType, BoardingType, ScanMethod } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();

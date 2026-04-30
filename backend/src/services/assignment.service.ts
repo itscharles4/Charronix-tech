@@ -1,6 +1,6 @@
 import prisma from '../config/database'; // Prisma client instance
 import { NotificationService } from './notification.service';
-import { AssignmentStatus, SubmissionStatus } from '../generated/client';
+import { AssignmentStatus, SubmissionStatus } from '@prisma/client';
 
 export class AssignmentService {
 
