@@ -1,10 +1,21 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 
-const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID || '',
-    key_secret: process.env.RAZORPAY_KEY_SECRET || '',
-});
+// Lazily initialized - only created when Razorpay keys are present
+let razorpayInstance: Razorpay | null = null;
+
+function getRazorpay(): Razorpay {
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+        throw new Error('Razorpay is not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET environment variables.');
+    }
+    if (!razorpayInstance) {
+        razorpayInstance = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET,
+        });
+    }
+    return razorpayInstance;
+}
 
 export class RazorpayService {
     /**
@@ -19,7 +30,7 @@ export class RazorpayService {
                 notes: notes || {},
             };
 
-            const order = await razorpay.orders.create(options);
+            const order = await getRazorpay().orders.create(options);
             return { success: true, data: order };
         } catch (error: any) {
             console.error('Razorpay create order error:', error);
@@ -49,7 +60,7 @@ export class RazorpayService {
      */
     static async getPaymentDetails(paymentId: string) {
         try {
-            const payment = await razorpay.payments.fetch(paymentId);
+            const payment = await getRazorpay().payments.fetch(paymentId);
             return { success: true, data: payment };
         } catch (error: any) {
             console.error('Razorpay fetch payment error:', error);
@@ -64,7 +75,7 @@ export class RazorpayService {
         try {
             const refundOptions: { amount?: number } = {};
             if (amount) refundOptions.amount = Math.round(amount * 100);
-            const refund = await razorpay.payments.refund(paymentId, refundOptions);
+            const refund = await getRazorpay().payments.refund(paymentId, refundOptions);
             return { success: true, data: refund };
         } catch (error: any) {
             console.error('Razorpay refund error:', error);
