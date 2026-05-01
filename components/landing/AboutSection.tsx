@@ -32,7 +32,7 @@ const AboutSection: React.FC = () => {
         </p>
 
         <p className="text-white/70 text-[0.95rem] leading-[1.8] reveal">
-          Founded by <strong className="text-white">The Charronix Team</strong>, our mission is to leverage
+          Founded by <strong className="text-white">Charles & Rani</strong>, our mission is to leverage
           cutting-edge technology to create an ecosystem where schools thrive,
           parents stay connected, and students achieve their full potential.
         </p>
@@ -42,8 +42,8 @@ const AboutSection: React.FC = () => {
             <svg className="w-6 h-6 stroke-white/70 fill-none" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
           </div>
           <div>
-            <div className="font-syne font-bold text-white text-[1rem]">Rani</div>
-            <div className="text-[#A78BFA] text-[0.85rem] font-medium">Founder & CEO, Charronix Systems Inc.</div>
+            <div className="font-syne font-bold text-white text-[1rem]">Charles & Rani</div>
+            <div className="text-[#A78BFA] text-[0.85rem] font-medium">Founders, Charronix Systems Inc.</div>
           </div>
         </div>
       </div>
