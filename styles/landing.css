@@ -216,3 +216,90 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS-ONLY AMBIENT BACKGROUND
+   Replaces the FloatingLines Three.js/WebGL component.
+   Zero JavaScript, zero canvas — pure CSS radial gradients + keyframes.
+───────────────────────────────────────────────────────────────────────────── */
+
+.landing-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Orb 1 — large purple glow, top-right */
+.landing-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0;
+  animation: orbPulse 12s ease-in-out infinite;
+}
+
+.landing-orb--1 {
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  right: -150px;
+  background: radial-gradient(circle, rgba(91, 62, 245, 0.18) 0%, transparent 70%);
+  animation-delay: 0s;
+  animation-duration: 14s;
+}
+
+/* Orb 2 — mid blue-violet, bottom-left */
+.landing-orb--2 {
+  width: 500px;
+  height: 500px;
+  bottom: 10%;
+  left: -100px;
+  background: radial-gradient(circle, rgba(55, 48, 163, 0.20) 0%, transparent 70%);
+  animation-delay: 4s;
+  animation-duration: 16s;
+}
+
+/* Orb 3 — small accent, center-right */
+.landing-orb--3 {
+  width: 350px;
+  height: 350px;
+  top: 45%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(123, 97, 255, 0.12) 0%, transparent 70%);
+  animation-delay: 8s;
+  animation-duration: 18s;
+}
+
+@keyframes orbPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 1;
+    transform: scale(1.08) translate(20px, -20px);
+  }
+  66% {
+    opacity: 0.7;
+    transform: scale(0.95) translate(-15px, 15px);
+  }
+}
+
+/* Subtle dot-grid overlay — adds depth without WebGL */
+.landing-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* All landing content must sit above the background */
+.landing-bg ~ * {
+  position: relative;
+  z-index: 1;
+}

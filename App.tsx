@@ -12,6 +12,8 @@ import TeacherPortal from '@/components/TeacherPortal';
 import TimetableGenerator from '@/components/TimetableGenerator';
 import TeacherManagement from '@/components/TeacherManagement';
 import LandingPage from '@/components/LandingPage';
+import CharronixLanding from './src/landing/CharronixLanding';
+import SignupPage from './src/landing/SignupPage';
 import { authAPI } from './services/api';
 import PrincipalNotificationsPage from './components/PrincipalNotificationsPage';
 import TransportManagement from './components/TransportManagement';
@@ -33,7 +35,7 @@ import {
   Sun
 } from 'lucide-react';
 
-type AuthState = 'landing' | 'portal' | 'login' | 'reset-password';
+type AuthState = 'landing' | 'portal' | 'login' | 'reset-password' | 'signup';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -253,7 +255,21 @@ const App: React.FC = () => {
 
 
   if (appState === 'landing') {
-    return <LandingPage onStart={() => setAppState('portal')} />;
+    return <CharronixLanding onLogin={() => setAppState('portal')} onSignup={() => setAppState('signup')} />;
+  }
+
+  if (appState === 'signup') {
+    return (
+      <SignupPage 
+        onSignIn={() => setAppState('portal')}
+        onSuccess={(user) => {
+          setUserProfile(user);
+          setUserRole(UserRole.ADMIN);
+          setIsAuthenticated(true);
+          setActiveView('dashboard');
+        }}
+      />
+    );
   }
 
   // PORTAL SELECTION PAGE

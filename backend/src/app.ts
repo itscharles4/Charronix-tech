@@ -30,6 +30,7 @@ import complaintRoutes from './routes/complaint.routes';
 import feeRoutes from './routes/fee.routes';
 import assignmentRoutes from './routes/assignment.routes';
 import transportRoutes from './routes/transport.routes';
+import otpRoutes from './routes/otp.routes';
 import { WebhookController } from './controllers/webhook.controller';
 
 const app = express();
@@ -102,6 +103,7 @@ app.use(`${apiPrefix}/complaints`, complaintRoutes);
 app.use(`${apiPrefix}/fees`, feeRoutes);
 app.use(`${apiPrefix}/assignments`, assignmentRoutes);
 app.use(`${apiPrefix}/transport`, transportRoutes);
+app.use(`${apiPrefix}/otp`, otpRoutes);
 app.post(`${apiPrefix}/webhooks/razorpay`, WebhookController.handleRazorpay);
 
 // ============================================
