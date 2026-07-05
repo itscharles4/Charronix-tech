@@ -1,8 +1,9 @@
 import React from 'react';
+import './landing-responsive.css';
 
 export default function WhatIs() {
   return (
-    <section style={{ background:'#fff', padding:'80px 60px', fontFamily:'Inter,sans-serif' }}>
+    <section className="charronix-whatis" style={{ background:'#fff', padding:'80px 60px', fontFamily:'Inter,sans-serif' }}>
       <div style={{ maxWidth:900, margin:'0 auto' }}>
         <h2 style={{ fontSize:'clamp(1.8rem,3vw,2.4rem)', fontWeight:800, color:'#1a1a2e', textAlign:'center', marginBottom:40 }}>
           What is Charronix?

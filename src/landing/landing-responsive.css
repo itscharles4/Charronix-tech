@@ -1,0 +1,203 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Charronix Landing — Mobile Responsive Overrides
+   Works on top of the existing inline styles — desktop design is UNCHANGED.
+   All rules apply only at ≤ 768 px (phones) or ≤ 1024 px (tablets).
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Navbar ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav[style] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Hide desktop links, show hamburger */
+  .navbar-desktop {
+    display: none !important;
+  }
+
+  .navbar-hamburger {
+    display: flex !important;
+  }
+}
+
+/* ── Hero Section ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Stack hero vertically, smaller padding */
+  section.charronix-hero {
+    flex-direction: column !important;
+    padding: 28px 20px 0 !important;
+    min-height: unset !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Badge — wrap text on very small screens */
+  section.charronix-hero .hero-badge {
+    flex-wrap: wrap !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* Typewriter heading — bigger on mobile since illustration is hidden */
+  section.charronix-hero h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem) !important;
+    min-height: unset !important;
+    max-width: 100% !important;
+  }
+
+  /* Illustration — full width, shorter */
+  section.charronix-hero .hero-illustration {
+    flex: none !important;
+    width: 100% !important;
+    max-height: 240px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  section.charronix-hero .hero-illustration img {
+    max-width: 100% !important;
+    max-height: 240px !important;
+    object-fit: contain !important;
+  }
+}
+
+/* ── Generic section padding fix ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Any section with 60px+ side padding → compress to 20px */
+  section[style*="padding: 80px 60px"],
+  section[style*="padding:80px 60px"],
+  section[style*="padding: 60px"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* ── WhatIs Section ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .charronix-whatis {
+    padding: 40px 20px !important;
+  }
+
+  .charronix-whatis h2 {
+    font-size: 1.6rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .charronix-whatis p {
+    font-size: 14px !important;
+  }
+}
+
+/* ── Benefits / Modules / Sections grids ────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Any 3-or-4 column CSS grid → single column */
+  [style*="grid-template-columns: 1fr 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="gridTemplateColumns: '1fr 1fr 1fr'"],
+  [style*="gridTemplateColumns:'1fr 1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="grid-template-columns: 2fr 1fr 1fr 1fr"],
+  [style*="grid-template-columns:2fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Any flex row that should stack */
+  [style*="display: flex"][style*="gap: 40"],
+  [style*="display:flex"][style*="gap:40"] {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+}
+
+/* ── FAQ ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .charronix-faq {
+    padding: 40px 20px !important;
+  }
+}
+
+/* ── Contact Form ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .charronix-contact {
+    padding: 40px 20px !important;
+  }
+
+  .charronix-contact form {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  footer[style] {
+    padding: 40px 20px 20px !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  .footer-bottom > div {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+}
+
+/* ── Signup / Login sliding page ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* The fixed-size 860×620 card → full screen */
+  .charronix-auth-container {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    border-radius: 0 !important;
+  }
+
+  /* Hide the sliding purple overlay panel on mobile */
+  .charronix-auth-overlay {
+    display: none !important;
+  }
+
+  /* Both forms take full width */
+  .charronix-auth-form {
+    width: 100% !important;
+    position: relative !important;
+    transform: none !important;
+    opacity: 1 !important;
+    padding: 32px 20px !important;
+  }
+}
+
+/* ── Floating Contact Button ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .charronix-float {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+}
+
+/* ── Tablet adjustments (768–1024 px) ───────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  nav[style] {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  section[style] {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}

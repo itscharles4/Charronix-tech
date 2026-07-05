@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './landing-responsive.css';
 
 export default function Navbar({ onLogin, onSignup }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -6,6 +7,7 @@ export default function Navbar({ onLogin, onSignup }) {
 
   return (
     <nav style={{ position:'sticky', top:0, zIndex:999, background:'#fff', borderBottom:'1px solid #e5e7eb', padding:'0 40px', height:70, display:'flex', alignItems:'center', justifyContent:'space-between', fontFamily:'Inter,sans-serif' }}>
+      {/* Logo */}
       <div style={{ display:'flex', alignItems:'center', gap:10 }}>
         <div style={{ width:36, height:36, background:'#5B3EF5', borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>
@@ -13,7 +15,8 @@ export default function Navbar({ onLogin, onSignup }) {
         <span style={{ fontWeight:700, fontSize:20, color:'#1a1a2e' }}>Charronix</span>
       </div>
 
-      <div style={{ display:'flex', gap:28, alignItems:'center' }}>
+      {/* Desktop nav links */}
+      <div className="navbar-desktop" style={{ display:'flex', gap:28, alignItems:'center' }}>
         {['Features','Benefits','Modules','Why Us','FAQ'].map(l => (
           <a key={l} href={`#${l.toLowerCase().replace(' ','-')}`} onClick={e=>{e.preventDefault();scrollTo(l.toLowerCase().replace(' ','-'));}}
             style={{ color:'#374151', fontSize:14, fontWeight:500, textDecoration:'none', cursor:'pointer' }}
@@ -28,6 +31,43 @@ export default function Navbar({ onLogin, onSignup }) {
           Start Free Trial
         </button>
       </div>
+
+      {/* Mobile hamburger button */}
+      <button
+        className="navbar-hamburger"
+        onClick={() => setMenuOpen(v => !v)}
+        style={{ display:'none', background:'none', border:'none', cursor:'pointer', padding:8, flexDirection:'column', gap:5 }}
+        aria-label="Toggle menu"
+      >
+        <span style={{ display:'block', width:24, height:2.5, background:'#374151', borderRadius:2, transition:'all 0.3s', transform: menuOpen ? 'rotate(45deg) translate(5px,5px)' : 'none' }} />
+        <span style={{ display:'block', width:24, height:2.5, background:'#374151', borderRadius:2, transition:'all 0.3s', opacity: menuOpen ? 0 : 1 }} />
+        <span style={{ display:'block', width:24, height:2.5, background:'#374151', borderRadius:2, transition:'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none' }} />
+      </button>
+
+      {/* Mobile drawer */}
+      {menuOpen && (
+        <div style={{
+          position:'fixed', top:70, left:0, right:0, background:'#fff',
+          borderBottom:'1px solid #e5e7eb', padding:'20px 24px 28px',
+          display:'flex', flexDirection:'column', gap:16, zIndex:998,
+          boxShadow:'0 8px 24px rgba(0,0,0,0.1)'
+        }}>
+          {['Features','Benefits','Modules','Why Us','FAQ'].map(l => (
+            <a key={l} href="#" onClick={e=>{e.preventDefault();scrollTo(l.toLowerCase().replace(' ','-'));}}
+              style={{ color:'#374151', fontSize:15, fontWeight:500, textDecoration:'none', padding:'6px 0', borderBottom:'1px solid #f3f4f6' }}>
+              {l}
+            </a>
+          ))}
+          <div style={{ display:'flex', gap:12, marginTop:8, flexWrap:'wrap' }}>
+            <button onClick={() => { onLogin(); setMenuOpen(false); }} style={{ flex:1, background:'#5B3EF5', color:'#fff', border:'none', borderRadius:8, padding:'12px 20px', fontWeight:600, fontSize:14, cursor:'pointer' }}>
+              Login
+            </button>
+            <button onClick={() => { onSignup(); setMenuOpen(false); }} style={{ flex:1, background:'linear-gradient(135deg,#5B3EF5,#7B61FF)', color:'#fff', border:'none', borderRadius:8, padding:'12px 20px', fontWeight:600, fontSize:14, cursor:'pointer' }}>
+              Start Free Trial
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

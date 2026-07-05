@@ -1,4 +1,5 @@
 import React from 'react';
+import './landing-responsive.css';
 
 const LINKS = {
   Product: ['Features', 'For Schools', 'For Coaching Institutes', 'For Colleges', 'Pricing'],
@@ -10,7 +11,7 @@ export default function Footer() {
   return (
     <footer style={{ background:'#0f0d1a', color:'#fff', padding:'60px 60px 24px', fontFamily:'Inter,sans-serif' }}>
       <div style={{ maxWidth:1100, margin:'0 auto' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'2fr 1fr 1fr 1fr', gap:40, marginBottom:48 }}>
+        <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'2fr 1fr 1fr 1fr', gap:40, marginBottom:48 }}>
           {/* Brand */}
           <div>
             <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:16 }}>
@@ -43,7 +44,7 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div style={{ borderTop:'1px solid rgba(255,255,255,0.08)', paddingTop:20, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+        <div className="footer-bottom" style={{ borderTop:'1px solid rgba(255,255,255,0.08)', paddingTop:20, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <p style={{ fontSize:13, color:'rgba(255,255,255,0.3)', margin:0 }}>© 2026 Charronix Systems Inc. All rights reserved.</p>
           <div style={{ display:'flex', gap:20, alignItems:'center' }}>
             <a href="https://storyset.com/education" target="_blank" rel="noopener noreferrer" style={{ fontSize:13, color:'rgba(255,255,255,0.3)', textDecoration:'none' }} onMouseOver={e=>e.target.style.color='#fff'} onMouseOut={e=>e.target.style.color='rgba(255,255,255,0.3)'}>

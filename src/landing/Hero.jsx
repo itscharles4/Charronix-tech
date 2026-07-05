@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import educationSvg from '../assets/Education-cuate.svg';
+import './landing-responsive.css';
 
 const LINES = [
   'The AI-Powered Education Platform for Modern Institutions',
@@ -64,7 +65,7 @@ export default function Hero({ onLogin, onSignup }) {
   const { display, blink } = useTypewriter();
 
   return (
-    <section style={{
+    <section className="charronix-hero" style={{
       background: 'linear-gradient(135deg,#5B3EF5 0%,#7B61FF 60%,#a78bfa 100%)',
       minHeight: 560,
       padding: '48px 60px 0',
@@ -163,7 +164,7 @@ export default function Hero({ onLogin, onSignup }) {
       </div>
 
       {/* RIGHT */}
-      <div style={{ flex: '0 0 52%', zIndex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+      <div className="hero-illustration" style={{ flex: '0 0 52%', zIndex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
         <img
           src={educationSvg}
           alt="Education Management Illustration"
