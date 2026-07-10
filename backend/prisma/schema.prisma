@@ -75,6 +75,8 @@ model Student {
   submissions          Submission[]
   transportAssignment  StudentTransport?
   boardingLogs         BoardingLog[]
+  riskScores           AIRiskScore[]
+  interventions        Intervention[]
 
   @@index([class, section])
   @@index([status])
@@ -989,4 +991,51 @@ model GPSLog {
 
   @@index([busId, timestamp])
   @@map("gps_logs")
+}
+
+// ============================================
+// AI DROPOUT RISK & INTERVENTION
+// ============================================
+
+enum RiskLevel {
+  GREEN
+  YELLOW
+  RED
+}
+
+model AIRiskScore {
+  id            String    @id @default(uuid())
+  studentId     String    @map("student_id")
+  riskScore     Int       @map("risk_score")          // 0-100
+  riskLevel     RiskLevel @map("risk_level")
+  confidence    Float
+  topFactors    Json      @map("top_factors")         // [{ factor, magnitude, description }]
+  phaseAnalysis Json?     @map("phase_analysis")      // { dominant_phase, phase1_weight, ... }
+  modelVersion  String    @default("1.0") @map("model_version")
+  dataWeeksUsed Int       @default(16) @map("data_weeks_used")
+  predictedAt   DateTime  @default(now()) @map("predicted_at")
+  student       Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([riskLevel])
+  @@index([predictedAt])
+  @@map("ai_risk_scores")
+}
+
+model Intervention {
+  id                    String   @id @default(uuid())
+  studentId             String   @map("student_id")
+  riskScoreAtGeneration Int      @map("risk_score_at_generation")
+  teacherIntervention   Json     @map("teacher_intervention")
+  parentIntervention    Json     @map("parent_intervention")
+  counselorIntervention Json     @map("counselor_intervention")
+  adminIntervention     Json     @map("admin_intervention")
+  feedbackLogs          Json     @default("[]") @map("feedback_logs")
+  generatedAt           DateTime @default(now()) @map("generated_at")
+  expiresAt             DateTime @map("expires_at")
+  student               Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([expiresAt])
+  @@map("interventions")
 }
