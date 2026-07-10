@@ -973,3 +973,20 @@ model BoardingLog {
   @@index([vehicleId, timestamp])
   @@map("boarding_logs")
 }
+
+// ============================================
+// GPS LIVE TRACKING
+// ============================================
+
+model GPSLog {
+  id        String   @id @default(uuid())
+  busId     String   @map("bus_id")
+  latitude  Float
+  longitude Float
+  speed     Float    @default(0)
+  deviceId  String   @map("device_id")
+  timestamp DateTime @default(now())
+
+  @@index([busId, timestamp])
+  @@map("gps_logs")
+}
